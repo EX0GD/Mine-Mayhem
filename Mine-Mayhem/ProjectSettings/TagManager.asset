@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1599808235
+    locked: 0
+  - name: WorldTiles
+    uniqueID: 626180071
+    locked: 0
+  - name: Hazards
+    uniqueID: 1943961457
+    locked: 0
+  - name: Pickups
+    uniqueID: 3054664985
+    locked: 0
+  - name: FX
+    uniqueID: 901105037
+    locked: 0
+  - name: Player
+    uniqueID: 763021079
+    locked: 0
