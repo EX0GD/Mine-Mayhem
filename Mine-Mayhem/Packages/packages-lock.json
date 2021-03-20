@@ -54,7 +54,7 @@
       "dependencies": {}
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "file:../Assets/2d-extras",
+      "version": "file:../Assets/2d-extras-master",
       "depth": 0,
       "source": "local",
       "dependencies": {
