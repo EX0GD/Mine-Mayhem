@@ -16114,6 +16114,8 @@ GameObject:
   - component: {fileID: 1126627720}
   - component: {fileID: 1126627722}
   - component: {fileID: 1126627721}
+  - component: {fileID: 1126627723}
+  - component: {fileID: 1126627724}
   m_Layer: 0
   m_Name: MinerChar
   m_TagString: Untagged
@@ -16202,7 +16204,12 @@ MonoBehaviour:
   curPlayerHealth: 0
   inputX: 0
   runSpeed: 5
+  canMove: 1
   grounded: 0
+  canJump: 1
+  explosiveForce: 8
+  explosiveDamage: 5
+  onWall: 0
   worldLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -16243,6 +16250,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &1126627723
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126627717}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0072422028, y: -0.11593413}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.3333334, y: 1.3333334}
+    newSize: {x: 10, y: 10}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9277563, y: 0.56526804}
+  m_EdgeRadius: 0
+--- !u!95 &1126627724
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126627717}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 28eac68f4e7ea8543a2bb201e537968a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1146777627
 GameObject:
   m_ObjectHideFlags: 0
