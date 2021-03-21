@@ -32,6 +32,8 @@ public class CustomPlayerController : MonoBehaviour
     private SpriteRenderer PlayerSpriteRenderer { get; set; }
     private CapsuleCollider2D MainCollider { get; set; }
     private Animator PlayerAnimator { get; set; }
+    private Animator ExplosionAnimator { get; set; }
+    private CapsuleCollider2D ExplosionCollider { get; set; }
 
     [Range(1,100)]
     public int maxPlayerHealth;
@@ -44,6 +46,8 @@ public class CustomPlayerController : MonoBehaviour
     public int explosiveForce;
     public int explosiveDamage;
     public bool onWall = false;
+    public float bombCoolDownTimer;
+    public float bombCoolDownTime;
 
     public LayerMask worldLayer;
 
@@ -77,12 +81,23 @@ public class CustomPlayerController : MonoBehaviour
         PlayerSpriteRenderer = GetComponent<SpriteRenderer>();
         MainCollider = GetComponent<CapsuleCollider2D>();
         PlayerAnimator = GetComponent<Animator>();
+        ExplosionAnimator = transform.GetChild(0).GetComponent<Animator>();
+        ExplosionCollider = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
+
+        if (!MainCollider.enabled)
+        {
+            MainCollider.enabled = true;
+        }
 
         // Set the players starting current health. 
         if(curPlayerHealth != maxPlayerHealth)
         {
             curPlayerHealth = maxPlayerHealth;
         }
+
+        bombCoolDownTimer = bombCoolDownTime;
+
+        Debug.Log(ExplosionAnimator);
     }
 
     // Update is called once per frame
@@ -91,6 +106,7 @@ public class CustomPlayerController : MonoBehaviour
         inputX = Input.GetAxisRaw("Horizontal");
         psm[currentState].Invoke();
         PlayAnimation();
+        HandleBombJumpCoolDownTimer();
     }
 
     private void FixedUpdate()
@@ -128,6 +144,23 @@ public class CustomPlayerController : MonoBehaviour
     private void PlayAnimation()
     {
         PlayerAnimator.Play(animStates[currentState]);
+    }
+
+    private void HandleBombJumpCoolDownTimer()
+    {
+        if (!canJump && currentState != PlayerStates.DEAD)
+        {
+            if(bombCoolDownTimer > 0)
+            {
+                bombCoolDownTimer -= Time.deltaTime;
+            }
+            else
+            {
+                ExplosionAnimator.SetBool("isTriggered", false);
+                canJump = true;
+                bombCoolDownTimer = bombCoolDownTime;
+            }
+        }
     }
 
     public void DamagePlayer(int dmg)
@@ -176,7 +209,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private void TransitionToJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump && grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             SetState(PlayerStates.BOOM_JUMP);
         }
@@ -184,7 +217,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        float extraHeight = 0.05f;
+        float extraHeight = 0.1f;
         Collider2D col = Physics2D.OverlapCapsule(new Vector2(MainCollider.transform.position.x, MainCollider.transform.position.y - extraHeight), 
                                                               new Vector2(MainCollider.size.x - 0.2f, MainCollider.size.y), CapsuleDirection2D.Vertical, 0, worldLayer);
         
@@ -236,14 +269,22 @@ public class CustomPlayerController : MonoBehaviour
         {
             canJump = !canJump;
             Debug.Log("This is the 'HandleBoomJump' function.");
+            ExplosionAnimator.SetBool("isTriggered", true);
+            RB.velocity = new Vector2(RB.velocity.x, 0);
             RB.AddForce(Vector2.up * explosiveForce, ForceMode2D.Impulse);
             // Damage player
             DamagePlayer(explosiveDamage);
         }
 
-        if (!grounded)
+        Collider2D[] cols = Physics2D.OverlapCapsuleAll(ExplosionCollider.bounds.center, ExplosionCollider.size, CapsuleDirection2D.Horizontal, 0);
+
+
+        if (PlayerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
-            SetState(PlayerStates.IN_AIR);
+            if (!grounded)
+            {
+                SetState(PlayerStates.IN_AIR);
+            }
         }
     }
 
@@ -251,14 +292,10 @@ public class CustomPlayerController : MonoBehaviour
     {
         Debug.Log("This is the 'HandleInAir' function.");
         Movement();
+        TransitionToJump();
 
         if (grounded)
         {
-            if (!canJump)
-            {
-                canJump = !canJump;
-            }
-
             if (inputX != 0)
             {
                 SetState(PlayerStates.RUN);
@@ -330,5 +367,10 @@ public class CustomPlayerController : MonoBehaviour
 
         if (canJump)
             canJump = !canJump;
+
+        if (MainCollider.enabled)
+        {
+            MainCollider.enabled = false;
+        }
     }
 }
