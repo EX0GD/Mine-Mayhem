@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2072988232151047138}
   - component: {fileID: 6278999797366326145}
   - component: {fileID: 7774946003657464871}
+  - component: {fileID: 889142004}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -101,6 +102,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!70 &889142004
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533135462556788734}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.08700778, y: -0.092796385}
+  m_Size: {x: 1.8173339, y: 0.75250816}
+  m_Direction: 1
 --- !u!1 &4671418477395463648
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,12 +218,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  maxPlayerHealth: 20
+  maxPlayerHealth: 100
   curPlayerHealth: 0
   inputX: 0
   runSpeed: 5
   canMove: 1
-  grounded: 0
+  grounded: 1
   canJump: 1
   explosiveForce: 8
   explosiveDamage: 5
@@ -246,12 +263,12 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 4671418477395463648}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3b7e64d7222dde448a7617c10d92c1a4, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.049440384}
-  m_Size: {x: 0.82269144, y: 0.82269144}
+  m_Offset: {x: 0, y: -0.094401}
+  m_Size: {x: 0.82269144, y: 0.8355372}
   m_Direction: 0
 --- !u!61 &2772021971341658077
 BoxCollider2D:

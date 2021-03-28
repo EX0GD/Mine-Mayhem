@@ -26422,6 +26422,11 @@ PrefabInstance:
       propertyPath: grounded
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 445493009848054993, guid: 721363655e5c9c84d8e7353a4d171a13,
+        type: 3}
+      propertyPath: maxPlayerHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 964777897998480931, guid: 721363655e5c9c84d8e7353a4d171a13,
         type: 3}
       propertyPath: m_Offset.y
@@ -26500,7 +26505,7 @@ PrefabInstance:
     - target: {fileID: 6278999797366326145, guid: 721363655e5c9c84d8e7353a4d171a13,
         type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721363655e5c9c84d8e7353a4d171a13, type: 3}
