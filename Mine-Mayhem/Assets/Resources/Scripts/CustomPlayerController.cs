@@ -277,6 +277,14 @@ public class CustomPlayerController : MonoBehaviour
         }
 
         Collider2D[] cols = Physics2D.OverlapCapsuleAll(ExplosionCollider.bounds.center, ExplosionCollider.size, CapsuleDirection2D.Horizontal, 0);
+        foreach(Collider2D col in cols)
+        {
+            if(col.GetComponent<TNT>() != null)
+            {
+                TNT tnt = col.GetComponent<TNT>();
+                tnt.Detonate(true);
+            }
+        }
 
 
         if (PlayerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
