@@ -10,12 +10,16 @@ public class TNT : MonoBehaviour
     public float explosionRadius;
     public float explosionForce;
 
+    private SpriteRenderer tntSpriteRenderer;
+    private CircleCollider2D explosionCollider;
+
     // Start is called before the first frame update
     void Start()
     {
         detonate = false;
         hasExploded = false;
-        animator = GetComponentInChildren<Animator>();
+        tntSpriteRenderer = GetComponent<SpriteRenderer>();
+        explosionCollider = GetComponentInChildren<CircleCollider2D>();
     }
 
     // Update is called once per frame
@@ -32,20 +36,24 @@ public class TNT : MonoBehaviour
             {
                 hasExploded = !hasExploded;
                 // set 'isTriggered' to TRUE...
-                animator.SetBool("isTriggered", true);
+                animator.SetBool("IsTriggered", true);
             }
 
             // When the boom animation finishes playing, destroy the object.
             // If the TNT has been triggered...
-            if(animator.GetBool("isTriggered") == true)
+            if(animator.GetBool("IsTriggered") == true)
             {
-                // if the name of the current animation state is "Explode"...
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Explode"))
+                // Turn off the sprite renderer
+                if (tntSpriteRenderer.enabled)
                 {
-                    // and if the animation has reached its length...
-                    if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+                    tntSpriteRenderer.enabled = false;
+                }
+                // if the name of the current animation state is "TNT_Boom"...
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("TNT_Boom"))
+                {
+                    // and if the animation has reached its length, destroy the object (so boom animation finishes first).
+                    if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
                     {
-                        // destroy the object (after the animation has finished playing.
                         Destroy(gameObject);
                     }
                 }
@@ -58,6 +66,19 @@ public class TNT : MonoBehaviour
         if(detonate != value)
         {
             detonate = value;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // if player is within the trigger volume, apply force and damage
+        if(collision.GetComponent<CustomPlayerController>() != null)
+        {
+            CustomPlayerController player = collision.GetComponent<CustomPlayerController>();
+            if(player.RB != null)
+            {
+                //player.RB.AddForce(new Vector2(player.transform.position - transform.position).normalized)
+            }
         }
     }
 }
