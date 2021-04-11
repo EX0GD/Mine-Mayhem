@@ -28,7 +28,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private Dictionary<PlayerStates, string> animStates;
 
-    private Rigidbody2D RB { get; set; }
+    public Rigidbody2D RB { get; private set; }
     private SpriteRenderer PlayerSpriteRenderer { get; set; }
     private CapsuleCollider2D MainCollider { get; set; }
     private Animator PlayerAnimator { get; set; }
@@ -96,8 +96,6 @@ public class CustomPlayerController : MonoBehaviour
         }
 
         bombCoolDownTimer = bombCoolDownTime;
-
-        Debug.Log(ExplosionAnimator);
     }
 
     // Update is called once per frame
