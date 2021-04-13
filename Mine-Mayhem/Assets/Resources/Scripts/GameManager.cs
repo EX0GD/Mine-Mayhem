@@ -15,13 +15,12 @@ public class GameManager : MonoBehaviour
     {
         SetGM();
         SetUI();
-        SetPlayer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //SetPlayer();
+        SetPlayer();
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -34,6 +33,11 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Changing scenes...");
             SceneManager.LoadScene("MM_Level1", LoadSceneMode.Single);
+        }
+        else if (Input.GetKeyDown(KeyCode.U))
+        {
+            Debug.Log("Changing scenes...");
+            SceneManager.LoadScene("MM_Level2", LoadSceneMode.Single);
         }
     }
 
@@ -72,34 +76,40 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("UI was not set, so currently setting it.");
+                //Debug.Log("UI was not set, so currently setting it.");
                 MMUI = ui;
             }
+
+            DontDestroyOnLoad(MMUI);
         }
-        DontDestroyOnLoad(MMUI);
     }
 
     private void SetPlayer()
     {
-        if (FindObjectOfType<CustomPlayerController>() != null)
+        // if the currently active scene is NOT the 'Main Menu', THEN get new player referrence.
+        if (SceneManager.GetActiveScene().buildIndex != 0)
         {
-            CustomPlayerController p = FindObjectOfType<CustomPlayerController>();
-            if (Player != null)
+            if (FindObjectOfType<CustomPlayerController>() != null)
             {
-                if (Player != p)
+                CustomPlayerController p = FindObjectOfType<CustomPlayerController>();
+                if (Player != null)
                 {
-                    Debug.Log("Destroying the IMPOSTERRRRR!");
-                    Destroy(Player);
-                    Debug.Log("And replacing him with the real one! :)");
+                    if (Player != p)
+                    {
+                        Debug.Log("Destroying the IMPOSTERRRRR!");
+                        Destroy(Player.gameObject);
+                        Debug.Log("And replacing him with the real one! :)");
+                        Player = p;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Initially setting the real one (potential future imposter.....).");
                     Player = p;
                 }
-            }
-            else
-            {
-                Debug.Log("Initially setting the real one (potential future imposter.....).");
-                Player = p;
+
+                DontDestroyOnLoad(Player);
             }
         }
-        DontDestroyOnLoad(Player);
     }
 }
