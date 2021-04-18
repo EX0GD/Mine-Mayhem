@@ -19,12 +19,12 @@ public class MainMenu : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         SetGM();
         MainMenuAnimator = GetComponentInChildren<Animator>();
         htpIndex = 0;
-        levelIndex = 0;
+        levelIndex = 1;
         EditLevelText(gm.mm_Scenes[levelIndex]);
     }
 
@@ -61,12 +61,39 @@ public class MainMenu : MonoBehaviour
     {
         //Debug.Log("Play button.");
         MainMenuAnimator.SetTrigger("toLevelSelect");
+        if (levelIndex != 1)
+        {
+            levelIndex = 1;
+        }
+        EditLevelText(gm.mm_Scenes[levelIndex]);
     }
 
     public void HTPButton()
     {
         //Debug.Log("How to Play Button");
         MainMenuAnimator.SetTrigger("ToHTP");
+
+        if(htpIndex != 0)
+        {
+            htpIndex = 0;
+        }
+        for (int i = 0; i < htpMenus.Length; i++)
+        {
+            if (i == htpIndex)
+            {
+                if (!htpMenus[i].activeSelf)
+                {
+                    htpMenus[i].SetActive(true);
+                }
+            }
+            else
+            {
+                if (htpMenus[i].activeSelf)
+                {
+                    htpMenus[i].SetActive(false);
+                }
+            }
+        }
     }
 
     public void CreditsButton()
@@ -128,7 +155,7 @@ public class MainMenu : MonoBehaviour
         {
             levelIndex--;
 
-            if(levelIndex < 0)
+            if(levelIndex < 1)
             {
                 levelIndex = SceneManager.sceneCountInBuildSettings - 1;
             }
@@ -167,6 +194,17 @@ public class MainMenu : MonoBehaviour
                     }
                 }
             }
+        }
+        else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("LevelSelect"))
+        {
+            levelIndex++;
+
+            if (levelIndex > SceneManager.sceneCountInBuildSettings - 1)
+            {
+                levelIndex = 1;
+            }
+
+            EditLevelText(gm.mm_Scenes[levelIndex]);
         }
     }
 
