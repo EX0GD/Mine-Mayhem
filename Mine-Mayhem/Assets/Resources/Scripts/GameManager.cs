@@ -10,11 +10,32 @@ public class GameManager : MonoBehaviour
 
     public static CustomPlayerController Player { get; private set; }
 
+    private const string mm_MainMenuScene = "MainMenu";
+    private const string mm_Scene1 = "MM_Level1";
+    private const string mm_Scene2 = "MM_Level2";
+    private const string mm_Scene3 = "MM_Level3";
+    private const string mm_Scene4 = "MM_Level4";
+    private const string mm_Scene5 = "MM_Level5";
+    private const string mm_Scene6 = "MM_Level6";
+    private const string mm_Scene7 = "MM_Level7";
+
+    public string[] mm_Scenes { get; private set; }
+
     // Start is called before the first frame update
     void Awake()
     {
         SetGM();
         SetUI();
+
+        mm_Scenes = new string[SceneManager.sceneCountInBuildSettings];
+        mm_Scenes[0] = mm_MainMenuScene;
+        mm_Scenes[1] = mm_Scene1;
+        mm_Scenes[2] = mm_Scene2;
+        mm_Scenes[3] = mm_Scene3;
+        mm_Scenes[4] = mm_Scene4;
+        mm_Scenes[5] = mm_Scene5;
+        mm_Scenes[6] = mm_Scene6;
+        mm_Scenes[7] = mm_Scene7;
     }
 
     // Update is called once per frame
@@ -32,12 +53,20 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y))
         {
             Debug.Log("Changing scenes...");
-            SceneManager.LoadScene("MM_Level1", LoadSceneMode.Single);
+            SceneManager.LoadScene(mm_Scenes[1], LoadSceneMode.Single);
         }
         else if (Input.GetKeyDown(KeyCode.U))
         {
             Debug.Log("Changing scenes...");
-            SceneManager.LoadScene("MM_Level2", LoadSceneMode.Single);
+            SceneManager.LoadScene(mm_Scenes[2], LoadSceneMode.Single);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            for(int i = 0; i < mm_Scenes.Length; i++)
+            {
+                Debug.Log(mm_Scenes[i]);
+            }
         }
     }
 
