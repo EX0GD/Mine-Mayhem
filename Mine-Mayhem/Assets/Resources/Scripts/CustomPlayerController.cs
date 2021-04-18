@@ -225,7 +225,7 @@ public class CustomPlayerController : MonoBehaviour
     // --------------------------- STATE FUNCTIONS --------------------------------//
     private void HandleIdle()
     {
-        Debug.Log("This is the 'HandleIdle' function.");
+        //Debug.Log("This is the 'HandleIdle' function.");
 
         if(inputX != 0)
         {
@@ -247,7 +247,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private void HandleRun()
     {
-        Debug.Log("This is the 'HandleRun' function.");
+        //Debug.Log("This is the 'HandleRun' function.");
 
         if(inputX != 0)
         {
@@ -266,7 +266,7 @@ public class CustomPlayerController : MonoBehaviour
         if (canJump)
         {
             canJump = !canJump;
-            Debug.Log("This is the 'HandleBoomJump' function.");
+            //Debug.Log("This is the 'HandleBoomJump' function.");
             ExplosionAnimator.SetBool("isTriggered", true);
             RB.velocity = new Vector2(RB.velocity.x, 0);
             RB.AddForce(Vector2.up * explosiveForce, ForceMode2D.Impulse);
@@ -296,7 +296,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private void HandleInAir()
     {
-        Debug.Log("This is the 'HandleInAir' function.");
+        //Debug.Log("This is the 'HandleInAir' function.");
         Movement();
         TransitionToJump();
 
@@ -322,7 +322,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private void HandleWallGrab()
     {
-        Debug.Log("This is the 'HandleWallGrab' function.");
+        //Debug.Log("This is the 'HandleWallGrab' function.");
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
