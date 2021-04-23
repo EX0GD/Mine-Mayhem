@@ -68,6 +68,11 @@ public class MainMenu : MonoBehaviour
         EditLevelText(gm.mm_Scenes[levelIndex]);
     }
 
+    public void StartButton()
+    {
+        SceneManager.LoadScene(gm.mm_Scenes[levelIndex], LoadSceneMode.Single);
+    }
+
     public void HTPButton()
     {
         //Debug.Log("How to Play Button");

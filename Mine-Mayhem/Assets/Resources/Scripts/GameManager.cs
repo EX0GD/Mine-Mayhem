@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     public string[] mm_Scenes { get; private set; }
 
+    public bool isPaused = false;
+
+    //public event EventHandler
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -36,6 +41,24 @@ public class GameManager : MonoBehaviour
         mm_Scenes[5] = mm_Scene5;
         mm_Scenes[6] = mm_Scene6;
         mm_Scenes[7] = mm_Scene7;
+
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+    }
+
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        Debug.Log($"{arg0.name} just finished loading. Load scene mode = {arg1}.");
+
+        if (arg0.name != mm_Scenes[0])
+        {
+            MMUI.ToggleHP(true);
+            Debug.Log("HP bar is now turned on.");
+        }
+        else
+        {
+            MMUI.ToggleHP(false);
+            Debug.Log("HP bar is now turned off.");
+        }
     }
 
     // Update is called once per frame
@@ -50,17 +73,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(Player);
         }
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            Debug.Log("Changing scenes...");
-            SceneManager.LoadScene(mm_Scenes[1], LoadSceneMode.Single);
-        }
-        else if (Input.GetKeyDown(KeyCode.U))
-        {
-            Debug.Log("Changing scenes...");
-            SceneManager.LoadScene(mm_Scenes[2], LoadSceneMode.Single);
-        }
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             for(int i = 0; i < mm_Scenes.Length; i++)
@@ -68,6 +80,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log(mm_Scenes[i]);
             }
         }
+
+        // Handle Pausing
+        HandlePause();
     }
 
     private void SetGM()
@@ -138,6 +153,25 @@ public class GameManager : MonoBehaviour
                 }
 
                 DontDestroyOnLoad(Player);
+            }
+        }
+    }
+
+    private void HandlePause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (SceneManager.GetActiveScene().buildIndex != SceneManager.GetSceneByBuildIndex(0).buildIndex)
+            {
+                Debug.Log("Just pressed the 'PAUSE' button.");
+                isPaused = !isPaused;
+                MMUI.TogglePause(isPaused);
+                Time.timeScale = isPaused ? 0 : 1;
+                Player.enabled = !isPaused;
+            }
+            else
+            {
+                Debug.Log("You cannot pause in the current scene.");
             }
         }
     }
