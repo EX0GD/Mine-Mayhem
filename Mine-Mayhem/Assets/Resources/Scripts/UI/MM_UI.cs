@@ -7,19 +7,24 @@ using UnityEngine.Events;
 
 public class MM_UI : MonoBehaviour
 {
-    private GameManager gm;
-
     public HPBar hp;
     public FailedPanelSet failPanel;
     public PausedPanelSet pausePanel;
     public SuccessPanelSet successPanel;
     public IntroQuip introQuip;
 
+    public bool hpActive;
+    public bool failPanelActive;
+    public bool successPanelActive;
+    public bool IntroQuipActive;
+
     // Start is called before the first frame update
     void Start()
     {
-        gm = FindObjectOfType<GameManager>() != null ? gm = FindObjectOfType<GameManager>() : gm = null;
+        GameManager gm = FindObjectOfType<GameManager>() != null ? gm = FindObjectOfType<GameManager>() : gm = null;
         Debug.Log(gm);
+
+        gm.OnPause += PauseEvent;
     }
 
     // Update is called once per frame
@@ -52,6 +57,15 @@ public class MM_UI : MonoBehaviour
         }
     }
 
+    private void PauseEvent(bool value)
+    {
+        Debug.Log("Currently invoking the 'PauseEvent' function contained in: " + this);
+        hpActive = value;
+        if (pausePanel.gameObject.activeSelf != hpActive) 
+        {
+            pausePanel.gameObject.SetActive(hpActive);
+        }
+    }
     // ------------------- Button Functions ------------------------//
     public void RetryButton()
     {
@@ -59,6 +73,7 @@ public class MM_UI : MonoBehaviour
         if(SceneManager.GetActiveScene().buildIndex != SceneManager.GetSceneByBuildIndex(0).buildIndex)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            // 
         }
     }
 

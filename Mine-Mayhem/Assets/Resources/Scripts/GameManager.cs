@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
 
-    //public event EventHandler
+    public event Action<bool> OnPause;
 
     // Start is called before the first frame update
     void Awake()
@@ -165,9 +165,11 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Just pressed the 'PAUSE' button.");
                 isPaused = !isPaused;
-                MMUI.TogglePause(isPaused);
+                //MMUI.TogglePause(isPaused);
                 Time.timeScale = isPaused ? 0 : 1;
                 Player.enabled = !isPaused;
+
+                OnPause?.Invoke(isPaused);
             }
             else
             {

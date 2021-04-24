@@ -384,6 +384,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 3735073946191586579, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7728668973446125529, guid: 237e2d40900de4d448bbf38728bf2920,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -941,6 +946,11 @@ PrefabInstance:
     - target: {fileID: 3513391599363832491, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
         type: 3}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4738901814097552963, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
