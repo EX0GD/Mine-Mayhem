@@ -18,13 +18,13 @@ public class MM_UI : MonoBehaviour
     public bool successPanelActive;
     public bool IntroQuipActive;
 
+    public static event Action OnRetry;
+
     // Start is called before the first frame update
     void Start()
     {
-        GameManager gm = FindObjectOfType<GameManager>() != null ? gm = FindObjectOfType<GameManager>() : gm = null;
-        Debug.Log(gm);
+        GameManager.OnPause += PauseEvent;
 
-        gm.OnPause += PauseEvent;
     }
 
     // Update is called once per frame
@@ -49,14 +49,6 @@ public class MM_UI : MonoBehaviour
         }
     }
 
-    public void TogglePause(bool value)
-    {
-        if(pausePanel.gameObject.activeSelf != value)
-        {
-            pausePanel.gameObject.SetActive(value);
-        }
-    }
-
     private void PauseEvent(bool value)
     {
         Debug.Log("Currently invoking the 'PauseEvent' function contained in: " + this);
@@ -70,11 +62,7 @@ public class MM_UI : MonoBehaviour
     public void RetryButton()
     {
         Debug.Log("Retry Button");
-        if(SceneManager.GetActiveScene().buildIndex != SceneManager.GetSceneByBuildIndex(0).buildIndex)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            // 
-        }
+        OnRetry?.Invoke();
     }
 
     public void MainMenuButton()

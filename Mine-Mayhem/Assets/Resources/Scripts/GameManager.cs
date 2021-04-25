@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
 
-    public event Action<bool> OnPause;
+    public static event Action<bool> OnPause;
 
     // Start is called before the first frame update
     void Awake()
@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         mm_Scenes[7] = mm_Scene7;
 
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        MM_UI.OnRetry += UI_OnRetry;
     }
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -176,5 +177,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("You cannot pause in the current scene.");
             }
         }
+    }
+
+    private void UI_OnRetry()
+    {
+        Debug.Log("This is 'UI_OnRetry' contained in GameManager class.");
     }
 }

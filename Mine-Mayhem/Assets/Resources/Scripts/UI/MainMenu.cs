@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private GameManager gm;
-
+    GameManager gm;
     private Animator MainMenuAnimator { get; set; }
 
     [SerializeField] private int htpIndex;
