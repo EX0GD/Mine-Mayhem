@@ -4,12 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public static class GameManager
 {
-    public static GameManager GM { get; private set; }
+    //public static GameManager GM { get; private set; }
     public static MM_UI MMUI { get; private set; }
 
-    public static CustomPlayerController Player { get; private set; }
+    //public static CustomPlayerController Player { get; private set; }
+    public static CustomPlayerController Player
+    {
+        get
+        {
+            CustomPlayerController player = UnityEngine.Object.FindObjectOfType<CustomPlayerController>();
+            //Debug.Log(player);
+            if(player != null)
+            {
+                return player;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 
     private const string mm_MainMenuScene = "MainMenu";
     private const string mm_Scene1 = "MM_Level1";
@@ -20,145 +36,65 @@ public class GameManager : MonoBehaviour
     private const string mm_Scene6 = "MM_Level6";
     private const string mm_Scene7 = "MM_Level7";
 
-    public string[] mm_Scenes { get; private set; }
+    public static string[] Mm_Scenes { get; private set; }
+    public static int LevelIndex { get; private set; }
 
-    public bool isPaused = false;
+    private static bool isPaused = false;
+    private static bool hpOn = false;
 
     public static event Action<bool> OnPause;
+    public static event Action<bool> OnToggleHP;
 
-    // Start is called before the first frame update
-    void Awake()
+    static GameManager()
     {
-        SetGM();
-        SetUI();
-
-        mm_Scenes = new string[SceneManager.sceneCountInBuildSettings];
-        mm_Scenes[0] = mm_MainMenuScene;
-        mm_Scenes[1] = mm_Scene1;
-        mm_Scenes[2] = mm_Scene2;
-        mm_Scenes[3] = mm_Scene3;
-        mm_Scenes[4] = mm_Scene4;
-        mm_Scenes[5] = mm_Scene5;
-        mm_Scenes[6] = mm_Scene6;
-        mm_Scenes[7] = mm_Scene7;
+        Mm_Scenes = new string[SceneManager.sceneCountInBuildSettings];
+        Mm_Scenes[0] = mm_MainMenuScene;
+        Mm_Scenes[1] = mm_Scene1;
+        Mm_Scenes[2] = mm_Scene2;
+        Mm_Scenes[3] = mm_Scene3;
+        Mm_Scenes[4] = mm_Scene4;
+        Mm_Scenes[5] = mm_Scene5;
+        Mm_Scenes[6] = mm_Scene6;
+        Mm_Scenes[7] = mm_Scene7;
 
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         MM_UI.OnRetry += UI_OnRetry;
+        MM_UI.OnMainMenu += UI_OnMainMenu;
     }
 
-    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        Debug.Log($"{arg0.name} just finished loading. Load scene mode = {arg1}.");
+        //Debug.Log($"{arg0.name} just finished loading. Load scene mode = {arg1}.");
 
-        if (arg0.name != mm_Scenes[0])
+        // When a scene loads, store the levels build index in 'LevelIndex'.
+        if (LevelIndex != arg0.buildIndex)
         {
-            MMUI.ToggleHP(true);
+            LevelIndex = arg0.buildIndex;
+            //Debug.Log($"Level Index: {LevelIndex}");
+        }
+
+        // When a scene loads and the scene is not the Main Menu, handle certain elements.
+        if (arg0.name != Mm_Scenes[0])
+        {
+            if (!hpOn)
+            {
+                hpOn = !hpOn;
+            }
             Debug.Log("HP bar is now turned on.");
         }
         else
         {
-            MMUI.ToggleHP(false);
+            if (hpOn)
+            {
+                hpOn = !hpOn;
+            }
             Debug.Log("HP bar is now turned off.");
         }
+
+        OnToggleHP?.Invoke(hpOn);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        SetPlayer();
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log(GM);
-            Debug.Log(MMUI);
-            Debug.Log(Player);
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            for(int i = 0; i < mm_Scenes.Length; i++)
-            {
-                Debug.Log(mm_Scenes[i]);
-            }
-        }
-
-        // Handle Pausing
-        HandlePause();
-    }
-
-    private void SetGM()
-    {
-        Debug.Log("Setting up the GameManager.");
-        if(GM != null)
-        {
-            if(GM != this)
-            {
-                Destroy(GM);
-                GM = this;
-            }
-        }
-        else
-        {
-            GM = this;
-        }
-        DontDestroyOnLoad(GM);
-    }
-
-    private void SetUI()
-    {
-        if(FindObjectOfType<MM_UI>() != null)
-        {
-            MM_UI ui = FindObjectOfType<MM_UI>();
-            if(MMUI != null)
-            {
-                if(MMUI != ui)
-                {
-                    Debug.Log("Destroying old UI");
-                    Destroy(MMUI);
-                    Debug.Log("Old one destroyed, setting new one.");
-                    MMUI = ui;
-                }
-            }
-            else
-            {
-                //Debug.Log("UI was not set, so currently setting it.");
-                MMUI = ui;
-            }
-
-            DontDestroyOnLoad(MMUI);
-        }
-    }
-
-    private void SetPlayer()
-    {
-        // if the currently active scene is NOT the 'Main Menu', THEN get new player referrence.
-        if (SceneManager.GetActiveScene().buildIndex != 0)
-        {
-            if (FindObjectOfType<CustomPlayerController>() != null)
-            {
-                CustomPlayerController p = FindObjectOfType<CustomPlayerController>();
-                if (Player != null)
-                {
-                    if (Player != p)
-                    {
-                        Debug.Log("Destroying the IMPOSTERRRRR!");
-                        Destroy(Player.gameObject);
-                        Debug.Log("And replacing him with the real one! :)");
-                        Player = p;
-                    }
-                }
-                else
-                {
-                    Debug.Log("Initially setting the real one (potential future imposter.....).");
-                    Player = p;
-                }
-
-                DontDestroyOnLoad(Player);
-            }
-        }
-    }
-
-    private void HandlePause()
+    public static void HandlePause()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -166,11 +102,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Just pressed the 'PAUSE' button.");
                 isPaused = !isPaused;
-                //MMUI.TogglePause(isPaused);
-                Time.timeScale = isPaused ? 0 : 1;
-                Player.enabled = !isPaused;
-
-                OnPause?.Invoke(isPaused);
+                TogglePause(isPaused);
             }
             else
             {
@@ -179,8 +111,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void UI_OnRetry()
+    private static void UI_OnRetry()
     {
         Debug.Log("This is 'UI_OnRetry' contained in GameManager class.");
+
+        TogglePause(false);
+
+        SceneManager.LoadScene(Mm_Scenes[SceneManager.GetActiveScene().buildIndex]);
+    }
+
+    private static void UI_OnMainMenu()
+    {
+        Debug.Log("This is the 'UI_OnMainMenu' method contained in the GameManager class.");
+
+        TogglePause(false);
+
+        SceneManager.LoadScene(Mm_Scenes[0]);
+    }
+
+    private static void TogglePause(bool value)
+    {
+        if(isPaused != value)
+        {
+            isPaused = value;
+        }
+        Time.timeScale = isPaused ? 0 : 1;
+        Player.DisablePlayer(isPaused);
+
+        OnPause?.Invoke(isPaused);
     }
 }

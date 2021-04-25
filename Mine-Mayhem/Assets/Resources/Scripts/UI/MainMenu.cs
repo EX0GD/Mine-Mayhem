@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    GameManager gm;
     private Animator MainMenuAnimator { get; set; }
 
     [SerializeField] private int htpIndex;
@@ -20,32 +17,16 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetGM();
         MainMenuAnimator = GetComponentInChildren<Animator>();
         htpIndex = 0;
         levelIndex = 1;
-        EditLevelText(gm.mm_Scenes[levelIndex]);
+        EditLevelText(GameManager.Mm_Scenes[levelIndex]);
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.M))
-        {
-            Debug.Log(levelText.text);
-        }*/
-    }
-
-    private void SetGM()
-    {
-        if(FindObjectOfType<GameManager>() != null)
-        {
-            gm = FindObjectOfType<GameManager>();
-        }
-        else
-        {
-            Debug.Log("No GameManager was found.");
-        }
+        
     }
 
     private void EditLevelText(string text)
@@ -64,12 +45,12 @@ public class MainMenu : MonoBehaviour
         {
             levelIndex = 1;
         }
-        EditLevelText(gm.mm_Scenes[levelIndex]);
+        EditLevelText(GameManager.Mm_Scenes[levelIndex]);
     }
 
     public void StartButton()
     {
-        SceneManager.LoadScene(gm.mm_Scenes[levelIndex], LoadSceneMode.Single);
+        SceneManager.LoadScene(GameManager.Mm_Scenes[levelIndex], LoadSceneMode.Single);
     }
 
     public void HTPButton()
@@ -164,7 +145,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = SceneManager.sceneCountInBuildSettings - 1;
             }
 
-            EditLevelText(gm.mm_Scenes[levelIndex]);
+            EditLevelText(GameManager.Mm_Scenes[levelIndex]);
         }
     }
 
@@ -208,7 +189,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = 1;
             }
 
-            EditLevelText(gm.mm_Scenes[levelIndex]);
+            EditLevelText(GameManager.Mm_Scenes[levelIndex]);
         }
     }
 

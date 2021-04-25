@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CustomPlayerController : MonoBehaviour
 {
+    public static CustomPlayerController Player { get; private set; }
+
     public enum PlayerStates
     {
         IDLE,
@@ -54,6 +56,8 @@ public class CustomPlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player = this;
+
         psm = new Dictionary<PlayerStates, Action>
         {
             {PlayerStates.IDLE, HandleIdle},
@@ -105,6 +109,7 @@ public class CustomPlayerController : MonoBehaviour
         psm[currentState].Invoke();
         PlayAnimation();
         HandleBombJumpCoolDownTimer();
+        GameManager.HandlePause();
     }
 
     private void FixedUpdate()
@@ -142,6 +147,13 @@ public class CustomPlayerController : MonoBehaviour
     private void PlayAnimation()
     {
         PlayerAnimator.Play(animStates[currentState]);
+    }
+
+    public void DisablePlayer(bool value)
+    {
+        canMove = !value;
+        canJump = !value;
+        Debug.Log($"Player is disabled! Can Move: {canMove}; CanJump: {canJump}.");
     }
 
     private void HandleBombJumpCoolDownTimer()
@@ -227,7 +239,7 @@ public class CustomPlayerController : MonoBehaviour
     {
         //Debug.Log("This is the 'HandleIdle' function.");
 
-        if(inputX != 0)
+        if(inputX != 0 && canMove)
         {
             SetState(PlayerStates.RUN);
         }
