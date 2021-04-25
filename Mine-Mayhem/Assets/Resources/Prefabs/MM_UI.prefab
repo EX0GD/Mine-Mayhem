@@ -133,6 +133,11 @@ MonoBehaviour:
   pausePanel: {fileID: 8732225342970444702}
   successPanel: {fileID: 4334419116132832523}
   introQuip: {fileID: 3254143599677858348}
+  hpActive: 0
+  failPanelActive: 0
+  pausePanelActive: 0
+  successPanelActive: 0
+  IntroQuipActive: 0
 --- !u!114 &4334419116132832523
 MonoBehaviour:
   m_ObjectHideFlags: 0
