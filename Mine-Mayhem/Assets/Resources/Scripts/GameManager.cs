@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public static class GameManager
 {
@@ -44,6 +43,7 @@ public static class GameManager
 
     public static event Action<bool> OnPause;
     public static event Action<bool> OnToggleHP;
+    public static event Action OnLevelStart;
 
     static GameManager()
     {
@@ -60,6 +60,7 @@ public static class GameManager
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         MM_UI.OnRetry += UI_OnRetry;
         MM_UI.OnMainMenu += UI_OnMainMenu;
+        MM_UI.OnQuit += UI_OnQuit;
     }
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -80,7 +81,9 @@ public static class GameManager
             {
                 hpOn = !hpOn;
             }
+
             Debug.Log("HP bar is now turned on.");
+            OnLevelStart?.Invoke();
         }
         else
         {
@@ -127,6 +130,15 @@ public static class GameManager
         TogglePause(false);
 
         SceneManager.LoadScene(Mm_Scenes[0]);
+    }
+
+    private static void UI_OnQuit()
+    {
+        Debug.Log("This is the 'UI_OnQuit' method contained in the GameManager class.");
+        if (EditorApplication.isPlaying)
+        {
+            EditorApplication.isPlaying = false;
+        }
     }
 
     private static void TogglePause(bool value)

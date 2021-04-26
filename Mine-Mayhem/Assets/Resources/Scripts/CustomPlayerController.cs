@@ -38,8 +38,8 @@ public class CustomPlayerController : MonoBehaviour
     private CapsuleCollider2D ExplosionCollider { get; set; }
 
     [Range(1,100)]
-    public int maxPlayerHealth;
-    public int curPlayerHealth;
+    public float maxPlayerHealth;
+    public float curPlayerHealth;
     public float inputX;
     public float runSpeed;
     public bool canMove = true;
@@ -53,8 +53,10 @@ public class CustomPlayerController : MonoBehaviour
 
     public LayerMask worldLayer;
 
+    public static event Action OnPlayerTakeDamage;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Player = this;
 
@@ -97,6 +99,7 @@ public class CustomPlayerController : MonoBehaviour
         if(curPlayerHealth != maxPlayerHealth)
         {
             curPlayerHealth = maxPlayerHealth;
+            Debug.Log("Player health is now at max");
         }
 
         bombCoolDownTimer = bombCoolDownTime;
@@ -110,6 +113,10 @@ public class CustomPlayerController : MonoBehaviour
         PlayAnimation();
         HandleBombJumpCoolDownTimer();
         GameManager.HandlePause();
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Debug.Log(GameManager.Player.gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -153,7 +160,6 @@ public class CustomPlayerController : MonoBehaviour
     {
         canMove = !value;
         canJump = !value;
-        Debug.Log($"Player is disabled! Can Move: {canMove}; CanJump: {canJump}.");
     }
 
     private void HandleBombJumpCoolDownTimer()
@@ -178,14 +184,17 @@ public class CustomPlayerController : MonoBehaviour
         if(curPlayerHealth <= dmg)
         {
             curPlayerHealth -= curPlayerHealth;
-            if(curPlayerHealth == 0)
-            {
-                SetState(PlayerStates.DEAD);
-            }
         }
         else
         {
             curPlayerHealth -= dmg;
+        }
+
+        OnPlayerTakeDamage?.Invoke();
+
+        if (curPlayerHealth == 0)
+        {
+            SetState(PlayerStates.DEAD);
         }
     }
 
