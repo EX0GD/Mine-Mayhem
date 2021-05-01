@@ -105,6 +105,11 @@ public class CustomPlayerController : MonoBehaviour
         bombCoolDownTimer = bombCoolDownTime;
     }
 
+    private void OnDisable()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -113,10 +118,6 @@ public class CustomPlayerController : MonoBehaviour
         PlayAnimation();
         HandleBombJumpCoolDownTimer();
         GameManager.HandlePause();
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            Debug.Log(GameManager.Player.gameObject);
-        }
     }
 
     private void FixedUpdate()

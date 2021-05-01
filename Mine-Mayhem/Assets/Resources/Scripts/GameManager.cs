@@ -38,6 +38,9 @@ public static class GameManager
     public static string[] Mm_Scenes { get; private set; }
     public static int LevelIndex { get; private set; }
 
+    public static int GoldCollected;
+    public static int GemsCollected;
+
     private static bool isPaused = false;
     private static bool hpOn = false;
 
@@ -61,6 +64,7 @@ public static class GameManager
         MM_UI.OnRetry += UI_OnRetry;
         MM_UI.OnMainMenu += UI_OnMainMenu;
         MM_UI.OnQuit += UI_OnQuit;
+        Collectible.OnPickUpCollectible += Collectible_OnPickUp;
     }
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -139,6 +143,13 @@ public static class GameManager
         {
             EditorApplication.isPlaying = false;
         }
+    }
+
+    private static void Collectible_OnPickUp()
+    {
+        //Debug.Log("This is the pick up function on GameManager.");
+        GoldCollected++;
+        Debug.Log(GoldCollected);
     }
 
     private static void TogglePause(bool value)
