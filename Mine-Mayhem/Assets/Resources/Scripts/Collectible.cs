@@ -3,20 +3,21 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    [SerializeField] private int value;
-    public static event Action OnPickUpCollectible;
-
-    private void Start()
+    public enum CollectibleType
     {
-        
+        GOLD,
+        GEM
     }
+    [SerializeField] private CollectibleType PickUpType;
+
+    public static event Action<CollectibleType> OnPickUpCollectible;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<CustomPlayerController>() != null)
         {
             //Debug.Log("Calling 'OnPickUpCollectible' in Collectible script.");
-            OnPickUpCollectible?.Invoke();
+            OnPickUpCollectible?.Invoke(PickUpType);
             Destroy(gameObject);
         }
     }

@@ -145,11 +145,21 @@ public static class GameManager
         }
     }
 
-    private static void Collectible_OnPickUp()
+    private static void Collectible_OnPickUp(Collectible.CollectibleType pickupType)
     {
         //Debug.Log("This is the pick up function on GameManager.");
-        GoldCollected++;
-        Debug.Log(GoldCollected);
+        switch (pickupType)
+        {
+            case Collectible.CollectibleType.GOLD:
+                GoldCollected++;
+                Debug.Log($"Just picked up some GOLD! Current Gold: {GoldCollected}.");
+                break;
+
+            case Collectible.CollectibleType.GEM:
+                GemsCollected++;
+                Debug.Log($"Just picked up a GEM! Current Gems: {GemsCollected}.");
+                break;
+        }
     }
 
     private static void TogglePause(bool value)
