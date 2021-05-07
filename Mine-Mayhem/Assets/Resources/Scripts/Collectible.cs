@@ -6,9 +6,11 @@ public class Collectible : MonoBehaviour
     public enum CollectibleType
     {
         GOLD,
-        GEM
+        GEM, 
+        NONE
     }
-    [SerializeField] private CollectibleType PickUpType;
+    [SerializeField] private CollectibleType PickUpType = CollectibleType.NONE;
+    public CollectibleType Type { get { return PickUpType; } }
 
     public static event Action<CollectibleType> OnPickUpCollectible;
 
@@ -16,7 +18,6 @@ public class Collectible : MonoBehaviour
     {
         if(collision.GetComponent<CustomPlayerController>() != null)
         {
-            //Debug.Log("Calling 'OnPickUpCollectible' in Collectible script.");
             OnPickUpCollectible?.Invoke(PickUpType);
             Destroy(gameObject);
         }
