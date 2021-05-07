@@ -14,7 +14,8 @@ public class CustomPlayerController : MonoBehaviour
         BOOM_JUMP,
         IN_AIR,
         WALL_GRAB,
-        DEAD
+        BOOM_DEAD,
+        SPIKE_DEAD
     }
     public PlayerStates currentState;
 
@@ -26,7 +27,8 @@ public class CustomPlayerController : MonoBehaviour
     private const string bjAnim = "MinerBJ";
     private const string inAirAnim = "MinerFall";
     private const string wallGrabAnim = "MinerWG";
-    private const string deadAnim = "MinerDead";
+    private const string boomDeadAnim = "MinerBoomDeath";
+    private const string spikeDeadAnim = "MinerSpikeDeath";
 
     private Dictionary<PlayerStates, string> animStates;
 
@@ -38,8 +40,8 @@ public class CustomPlayerController : MonoBehaviour
     private CapsuleCollider2D ExplosionCollider { get; set; }
 
     [Range(1,100)]
-    public int maxPlayerHealth;
-    public int curPlayerHealth;
+    public float maxPlayerHealth;
+    public float curPlayerHealth;
     public float inputX;
     public float runSpeed;
     public bool canMove = true;
@@ -50,11 +52,16 @@ public class CustomPlayerController : MonoBehaviour
     public bool onWall = false;
     public float bombCoolDownTimer;
     public float bombCoolDownTime;
+    public bool isDead = false;
+    public bool hitSpikeWall = false;
 
     public LayerMask worldLayer;
 
+    public static event Action OnPlayerTakeDamage;
+    public static event Action<bool> OnPlayerIsDead;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Player = this;
 
@@ -65,7 +72,8 @@ public class CustomPlayerController : MonoBehaviour
             {PlayerStates.BOOM_JUMP, HandleBoomJump},
             {PlayerStates.IN_AIR, HandleInAir},
             {PlayerStates.WALL_GRAB, HandleWallGrab},
-            {PlayerStates.DEAD, HandleDead}
+            {PlayerStates.BOOM_DEAD, HandleDead},
+            {PlayerStates.SPIKE_DEAD, HandleDead}
         };
 
         // Set players' starting state.
@@ -78,7 +86,8 @@ public class CustomPlayerController : MonoBehaviour
             {PlayerStates.BOOM_JUMP, bjAnim},
             {PlayerStates.IN_AIR, inAirAnim},
             {PlayerStates.WALL_GRAB, wallGrabAnim},
-            {PlayerStates.DEAD, idleAnim}
+            {PlayerStates.SPIKE_DEAD, spikeDeadAnim},
+            {PlayerStates.BOOM_DEAD, boomDeadAnim}
         };
 
         RB = GetComponent<Rigidbody2D>();
@@ -97,9 +106,15 @@ public class CustomPlayerController : MonoBehaviour
         if(curPlayerHealth != maxPlayerHealth)
         {
             curPlayerHealth = maxPlayerHealth;
+            Debug.Log("Player health is now at max");
         }
 
         bombCoolDownTimer = bombCoolDownTime;
+    }
+
+    private void OnDisable()
+    {
+        
     }
 
     // Update is called once per frame
@@ -109,7 +124,16 @@ public class CustomPlayerController : MonoBehaviour
         psm[currentState].Invoke();
         PlayAnimation();
         HandleBombJumpCoolDownTimer();
-        GameManager.HandlePause();
+
+        if (!isDead)
+        {
+            GameManager.HandlePause();
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                DamagePlayer(20);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -153,39 +177,51 @@ public class CustomPlayerController : MonoBehaviour
     {
         canMove = !value;
         canJump = !value;
-        Debug.Log($"Player is disabled! Can Move: {canMove}; CanJump: {canJump}.");
     }
 
     private void HandleBombJumpCoolDownTimer()
     {
-        if (!canJump && currentState != PlayerStates.DEAD)
+        if (!canJump)
         {
-            if(bombCoolDownTimer > 0)
+            if (currentState != PlayerStates.SPIKE_DEAD || currentState != PlayerStates.BOOM_DEAD)
             {
-                bombCoolDownTimer -= Time.deltaTime;
-            }
-            else
-            {
-                ExplosionAnimator.SetBool("isTriggered", false);
-                canJump = true;
-                bombCoolDownTimer = bombCoolDownTime;
+                if (bombCoolDownTimer > 0)
+                {
+                    bombCoolDownTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    ExplosionAnimator.SetBool("isTriggered", false);
+                    canJump = true;
+                    bombCoolDownTimer = bombCoolDownTime;
+                }
             }
         }
     }
 
-    public void DamagePlayer(int dmg)
+    public void DamagePlayer(float dmg)
     {
         if(curPlayerHealth <= dmg)
         {
             curPlayerHealth -= curPlayerHealth;
-            if(curPlayerHealth == 0)
-            {
-                SetState(PlayerStates.DEAD);
-            }
         }
         else
         {
             curPlayerHealth -= dmg;
+        }
+
+        OnPlayerTakeDamage?.Invoke();
+
+        if (curPlayerHealth == 0)
+        {
+            if (hitSpikeWall)
+            {
+                SetState(PlayerStates.SPIKE_DEAD);
+            }
+            else if (currentState == PlayerStates.BOOM_JUMP)
+            {
+                SetState(PlayerStates.BOOM_DEAD);
+            }
         }
     }
 
@@ -232,6 +268,26 @@ public class CustomPlayerController : MonoBehaviour
                                                               new Vector2(MainCollider.size.x - 0.2f, MainCollider.size.y), CapsuleDirection2D.Vertical, 0, worldLayer);
         
         return col != null;
+    }
+
+    private IEnumerator PlayerDeath()
+    {
+        // Turn everything off
+        DisablePlayer(true);
+
+        if (MainCollider.enabled)
+        {
+            MainCollider.enabled = false;
+        }
+
+        if (!isDead)
+        {
+            isDead = !isDead;
+            yield return new WaitForSeconds(1.5f);
+
+            OnPlayerIsDead?.Invoke(isDead);
+            enabled = false;
+        }
     }
 
     // --------------------------- STATE FUNCTIONS --------------------------------//
@@ -379,16 +435,6 @@ public class CustomPlayerController : MonoBehaviour
     private void HandleDead()
     {
         Debug.Log("This is the 'HandleDead' function.");
-        // Turn everything off
-        if (canMove)
-            canMove = !canMove;
-
-        if (canJump)
-            canJump = !canJump;
-
-        if (MainCollider.enabled)
-        {
-            MainCollider.enabled = false;
-        }
+        StartCoroutine(PlayerDeath());
     }
 }

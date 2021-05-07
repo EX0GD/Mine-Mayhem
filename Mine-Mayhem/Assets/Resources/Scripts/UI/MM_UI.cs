@@ -17,13 +17,17 @@ public class MM_UI : MonoBehaviour
 
     public static event Action OnRetry;
     public static event Action OnMainMenu;
+    public static event Action OnQuit;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         DontDestroyOnLoad(gameObject);
         GameManager.OnPause += TogglePauseEvent;
         GameManager.OnToggleHP += ToggleHPEvent;
+        GameManager.OnLevelStart += LevelStartEvent;
+        CustomPlayerController.OnPlayerTakeDamage += Player_OnTakeDamage;
+        GameManager.OnToggleDeathPanel += ToggleFailPanelEvent;
     }
 
     // Update is called once per frame
@@ -36,6 +40,9 @@ public class MM_UI : MonoBehaviour
     {
         GameManager.OnPause -= TogglePauseEvent;
         GameManager.OnToggleHP -= ToggleHPEvent;
+        GameManager.OnLevelStart -= LevelStartEvent;
+        CustomPlayerController.OnPlayerTakeDamage -= Player_OnTakeDamage;
+        GameManager.OnToggleDeathPanel -= ToggleFailPanelEvent;
     }
 
     private void ToggleHPEvent(bool value)
@@ -70,22 +77,34 @@ public class MM_UI : MonoBehaviour
         if (pausePanel.gameObject.activeSelf != pausePanelActive)
             pausePanel.gameObject.SetActive(pausePanelActive);
     }
+
+    private void Player_OnTakeDamage()
+    {
+        hp.lifeBar.fillAmount = GameManager.Player.curPlayerHealth / GameManager.Player.maxPlayerHealth;
+    }
+
+    private void LevelStartEvent()
+    {
+        Debug.Log("This is the LevelStartEvent.");
+        hp.lifeBar.fillAmount = GameManager.Player.curPlayerHealth / GameManager.Player.maxPlayerHealth;
+    }
     // ------------------- Button Functions ------------------------//
     public void RetryButton()
     {
-        Debug.Log("Retry Button");
+        //Debug.Log("Retry Button");
         OnRetry?.Invoke();
     }
 
     public void MainMenuButton()
     {
-        Debug.Log("MainMenuButton");
+        //Debug.Log("MainMenuButton");
         OnMainMenu?.Invoke();
     }
 
     public void SQButton()
     {
-        Debug.Log("Save / Quit Button");
+        //Debug.Log("Save / Quit Button");
+        OnQuit?.Invoke();
     }
 
     public void SoundToggleButton()
