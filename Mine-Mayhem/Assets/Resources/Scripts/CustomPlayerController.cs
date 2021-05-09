@@ -15,7 +15,8 @@ public class CustomPlayerController : MonoBehaviour
         IN_AIR,
         WALL_GRAB,
         BOOM_DEAD,
-        SPIKE_DEAD
+        SPIKE_DEAD,
+        SUCCESS
     }
     public PlayerStates currentState;
 
@@ -29,6 +30,7 @@ public class CustomPlayerController : MonoBehaviour
     private const string wallGrabAnim = "MinerWG";
     private const string boomDeadAnim = "MinerBoomDeath";
     private const string spikeDeadAnim = "MinerSpikeDeath";
+    private const string victoryAnim = "MinerVPose";
 
     private Dictionary<PlayerStates, string> animStates;
 
@@ -73,7 +75,8 @@ public class CustomPlayerController : MonoBehaviour
             {PlayerStates.IN_AIR, HandleInAir},
             {PlayerStates.WALL_GRAB, HandleWallGrab},
             {PlayerStates.BOOM_DEAD, HandleDead},
-            {PlayerStates.SPIKE_DEAD, HandleDead}
+            {PlayerStates.SPIKE_DEAD, HandleDead},
+            {PlayerStates.SUCCESS, HandleSuccess}
         };
 
         // Set players' starting state.
@@ -87,7 +90,8 @@ public class CustomPlayerController : MonoBehaviour
             {PlayerStates.IN_AIR, inAirAnim},
             {PlayerStates.WALL_GRAB, wallGrabAnim},
             {PlayerStates.SPIKE_DEAD, spikeDeadAnim},
-            {PlayerStates.BOOM_DEAD, boomDeadAnim}
+            {PlayerStates.BOOM_DEAD, boomDeadAnim},
+            {PlayerStates.SUCCESS, victoryAnim}
         };
 
         RB = GetComponent<Rigidbody2D>();
@@ -167,7 +171,7 @@ public class CustomPlayerController : MonoBehaviour
         }
     }
 
-    private void SetState(PlayerStates state)
+    public void SetState(PlayerStates state)
     {
         if(currentState != state)
         {
@@ -184,6 +188,10 @@ public class CustomPlayerController : MonoBehaviour
     {
         canMove = !value;
         canJump = !value;
+        if(RB.velocity != Vector2.zero)
+        {
+            RB.velocity = Vector2.zero;
+        }
     }
 
     private void HandleBombJumpCoolDownTimer()
@@ -443,5 +451,15 @@ public class CustomPlayerController : MonoBehaviour
     {
         Debug.Log("This is the 'HandleDead' function.");
         StartCoroutine(PlayerDeath());
+    }
+
+    private void HandleSuccess()
+    {
+        DisablePlayer(true);
+        if (enabled)
+        {
+            enabled = !enabled;
+            RB.Sleep();
+        }
     }
 }

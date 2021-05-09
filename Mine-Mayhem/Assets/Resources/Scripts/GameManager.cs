@@ -16,7 +16,7 @@ public static class GameManager
         {
             CustomPlayerController player = UnityEngine.Object.FindObjectOfType<CustomPlayerController>();
             //Debug.Log(player);
-            if(player != null)
+            if (player != null)
             {
                 return player;
             }
@@ -39,12 +39,16 @@ public static class GameManager
     public static string[] Mm_Scenes { get; private set; }
     public static int LevelIndex { get; private set; }
 
-    public static int CurrentGoldCollected;
-    public static int TotalGold;
-    public static int CurrentGemsCollected;
-    public static int TotalGems;
+    // Star 1 is for Level Complete (Gold Collection)
+    public static bool Star1 { get; private set; }
 
-    public static List<Collectible> GoldInCurrentLevel;
+    // Star 2 is for all GEMS collected.
+    public static bool Star2 { get; private set; }
+
+    // Star 3 is for completing level with health at / above %60.
+    public static bool Star3 { get; private set; }
+    public static bool[] StarConditions { get; private set; }
+
     public static List<Collectible> GemsInCurrentLevel;
 
 
@@ -69,7 +73,13 @@ public static class GameManager
         Mm_Scenes[6] = mm_Scene6;
         Mm_Scenes[7] = mm_Scene7;
 
-        GoldInCurrentLevel = new List<Collectible>();
+        StarConditions = new bool[]
+        {
+            Star1 = false,
+            Star2 = false,
+            Star3 = false
+        };
+
         GemsInCurrentLevel = new List<Collectible>();
 
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
@@ -100,9 +110,11 @@ public static class GameManager
             OnLevelStart?.Invoke();
 
             #region WHEN SCENE STARTS, CLEAR LIST OF COLLECTIBLES AND FIND ALL NEW ONES IN CURRENT SCENE LOADED
-            if(GoldInCurrentLevel.Count > 0)
+            // On Scene Loaded, the new level gold has not yet been acquired.
+            for(int i = 0; i < StarConditions.Length; i++)
             {
-                GoldInCurrentLevel.Clear();
+                if (StarConditions[i])
+                    StarConditions[i] = false;
             }
 
             if(GemsInCurrentLevel.Count > 0)
@@ -110,26 +122,17 @@ public static class GameManager
                 GemsInCurrentLevel.Clear();
             }
 
+            // Gather list of all GEMS in the current loaded scene.
             Collectible[] collectibles = UnityEngine.Object.FindObjectsOfType<Collectible>();
             foreach(Collectible collectible in collectibles)
             {
-                switch (collectible.Type)
+                if(collectible.Type == Collectible.CollectibleType.GEM)
                 {
-                    case Collectible.CollectibleType.GOLD:
-                        if (!GoldInCurrentLevel.Contains(collectible))
-                        {
-                            Debug.Log(collectible);
-                            GoldInCurrentLevel.Add(collectible);
-                        }
-                        break;
-
-                    case Collectible.CollectibleType.GEM:
-                        if (!GemsInCurrentLevel.Contains(collectible))
-                        {
-                            Debug.Log(collectible);
-                            GemsInCurrentLevel.Add(collectible);
-                        }
-                        break;
+                    if (!GemsInCurrentLevel.Contains(collectible))
+                    {
+                        Debug.Log(collectible);
+                        GemsInCurrentLevel.Add(collectible);
+                    }
                 }
             }
             #endregion
@@ -152,7 +155,6 @@ public static class GameManager
         {
             if (SceneManager.GetActiveScene().buildIndex != SceneManager.GetSceneByBuildIndex(0).buildIndex)
             {
-                //Debug.Log("Just pressed the 'PAUSE' button.");
                 isPaused = !isPaused;
                 TogglePause(isPaused);
             }
@@ -165,8 +167,6 @@ public static class GameManager
 
         TogglePause(false);
         Player_OnPlayerIsDead(false);
-        CurrentGoldCollected = 0;
-        CurrentGemsCollected = 0;
 
         SceneManager.LoadScene(Mm_Scenes[SceneManager.GetActiveScene().buildIndex]);
     }
@@ -196,28 +196,42 @@ public static class GameManager
         switch (pickupType)
         {
             case Collectible.CollectibleType.GOLD:
-                CurrentGoldCollected++;
-                Debug.Log($"Just picked up some GOLD! Current Gold: {CurrentGoldCollected}.");
-                if (GoldInCurrentLevel.Contains(collectible))
+                Debug.Log($"Just found the gold!!");
+                if (!StarConditions[0])
                 {
-                    GoldInCurrentLevel.Remove(collectible);
-                }
-                else
-                {
-                    Debug.Log($"Something went wrong while trying to remove {collectible} from the gold list.");
+                    StarConditions[0] = true;
                 }
                 break;
 
             case Collectible.CollectibleType.GEM:
-                CurrentGemsCollected++;
-                Debug.Log($"Just picked up a GEM! Current Gems: {CurrentGemsCollected}.");
+                Debug.Log($"Just picked up a GEM!.");
+                if (GemsInCurrentLevel.Contains(collectible))
+                {
+                    GemsInCurrentLevel.Remove(collectible);
+                }
+
+                if(GemsInCurrentLevel.Count == 0)
+                {
+                    StarConditions[1] = true;
+                }
                 break;
         }
 
-        // Check the collectible lists
-        if(GoldInCurrentLevel.Count == 0)
+        // This is what happens when the gold has been acquired. (Handle player success)
+        if (StarConditions[0])
         {
-            Debug.Log("YAAAAAAAAAAY!!!! We beat this level!!!!!!");
+            Player.SetState(CustomPlayerController.PlayerStates.SUCCESS);
+
+            // When the level is complete but the level did not contain any GEMS, the star condition is automatically fulfilled.
+            if(GemsInCurrentLevel.Count == 0 && !StarConditions[1])
+            {
+                StarConditions[1] = true;
+            }
+
+            for(int i = 0; i < StarConditions.Length; i++)
+            {
+                Debug.Log(StarConditions[i]);
+            }
         }
     }
 
