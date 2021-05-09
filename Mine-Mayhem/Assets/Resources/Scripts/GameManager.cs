@@ -190,7 +190,7 @@ public static class GameManager
         }
     }
 
-    private static void Collectible_OnPickUp(Collectible.CollectibleType pickupType)
+    private static void Collectible_OnPickUp(Collectible collectible, Collectible.CollectibleType pickupType)
     {
         //Debug.Log("This is the pick up function on GameManager.");
         switch (pickupType)
@@ -198,12 +198,26 @@ public static class GameManager
             case Collectible.CollectibleType.GOLD:
                 CurrentGoldCollected++;
                 Debug.Log($"Just picked up some GOLD! Current Gold: {CurrentGoldCollected}.");
+                if (GoldInCurrentLevel.Contains(collectible))
+                {
+                    GoldInCurrentLevel.Remove(collectible);
+                }
+                else
+                {
+                    Debug.Log($"Something went wrong while trying to remove {collectible} from the gold list.");
+                }
                 break;
 
             case Collectible.CollectibleType.GEM:
                 CurrentGemsCollected++;
                 Debug.Log($"Just picked up a GEM! Current Gems: {CurrentGemsCollected}.");
                 break;
+        }
+
+        // Check the collectible lists
+        if(GoldInCurrentLevel.Count == 0)
+        {
+            Debug.Log("YAAAAAAAAAAY!!!! We beat this level!!!!!!");
         }
     }
 

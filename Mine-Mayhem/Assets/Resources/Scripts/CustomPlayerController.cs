@@ -140,6 +140,13 @@ public class CustomPlayerController : MonoBehaviour
     {
         //psm[currentState].Invoke();
         grounded = IsGrounded();
+        if (!grounded)
+        {
+            if (currentState == PlayerStates.RUN || currentState == PlayerStates.IDLE)
+            {
+                SetState(PlayerStates.IN_AIR);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

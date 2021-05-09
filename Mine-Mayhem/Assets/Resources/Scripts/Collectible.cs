@@ -12,13 +12,13 @@ public class Collectible : MonoBehaviour
     [SerializeField] private CollectibleType PickUpType = CollectibleType.NONE;
     public CollectibleType Type { get { return PickUpType; } }
 
-    public static event Action<CollectibleType> OnPickUpCollectible;
+    public static event Action<Collectible, CollectibleType> OnPickUpCollectible;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<CustomPlayerController>() != null)
         {
-            OnPickUpCollectible?.Invoke(PickUpType);
+            OnPickUpCollectible?.Invoke(this, PickUpType);
             Destroy(gameObject);
         }
     }
