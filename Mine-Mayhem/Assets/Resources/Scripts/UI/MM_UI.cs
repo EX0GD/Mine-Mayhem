@@ -1,13 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MM_UI : MonoBehaviour
 {
+    private static MM_UI MMUI;
+
     public HPBar hp;
     public FailedPanelSet failPanel;
     public PausedPanelSet pausePanel;
     public SuccessPanelSet successPanel;
     public IntroQuip introQuip;
+    public Image[] starIMGs;
 
     [SerializeField] private bool hpActive;
     [SerializeField] public bool failPanelActive;
@@ -22,12 +26,27 @@ public class MM_UI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(MMUI != null)
+        {
+            if(MMUI != this)
+            {
+                Destroy(MMUI.gameObject);
+                //Debug.Log("Destroying old MMUI and setting the new one.");
+                MMUI = this;
+            }
+        }
+        else
+        {
+            //Debug.Log("MMUI was initially null, so we are setting it now.");
+            MMUI = this;
+        }
+        DontDestroyOnLoad(MMUI);
         GameManager.OnPause += TogglePauseEvent;
         GameManager.OnToggleHP += ToggleHPEvent;
         GameManager.OnLevelStart += LevelStartEvent;
         CustomPlayerController.OnPlayerTakeDamage += Player_OnTakeDamage;
         GameManager.OnToggleDeathPanel += ToggleFailPanelEvent;
+        GameManager.OnToggleSuccessPanel += ToggleSuccessPanelEvent;
     }
 
     // Update is called once per frame
@@ -43,11 +62,12 @@ public class MM_UI : MonoBehaviour
         GameManager.OnLevelStart -= LevelStartEvent;
         CustomPlayerController.OnPlayerTakeDamage -= Player_OnTakeDamage;
         GameManager.OnToggleDeathPanel -= ToggleFailPanelEvent;
+        GameManager.OnToggleSuccessPanel -= ToggleSuccessPanelEvent;
     }
 
     private void ToggleHPEvent(bool value)
     {
-        Debug.Log("'Toggle HP Event' just triggered.");
+        //Debug.Log("'Toggle HP Event' just triggered.");
 
         if (hpActive != value)
             hpActive = value;
@@ -58,7 +78,7 @@ public class MM_UI : MonoBehaviour
 
     public void ToggleFailPanelEvent(bool value)
     {
-        Debug.Log("'Toggle Fail Panel Event' just triggered.");
+        //Debug.Log("'Toggle Fail Panel Event' just triggered.");
 
         if (failPanelActive != value)
             failPanelActive = value;
@@ -69,13 +89,22 @@ public class MM_UI : MonoBehaviour
 
     private void TogglePauseEvent(bool value)
     {
-        Debug.Log("Currently invoking the 'PauseEvent' function contained in: " + this);
+        //Debug.Log("Currently invoking the 'PauseEvent' function contained in: " + this);
 
         if (pausePanelActive != value)
             pausePanelActive = value;
 
         if (pausePanel.gameObject.activeSelf != pausePanelActive)
             pausePanel.gameObject.SetActive(pausePanelActive);
+    }
+
+    private void ToggleSuccessPanelEvent(bool value)
+    {
+        if (successPanelActive != value)
+            successPanelActive = value;
+
+        if (successPanel.gameObject.activeSelf != successPanelActive)
+            successPanel.gameObject.SetActive(successPanelActive);
     }
 
     private void Player_OnTakeDamage()

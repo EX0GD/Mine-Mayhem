@@ -134,6 +134,7 @@ MonoBehaviour:
   pausePanel: {fileID: 8732225342970444702}
   successPanel: {fileID: 4334419116132832523}
   introQuip: {fileID: 3254143599677858348}
+  starIMGs: []
   hpActive: 0
   failPanelActive: 0
   pausePanelActive: 0
@@ -270,7 +271,7 @@ PrefabInstance:
     - target: {fileID: 3346710242571068275, guid: dde61522de8ea8d45958cdb2e7cb8dfb,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5325069590396243980, guid: dde61522de8ea8d45958cdb2e7cb8dfb,
         type: 3}

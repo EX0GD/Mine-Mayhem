@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3467119458316805492
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1106,7 +1106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3735073944315911423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7115,6 +7115,11 @@ MonoBehaviour:
   - {fileID: 3735073945532823162}
   levelIndex: 0
   levelText: {fileID: 3735073944736684125}
+  levelLock: {fileID: 3735073944315911420}
+  levelStarIMGs:
+  - {fileID: 5601187968471976470}
+  - {fileID: 5332378393047263867}
+  - {fileID: 3080592537066921135}
 --- !u!1 &3735073946210946265
 GameObject:
   m_ObjectHideFlags: 0

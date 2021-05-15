@@ -6,16 +6,11 @@ using UnityEditor;
 
 public static class GameManager
 {
-    //public static GameManager GM { get; private set; }
-    public static MM_UI MMUI { get; private set; }
-
-    //public static CustomPlayerController Player { get; private set; }
     public static CustomPlayerController Player
     {
         get
         {
             CustomPlayerController player = UnityEngine.Object.FindObjectOfType<CustomPlayerController>();
-            //Debug.Log(player);
             if (player != null)
             {
                 return player;
@@ -59,10 +54,14 @@ public static class GameManager
     public static event Action<bool> OnToggleHP;
     public static event Action OnLevelStart;
     public static event Action<bool> OnToggleDeathPanel;
+    public static event Action<bool> OnToggleSuccessPanel;
     
 
     static GameManager()
     {
+        //Debug.Log(SceneManager.GetSceneByBuildIndex(0).name);
+        Debug.Log(LevelInformation.Levels.Length);
+
         Mm_Scenes = new string[SceneManager.sceneCountInBuildSettings];
         Mm_Scenes[0] = mm_MainMenuScene;
         Mm_Scenes[1] = mm_Scene1;
@@ -130,7 +129,7 @@ public static class GameManager
                 {
                     if (!GemsInCurrentLevel.Contains(collectible))
                     {
-                        Debug.Log(collectible);
+                        //Debug.Log(collectible);
                         GemsInCurrentLevel.Add(collectible);
                     }
                 }
@@ -143,7 +142,7 @@ public static class GameManager
             {
                 hpOn = !hpOn;
             }
-            Debug.Log("HP bar is now turned off.");
+            //Debug.Log("HP bar is now turned off.");
         }
 
         OnToggleHP?.Invoke(hpOn);
@@ -173,10 +172,11 @@ public static class GameManager
 
     private static void UI_OnMainMenu()
     {
-        Debug.Log("This is the 'UI_OnMainMenu' method contained in the GameManager class.");
+        //Debug.Log("This is the 'UI_OnMainMenu' method contained in the GameManager class.");
 
         TogglePause(false);
         Player_OnPlayerIsDead(false);
+        OnToggleSuccessPanel?.Invoke(false);
 
         SceneManager.LoadScene(Mm_Scenes[0]);
     }
@@ -221,11 +221,17 @@ public static class GameManager
         if (StarConditions[0])
         {
             Player.SetState(CustomPlayerController.PlayerStates.SUCCESS);
+            OnToggleSuccessPanel?.Invoke(true);
 
             // When the level is complete but the level did not contain any GEMS, the star condition is automatically fulfilled.
             if(GemsInCurrentLevel.Count == 0 && !StarConditions[1])
             {
                 StarConditions[1] = true;
+            }
+
+            if((Player.curPlayerHealth / Player.maxPlayerHealth) >= 0.6f)
+            {
+                StarConditions[2] = true;
             }
 
             for(int i = 0; i < StarConditions.Length; i++)
@@ -237,7 +243,7 @@ public static class GameManager
 
     private static void Player_OnPlayerIsDead(bool value)
     {
-        Debug.Log($"Dead: {value}. - Now toggling the dead menu.");
+        //Debug.Log($"Dead: {value}. - Now toggling the dead menu.");
         OnToggleDeathPanel?.Invoke(value);
     }
 
