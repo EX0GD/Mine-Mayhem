@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public static class GameManager
 {
@@ -165,9 +164,14 @@ public static class GameManager
     private static void UI_OnQuit()
     {
         Debug.Log("This is the 'UI_OnQuit' method contained in the GameManager class.");
-        if (EditorApplication.isPlaying)
+        /*if (EditorApplication.isPlaying)
         {
             EditorApplication.isPlaying = false;
+        }*/
+
+        if (Application.isPlaying)
+        {
+            Application.Quit();
         }
     }
 

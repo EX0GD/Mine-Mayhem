@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
@@ -278,10 +277,9 @@ public class MainMenu : MonoBehaviour
 
     public void QuitApplication()
     {
-        Debug.Log("This is the 'Quit Application' button.");
-        if (EditorApplication.isPlaying)
+        if (Application.isPlaying)
         {
-            EditorApplication.isPlaying = false;
+            Application.Quit();
         }
     }
 }
