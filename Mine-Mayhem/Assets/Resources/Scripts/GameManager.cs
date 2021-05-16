@@ -6,16 +6,11 @@ using UnityEditor;
 
 public static class GameManager
 {
-    //public static GameManager GM { get; private set; }
-    public static MM_UI MMUI { get; private set; }
-
-    //public static CustomPlayerController Player { get; private set; }
     public static CustomPlayerController Player
     {
         get
         {
             CustomPlayerController player = UnityEngine.Object.FindObjectOfType<CustomPlayerController>();
-            //Debug.Log(player);
             if (player != null)
             {
                 return player;
@@ -48,6 +43,7 @@ public static class GameManager
     // Star 3 is for completing level with health at / above %60.
     public static bool Star3 { get; private set; }
     public static bool[] StarConditions { get; private set; }
+    public static int StarsAcquired { get; private set; }
 
     public static List<Collectible> GemsInCurrentLevel;
 
@@ -59,20 +55,11 @@ public static class GameManager
     public static event Action<bool> OnToggleHP;
     public static event Action OnLevelStart;
     public static event Action<bool> OnToggleDeathPanel;
+    public static event Action<bool> OnToggleSuccessPanel;
     
 
     static GameManager()
     {
-        Mm_Scenes = new string[SceneManager.sceneCountInBuildSettings];
-        Mm_Scenes[0] = mm_MainMenuScene;
-        Mm_Scenes[1] = mm_Scene1;
-        Mm_Scenes[2] = mm_Scene2;
-        Mm_Scenes[3] = mm_Scene3;
-        Mm_Scenes[4] = mm_Scene4;
-        Mm_Scenes[5] = mm_Scene5;
-        Mm_Scenes[6] = mm_Scene6;
-        Mm_Scenes[7] = mm_Scene7;
-
         StarConditions = new bool[]
         {
             Star1 = false,
@@ -92,14 +79,16 @@ public static class GameManager
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        Debug.Log(LevelInformation.Levels[1].stars);
         // When a scene loads, store the levels build index in 'LevelIndex'.
         if (LevelIndex != arg0.buildIndex)
         {
             LevelIndex = arg0.buildIndex;
+            StarsAcquired = 0;
         }
 
         // When a scene loads and the scene is not the Main Menu, handle certain elements.
-        if (arg0.name != Mm_Scenes[0])
+        if (arg0.name != LevelInformation.Levels[0].name)
         {
             if (!hpOn)
             {
@@ -130,7 +119,7 @@ public static class GameManager
                 {
                     if (!GemsInCurrentLevel.Contains(collectible))
                     {
-                        Debug.Log(collectible);
+                        //Debug.Log(collectible);
                         GemsInCurrentLevel.Add(collectible);
                     }
                 }
@@ -143,7 +132,7 @@ public static class GameManager
             {
                 hpOn = !hpOn;
             }
-            Debug.Log("HP bar is now turned off.");
+            //Debug.Log("HP bar is now turned off.");
         }
 
         OnToggleHP?.Invoke(hpOn);
@@ -168,17 +157,18 @@ public static class GameManager
         TogglePause(false);
         Player_OnPlayerIsDead(false);
 
-        SceneManager.LoadScene(Mm_Scenes[SceneManager.GetActiveScene().buildIndex]);
+        SceneManager.LoadScene(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].name);
     }
 
     private static void UI_OnMainMenu()
     {
-        Debug.Log("This is the 'UI_OnMainMenu' method contained in the GameManager class.");
+        //Debug.Log("This is the 'UI_OnMainMenu' method contained in the GameManager class.");
 
         TogglePause(false);
         Player_OnPlayerIsDead(false);
+        OnToggleSuccessPanel?.Invoke(false);
 
-        SceneManager.LoadScene(Mm_Scenes[0]);
+        SceneManager.LoadScene(LevelInformation.Levels[0].name);
     }
 
     private static void UI_OnQuit()
@@ -228,16 +218,33 @@ public static class GameManager
                 StarConditions[1] = true;
             }
 
+            if((Player.curPlayerHealth / Player.maxPlayerHealth) >= 0.6f)
+            {
+                StarConditions[2] = true;
+            }
+
             for(int i = 0; i < StarConditions.Length; i++)
             {
-                Debug.Log(StarConditions[i]);
+                if (StarConditions[i])
+                {
+                    StarsAcquired++;
+                }
             }
+
+            // Assign the awarded stars to the level and unlock the next level.
+            LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
+            if(LevelInformation.Levels[LevelIndex + 1].levelLocked)
+            {
+                LevelInformation.Levels[LevelIndex + 1].levelLocked = false;
+            }
+
+            OnToggleSuccessPanel?.Invoke(true);
         }
     }
 
     private static void Player_OnPlayerIsDead(bool value)
     {
-        Debug.Log($"Dead: {value}. - Now toggling the dead menu.");
+        //Debug.Log($"Dead: {value}. - Now toggling the dead menu.");
         OnToggleDeathPanel?.Invoke(value);
     }
 

@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class MainMenu : MonoBehaviour
     [Space(10)]
     [SerializeField] private int levelIndex;
     public TextMeshProUGUI levelText;
+    public GameObject levelLock;
+    public Image[] levelStarIMGs;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +24,7 @@ public class MainMenu : MonoBehaviour
         MainMenuAnimator = GetComponentInChildren<Animator>();
         htpIndex = 0;
         levelIndex = 1;
-        EditLevelText(GameManager.Mm_Scenes[levelIndex]);
+        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
     }
 
     // Update is called once per frame
@@ -30,14 +33,84 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    private void EditLevelText(string text)
+    private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating)
     {
-        if(levelText.text != text)
+        if(levelText.text != levelName)
         {
-            levelText.text = text;
+            levelText.text = levelName;
+        }
+
+        if(levelLock.activeSelf != levelLocked)
+        {
+            levelLock.SetActive(levelLocked);
+        }
+
+        switch (rating)
+        {
+            case Level.LevelStars.ZERO:
+                for(int i = 0; i < levelStarIMGs.Length; i++)
+                {
+                    if (levelStarIMGs[i].enabled)
+                    {
+                        levelStarIMGs[i].enabled = false;
+                    }
+                }
+                break;
+
+            case Level.LevelStars.Star1:
+                for(int i = 0; i < levelStarIMGs.Length; i++)
+                {
+                    if(i < levelStarIMGs.Length - 2)
+                    {
+                        if (!levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        if (levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = false;
+                        }
+                    }
+                }
+                break;
+
+            case Level.LevelStars.Star2:
+                for(int i = 0; i < levelStarIMGs.Length; i++)
+                {
+                    if(i < levelStarIMGs.Length - 1)
+                    {
+                        if (!levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        if (levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = false;
+                        }
+                    }
+                }
+                break;
+
+            case Level.LevelStars.Star3:
+                for(int i = 0; i < levelStarIMGs.Length; i++)
+                {
+                    if (!levelStarIMGs[i].enabled)
+                    {
+                        levelStarIMGs[i].enabled = true;
+                    }
+                }
+                break;
         }
     }
 
+
+    // ------------------------- BUTTON FUNCTIONS --------------------------//
     public void PlayButton()
     {
         //Debug.Log("Play button.");
@@ -46,12 +119,21 @@ public class MainMenu : MonoBehaviour
         {
             levelIndex = 1;
         }
-        EditLevelText(GameManager.Mm_Scenes[levelIndex]);
+
+        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
     }
 
     public void StartButton()
     {
-        SceneManager.LoadScene(GameManager.Mm_Scenes[levelIndex], LoadSceneMode.Single);
+        // If the chosen level is NOT LOCKED, then load it.
+        if (!LevelInformation.Levels[levelIndex].levelLocked)
+        {
+            SceneManager.LoadScene(LevelInformation.Levels[levelIndex].name, LoadSceneMode.Single);
+        }
+        else
+        {
+            Debug.Log($"The current scene is locked: {LevelInformation.Levels[levelIndex].name}.");
+        }
     }
 
     public void HTPButton()
@@ -146,7 +228,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = SceneManager.sceneCountInBuildSettings - 1;
             }
 
-            EditLevelText(GameManager.Mm_Scenes[levelIndex]);
+            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
         }
     }
 
@@ -190,7 +272,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = 1;
             }
 
-            EditLevelText(GameManager.Mm_Scenes[levelIndex]);
+            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
         }
     }
 

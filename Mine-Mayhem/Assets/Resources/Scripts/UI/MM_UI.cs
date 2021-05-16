@@ -1,13 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MM_UI : MonoBehaviour
 {
+    private static MM_UI MMUI;
+
     public HPBar hp;
     public FailedPanelSet failPanel;
     public PausedPanelSet pausePanel;
     public SuccessPanelSet successPanel;
     public IntroQuip introQuip;
+    public Image[] rewardStarImages;
 
     [SerializeField] private bool hpActive;
     [SerializeField] public bool failPanelActive;
@@ -22,12 +27,25 @@ public class MM_UI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(MMUI != null)
+        {
+            if(MMUI != this)
+            {
+                Destroy(MMUI.gameObject);
+                MMUI = this;
+            }
+        }
+        else
+        {
+            MMUI = this;
+        }
+        DontDestroyOnLoad(MMUI);
         GameManager.OnPause += TogglePauseEvent;
         GameManager.OnToggleHP += ToggleHPEvent;
         GameManager.OnLevelStart += LevelStartEvent;
         CustomPlayerController.OnPlayerTakeDamage += Player_OnTakeDamage;
         GameManager.OnToggleDeathPanel += ToggleFailPanelEvent;
+        GameManager.OnToggleSuccessPanel += ToggleSuccessPanelEvent;
     }
 
     // Update is called once per frame
@@ -43,12 +61,11 @@ public class MM_UI : MonoBehaviour
         GameManager.OnLevelStart -= LevelStartEvent;
         CustomPlayerController.OnPlayerTakeDamage -= Player_OnTakeDamage;
         GameManager.OnToggleDeathPanel -= ToggleFailPanelEvent;
+        GameManager.OnToggleSuccessPanel -= ToggleSuccessPanelEvent;
     }
 
     private void ToggleHPEvent(bool value)
     {
-        Debug.Log("'Toggle HP Event' just triggered.");
-
         if (hpActive != value)
             hpActive = value;
 
@@ -58,8 +75,6 @@ public class MM_UI : MonoBehaviour
 
     public void ToggleFailPanelEvent(bool value)
     {
-        Debug.Log("'Toggle Fail Panel Event' just triggered.");
-
         if (failPanelActive != value)
             failPanelActive = value;
 
@@ -69,13 +84,87 @@ public class MM_UI : MonoBehaviour
 
     private void TogglePauseEvent(bool value)
     {
-        Debug.Log("Currently invoking the 'PauseEvent' function contained in: " + this);
-
         if (pausePanelActive != value)
             pausePanelActive = value;
 
         if (pausePanel.gameObject.activeSelf != pausePanelActive)
             pausePanel.gameObject.SetActive(pausePanelActive);
+    }
+
+    private void ToggleSuccessPanelEvent(bool value)
+    {
+        if (successPanelActive != value)
+            successPanelActive = value;
+
+        if (successPanel.gameObject.activeSelf != successPanelActive)
+            successPanel.gameObject.SetActive(successPanelActive);
+
+        if (successPanelActive)
+        {
+            Debug.Log(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars);
+            switch (LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars)
+            {
+                case Level.LevelStars.ZERO:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (rewardStarImages[i].enabled)
+                        {
+                            rewardStarImages[i].enabled = false;
+                        }
+                    }
+                    break;
+
+                case Level.LevelStars.Star1:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (i < rewardStarImages.Length - 2)
+                        {
+                            if (!rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelStars.Star2:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (i < rewardStarImages.Length - 1)
+                        {
+                            if (!rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelStars.Star3:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (!rewardStarImages[i].enabled)
+                        {
+                            rewardStarImages[i].enabled = true;
+                        }
+                    }
+                    break;
+            }
+        }
     }
 
     private void Player_OnTakeDamage()
@@ -91,19 +180,16 @@ public class MM_UI : MonoBehaviour
     // ------------------- Button Functions ------------------------//
     public void RetryButton()
     {
-        //Debug.Log("Retry Button");
         OnRetry?.Invoke();
     }
 
     public void MainMenuButton()
     {
-        //Debug.Log("MainMenuButton");
         OnMainMenu?.Invoke();
     }
 
     public void SQButton()
     {
-        //Debug.Log("Save / Quit Button");
         OnQuit?.Invoke();
     }
 
@@ -115,5 +201,7 @@ public class MM_UI : MonoBehaviour
     public void NextLevelButton()
     {
         Debug.Log("Next Level Button");
+        ToggleSuccessPanelEvent(false);
+        SceneManager.LoadScene(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex + 1].name);
     }
 }
