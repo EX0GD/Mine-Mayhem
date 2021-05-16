@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
         MainMenuAnimator = GetComponentInChildren<Animator>();
         htpIndex = 0;
         levelIndex = 1;
-        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked);
+        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
     }
 
     // Update is called once per frame
@@ -50,20 +50,61 @@ public class MainMenu : MonoBehaviour
             case Level.LevelStars.ZERO:
                 for(int i = 0; i < levelStarIMGs.Length; i++)
                 {
-                    //if(levelStarIMGs[i].enabled)
+                    if (levelStarIMGs[i].enabled)
+                    {
+                        levelStarIMGs[i].enabled = false;
+                    }
                 }
                 break;
 
             case Level.LevelStars.Star1:
-
+                for(int i = 0; i < levelStarIMGs.Length; i++)
+                {
+                    if(i < levelStarIMGs.Length - 2)
+                    {
+                        if (!levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        if (levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = false;
+                        }
+                    }
+                }
                 break;
 
             case Level.LevelStars.Star2:
-
+                for(int i = 0; i < levelStarIMGs.Length; i++)
+                {
+                    if(i < levelStarIMGs.Length - 1)
+                    {
+                        if (!levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        if (levelStarIMGs[i].enabled)
+                        {
+                            levelStarIMGs[i].enabled = false;
+                        }
+                    }
+                }
                 break;
 
             case Level.LevelStars.Star3:
-
+                for(int i = 0; i < levelStarIMGs.Length; i++)
+                {
+                    if (!levelStarIMGs[i].enabled)
+                    {
+                        levelStarIMGs[i].enabled = true;
+                    }
+                }
                 break;
         }
     }
@@ -79,7 +120,7 @@ public class MainMenu : MonoBehaviour
             levelIndex = 1;
         }
 
-        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked);
+        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
     }
 
     public void StartButton()
@@ -179,7 +220,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = SceneManager.sceneCountInBuildSettings - 1;
             }
 
-            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked);
+            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
         }
     }
 
@@ -223,7 +264,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = 1;
             }
 
-            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked);
+            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
         }
     }
 

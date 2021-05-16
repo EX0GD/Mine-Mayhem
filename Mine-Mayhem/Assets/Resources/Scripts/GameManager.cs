@@ -43,6 +43,7 @@ public static class GameManager
     // Star 3 is for completing level with health at / above %60.
     public static bool Star3 { get; private set; }
     public static bool[] StarConditions { get; private set; }
+    public static int StarsAcquired { get; private set; }
 
     public static List<Collectible> GemsInCurrentLevel;
 
@@ -59,19 +60,6 @@ public static class GameManager
 
     static GameManager()
     {
-        //Debug.Log(SceneManager.GetSceneByBuildIndex(0).name);
-        Debug.Log(LevelInformation.Levels.Length);
-
-        Mm_Scenes = new string[SceneManager.sceneCountInBuildSettings];
-        Mm_Scenes[0] = mm_MainMenuScene;
-        Mm_Scenes[1] = mm_Scene1;
-        Mm_Scenes[2] = mm_Scene2;
-        Mm_Scenes[3] = mm_Scene3;
-        Mm_Scenes[4] = mm_Scene4;
-        Mm_Scenes[5] = mm_Scene5;
-        Mm_Scenes[6] = mm_Scene6;
-        Mm_Scenes[7] = mm_Scene7;
-
         StarConditions = new bool[]
         {
             Star1 = false,
@@ -91,14 +79,16 @@ public static class GameManager
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        Debug.Log(LevelInformation.Levels[1].stars);
         // When a scene loads, store the levels build index in 'LevelIndex'.
         if (LevelIndex != arg0.buildIndex)
         {
             LevelIndex = arg0.buildIndex;
+            StarsAcquired = 0;
         }
 
         // When a scene loads and the scene is not the Main Menu, handle certain elements.
-        if (arg0.name != Mm_Scenes[0])
+        if (arg0.name != LevelInformation.Levels[0].name)
         {
             if (!hpOn)
             {
@@ -178,7 +168,7 @@ public static class GameManager
         Player_OnPlayerIsDead(false);
         OnToggleSuccessPanel?.Invoke(false);
 
-        SceneManager.LoadScene(Mm_Scenes[0]);
+        SceneManager.LoadScene(LevelInformation.Levels[0].name);
     }
 
     private static void UI_OnQuit()
@@ -236,7 +226,17 @@ public static class GameManager
 
             for(int i = 0; i < StarConditions.Length; i++)
             {
-                Debug.Log(StarConditions[i]);
+                if (StarConditions[i])
+                {
+                    StarsAcquired++;
+                }
+            }
+
+            // Assign the awarded stars to the level and unlock the next level.
+            LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
+            if(LevelInformation.Levels[LevelIndex + 1].levelLocked)
+            {
+                LevelInformation.Levels[LevelIndex + 1].levelLocked = false;
             }
         }
     }
