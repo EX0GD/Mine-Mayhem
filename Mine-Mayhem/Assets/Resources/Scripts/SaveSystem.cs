@@ -10,12 +10,7 @@ public static class SaveSystem
     [Serializable]
     public class GameData
     {
-        private Level[] GameLevels;
-
-        public GameData()
-        {
-            GameLevels = LevelInformation.Levels;
-        }
+        public Level[] GameLevels;
     }
     public static GameData data;
 
@@ -27,11 +22,32 @@ public static class SaveSystem
         string path = Application.persistentDataPath + "/MM_GameData";
         FileStream stream = new FileStream(path, FileMode.Create);
 
+        data.GameLevels = LevelInformation.Levels;
+
         formatter.Serialize(stream, data);
+        stream.Close();
     }
 
-    public static void LoadGame()
+    public static GameData LoadGame()
     {
         Debug.Log("Loading the game.");
+
+        string path = Application.persistentDataPath + "/MM_GameData";
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            data = (GameData)formatter.Deserialize(stream);
+            Debug.Log($"Data = {data.GameLevels[0]}.");
+            stream.Close();
+            return data;
+        }
+        else
+        {
+            Debug.Log("No save file found.");
+            return null;
+        }
     }
 }

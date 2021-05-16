@@ -22,16 +22,6 @@ public static class GameManager
         }
     }
 
-    private const string mm_MainMenuScene = "MainMenu";
-    private const string mm_Scene1 = "MM_Level1";
-    private const string mm_Scene2 = "MM_Level2";
-    private const string mm_Scene3 = "MM_Level3";
-    private const string mm_Scene4 = "MM_Level4";
-    private const string mm_Scene5 = "MM_Level5";
-    private const string mm_Scene6 = "MM_Level6";
-    private const string mm_Scene7 = "MM_Level7";
-
-    public static string[] Mm_Scenes { get; private set; }
     public static int LevelIndex { get; private set; }
 
     // Star 1 is for Level Complete (Gold Collection)
@@ -132,7 +122,7 @@ public static class GameManager
             {
                 hpOn = !hpOn;
             }
-            //Debug.Log("HP bar is now turned off.");
+
         }
 
         OnToggleHP?.Invoke(hpOn);
@@ -156,6 +146,7 @@ public static class GameManager
 
         TogglePause(false);
         Player_OnPlayerIsDead(false);
+        OnToggleSuccessPanel?.Invoke(false);
 
         SceneManager.LoadScene(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].name);
     }
