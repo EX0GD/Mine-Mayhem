@@ -287,6 +287,8 @@ MonoBehaviour:
   onWall: 0
   bombCoolDownTimer: 0
   bombCoolDownTime: 1
+  isDead: 0
+  hitSpikeWall: 0
   worldLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -306,7 +308,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3b7e64d7222dde448a7617c10d92c1a4, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

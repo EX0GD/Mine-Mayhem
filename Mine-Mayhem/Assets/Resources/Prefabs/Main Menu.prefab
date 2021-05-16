@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3467119458316805492
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7113,6 +7113,7 @@ MonoBehaviour:
   - {fileID: 3735073945660679232}
   - {fileID: 3735073945970902970}
   - {fileID: 3735073945532823162}
+  - {fileID: 610155395278084439}
   levelIndex: 0
   levelText: {fileID: 3735073944736684125}
   levelLock: {fileID: 3735073944315911420}
@@ -7968,7 +7969,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Earned by completing the level with your health above 50%.
+  m_text: Earned by completing the level with your health above 60%.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 177d10a740d40da4f9d012afeb0baa2e, type: 2}
   m_sharedMaterial: {fileID: 2444905834427994343, guid: 177d10a740d40da4f9d012afeb0baa2e,
