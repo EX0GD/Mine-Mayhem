@@ -124,7 +124,10 @@ public class CustomPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputX = Input.GetAxisRaw("Horizontal");
+        if (canMove)
+        {
+            inputX = Input.GetAxisRaw("Horizontal");
+        }
         psm[currentState].Invoke();
         PlayAnimation();
         HandleBombJumpCoolDownTimer();
@@ -186,12 +189,12 @@ public class CustomPlayerController : MonoBehaviour
 
     public void DisablePlayer(bool value)
     {
-        canMove = !value;
-        canJump = !value;
-        if(RB.velocity != Vector2.zero)
-        {
-            RB.velocity = Vector2.zero;
-        }
+        if (canMove != value)
+            canMove = value;
+
+        if (canJump != value)
+            canJump = value;
+        
     }
 
     private void HandleBombJumpCoolDownTimer()

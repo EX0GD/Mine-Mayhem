@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 
@@ -12,7 +9,6 @@ public static class LevelInformation
 
     static LevelInformation()
     {
-        //Levels = new string[SceneManager.sceneCountInBuildSettings];
         Levels = new Level[SceneManager.sceneCountInBuildSettings];
 
         for (int i = 0; i < Levels.Length; i++)

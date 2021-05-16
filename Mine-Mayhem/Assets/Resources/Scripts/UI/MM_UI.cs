@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MM_UI : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class MM_UI : MonoBehaviour
     public PausedPanelSet pausePanel;
     public SuccessPanelSet successPanel;
     public IntroQuip introQuip;
-    public Image[] starIMGs;
+    public Image[] rewardStarImages;
 
     [SerializeField] private bool hpActive;
     [SerializeField] public bool failPanelActive;
@@ -31,13 +32,11 @@ public class MM_UI : MonoBehaviour
             if(MMUI != this)
             {
                 Destroy(MMUI.gameObject);
-                //Debug.Log("Destroying old MMUI and setting the new one.");
                 MMUI = this;
             }
         }
         else
         {
-            //Debug.Log("MMUI was initially null, so we are setting it now.");
             MMUI = this;
         }
         DontDestroyOnLoad(MMUI);
@@ -67,8 +66,6 @@ public class MM_UI : MonoBehaviour
 
     private void ToggleHPEvent(bool value)
     {
-        //Debug.Log("'Toggle HP Event' just triggered.");
-
         if (hpActive != value)
             hpActive = value;
 
@@ -78,8 +75,6 @@ public class MM_UI : MonoBehaviour
 
     public void ToggleFailPanelEvent(bool value)
     {
-        //Debug.Log("'Toggle Fail Panel Event' just triggered.");
-
         if (failPanelActive != value)
             failPanelActive = value;
 
@@ -89,8 +84,6 @@ public class MM_UI : MonoBehaviour
 
     private void TogglePauseEvent(bool value)
     {
-        //Debug.Log("Currently invoking the 'PauseEvent' function contained in: " + this);
-
         if (pausePanelActive != value)
             pausePanelActive = value;
 
@@ -105,6 +98,73 @@ public class MM_UI : MonoBehaviour
 
         if (successPanel.gameObject.activeSelf != successPanelActive)
             successPanel.gameObject.SetActive(successPanelActive);
+
+        if (successPanelActive)
+        {
+            Debug.Log(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars);
+            switch (LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars)
+            {
+                case Level.LevelStars.ZERO:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (rewardStarImages[i].enabled)
+                        {
+                            rewardStarImages[i].enabled = false;
+                        }
+                    }
+                    break;
+
+                case Level.LevelStars.Star1:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (i < rewardStarImages.Length - 2)
+                        {
+                            if (!rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelStars.Star2:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (i < rewardStarImages.Length - 1)
+                        {
+                            if (!rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (rewardStarImages[i].enabled)
+                            {
+                                rewardStarImages[i].enabled = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelStars.Star3:
+                    for (int i = 0; i < rewardStarImages.Length; i++)
+                    {
+                        if (!rewardStarImages[i].enabled)
+                        {
+                            rewardStarImages[i].enabled = true;
+                        }
+                    }
+                    break;
+            }
+        }
     }
 
     private void Player_OnTakeDamage()
@@ -120,19 +180,16 @@ public class MM_UI : MonoBehaviour
     // ------------------- Button Functions ------------------------//
     public void RetryButton()
     {
-        //Debug.Log("Retry Button");
         OnRetry?.Invoke();
     }
 
     public void MainMenuButton()
     {
-        //Debug.Log("MainMenuButton");
         OnMainMenu?.Invoke();
     }
 
     public void SQButton()
     {
-        //Debug.Log("Save / Quit Button");
         OnQuit?.Invoke();
     }
 
@@ -144,5 +201,7 @@ public class MM_UI : MonoBehaviour
     public void NextLevelButton()
     {
         Debug.Log("Next Level Button");
+        ToggleSuccessPanelEvent(false);
+        SceneManager.LoadScene(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex + 1].name);
     }
 }

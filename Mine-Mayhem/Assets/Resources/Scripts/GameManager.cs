@@ -157,7 +157,7 @@ public static class GameManager
         TogglePause(false);
         Player_OnPlayerIsDead(false);
 
-        SceneManager.LoadScene(Mm_Scenes[SceneManager.GetActiveScene().buildIndex]);
+        SceneManager.LoadScene(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].name);
     }
 
     private static void UI_OnMainMenu()
@@ -211,7 +211,6 @@ public static class GameManager
         if (StarConditions[0])
         {
             Player.SetState(CustomPlayerController.PlayerStates.SUCCESS);
-            OnToggleSuccessPanel?.Invoke(true);
 
             // When the level is complete but the level did not contain any GEMS, the star condition is automatically fulfilled.
             if(GemsInCurrentLevel.Count == 0 && !StarConditions[1])
@@ -238,6 +237,8 @@ public static class GameManager
             {
                 LevelInformation.Levels[LevelIndex + 1].levelLocked = false;
             }
+
+            OnToggleSuccessPanel?.Invoke(true);
         }
     }
 

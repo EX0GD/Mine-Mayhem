@@ -125,7 +125,15 @@ public class MainMenu : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene(LevelInformation.Levels[levelIndex].name, LoadSceneMode.Single);
+        // If the chosen level is NOT LOCKED, then load it.
+        if (!LevelInformation.Levels[levelIndex].levelLocked)
+        {
+            SceneManager.LoadScene(LevelInformation.Levels[levelIndex].name, LoadSceneMode.Single);
+        }
+        else
+        {
+            Debug.Log($"The current scene is locked: {LevelInformation.Levels[levelIndex].name}.");
+        }
     }
 
     public void HTPButton()
