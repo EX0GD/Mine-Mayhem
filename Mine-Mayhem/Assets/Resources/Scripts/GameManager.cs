@@ -233,6 +233,8 @@ public static class GameManager
                 LevelInformation.Levels[LevelIndex + 1].levelLocked = false;
             }
 
+            SaveSystem.SaveGame();
+
             OnToggleSuccessPanel?.Invoke(true);
         }
     }

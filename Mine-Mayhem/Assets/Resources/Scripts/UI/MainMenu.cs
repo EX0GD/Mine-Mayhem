@@ -27,9 +27,16 @@ public class MainMenu : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        /*if (Input.GetKeyDown(KeyCode.U))
+        {
+            SaveSystem.SaveGame();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            SaveSystem.LoadGame();
+        }*/
     }
 
     private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating)
