@@ -253,25 +253,50 @@ public class CustomPlayerController : MonoBehaviour
         if (canMove)
         {
             Vector2 movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
-            if (RB.velocity != movement)
+            if (currentState != PlayerStates.IN_AIR)
             {
-                RB.velocity = movement;
-            }
-
-            // Flip the sprite depending on velocity
-            if (inputX > 0)
-            {
-                if (PlayerSpriteRenderer.flipX != true)
+                if (RB.velocity != movement)
                 {
-                    PlayerSpriteRenderer.flipX = !PlayerSpriteRenderer.flipX;
+                    RB.velocity = movement;
                 }
             }
             else
             {
-                if (PlayerSpriteRenderer.flipX != false)
+                //RB.AddForce(new Vector2(movement.x, 0) * Time.deltaTime, ForceMode2D.Impulse);
+                //RB.velocity = RB.AddForce(new Vector2(Mathf.Clamp(movement.x, 0, runSpeed), RB.velocity.y), ForceMode2D.Impulse);
+                if(inputX != 0)
                 {
-                    PlayerSpriteRenderer.flipX = !PlayerSpriteRenderer.flipX;
+                    if (RB.velocity != movement)
+                    {
+                        RB.velocity = movement;
+                    }
                 }
+                else
+                {
+                    float damp = RB.velocity.x;
+
+                    if (RB.velocity.x > 0.5f)
+                    {
+                        damp -= Time.deltaTime * 2;
+                    }
+                    else if(RB.velocity.x < -0.5f)
+                    {
+                        damp += Time.deltaTime * 2;
+                    }
+                    Vector2 v2 = new Vector2(damp, RB.velocity.y);
+                    RB.velocity = v2;
+                }
+            }
+
+            // Flip the sprite depending on velocity
+
+            //PlayerSpriteRenderer.flipX = inputX > 0;
+
+            PlayerSpriteRenderer.flipX = RB.velocity.x > 0;
+
+            if(RB.velocity.x > 0)
+            {
+
             }
         }
     }
