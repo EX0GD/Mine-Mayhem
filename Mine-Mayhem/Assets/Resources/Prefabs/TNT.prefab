@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 3116260962978000128}
   - component: {fileID: 3116260962978000156}
   - component: {fileID: 2110531516}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,3 +288,6 @@ MonoBehaviour:
   explosionRadius: 2
   explosionForce: 5
   damage: 5
+  timer: 0
+  timeLimit: 0.5
+  startTimer: 0
