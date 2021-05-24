@@ -68,7 +68,6 @@ public static class GameManager
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        Debug.Log(LevelInformation.Levels[1].stars);
         // When a scene loads, store the levels build index in 'LevelIndex'.
         if (LevelIndex != arg0.buildIndex)
         {

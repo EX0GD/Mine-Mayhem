@@ -9,9 +9,13 @@ public class TNT : MonoBehaviour
     public Animator animator;
     public float explosionRadius;
     public float explosionForce;
+    public float damage;
+    public float timer;
+    public float timeLimit;
+    public bool startTimer;
+
 
     private SpriteRenderer tntSpriteRenderer;
-    private CircleCollider2D explosionCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -19,12 +23,12 @@ public class TNT : MonoBehaviour
         detonate = false;
         hasExploded = false;
         tntSpriteRenderer = GetComponent<SpriteRenderer>();
-        explosionCollider = GetComponentInChildren<CircleCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        HandleTimer();
         HandleDetonate();
     }
 
@@ -77,7 +81,45 @@ public class TNT : MonoBehaviour
             CustomPlayerController player = collision.GetComponent<CustomPlayerController>();
             if(player.RB != null)
             {
-                //player.RB.AddForce(new Vector2(player.transform.position - transform.position).normalized)
+                Vector2 dir = new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y).normalized;
+
+                player.RB.AddForce(dir * explosionForce, ForceMode2D.Impulse);
+                player.DamagePlayer(damage);
+            }
+        }
+
+        if(collision.GetComponent<TNT>() != null)
+        {
+            TNT tnt = collision.GetComponent<TNT>();
+            Debug.Log(tnt);
+
+            if(tnt != null && !tnt.hasExploded)
+            {
+                //tnt.Detonate(true);
+                tnt.StartTimer();
+            }
+
+            
+        }
+    }
+
+    public void StartTimer()
+    {
+        if (!startTimer)
+        {
+            startTimer = true;
+        }
+    }
+
+    private void HandleTimer()
+    {
+        if (startTimer)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= timeLimit)
+            {
+                Detonate(true);
             }
         }
     }
