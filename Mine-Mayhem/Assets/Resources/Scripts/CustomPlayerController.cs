@@ -443,8 +443,8 @@ public class CustomPlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             // Small directional raycasts to detect which side wall
-            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 1.0f, worldLayer);
-            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 1.0f, worldLayer);
+            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 0.5f, worldLayer);
+            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, worldLayer);
             if(hitLeft.collider != null)
             {
                 if (!PlayerSpriteRenderer.flipX)
