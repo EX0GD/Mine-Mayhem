@@ -51,7 +51,7 @@ public class CustomPlayerController : MonoBehaviour
     public bool canJump = true;
     public int explosiveForce;
     public int explosiveDamage;
-    public bool onWall = false;
+   
     public float bombCoolDownTimer;
     public float bombCoolDownTime;
     public bool isDead = false;
@@ -62,6 +62,9 @@ public class CustomPlayerController : MonoBehaviour
     public static event Action OnPlayerTakeDamage;
     public static event Action<bool> OnPlayerIsDead;
 
+
+    //Wall Detection Child
+    WallDetect wDetector;
     // Start is called before the first frame update
     void Awake()
     {
@@ -100,6 +103,7 @@ public class CustomPlayerController : MonoBehaviour
         PlayerAnimator = GetComponent<Animator>();
         ExplosionAnimator = transform.GetChild(0).GetComponent<Animator>();
         ExplosionCollider = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
+        wDetector = transform.GetChild(1).GetComponent<WallDetect>();
 
         if (!MainCollider.enabled)
         {
@@ -160,25 +164,7 @@ public class CustomPlayerController : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("World"))
-        {
-            if (!onWall)
-                onWall = !onWall;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("World"))
-        {
-            if (onWall)
-                onWall = !onWall;
-        }
-    }
-
+    
     public void SetState(PlayerStates state)
     {
         if(currentState != state)
@@ -429,7 +415,7 @@ public class CustomPlayerController : MonoBehaviour
         }
         else
         {
-            if(Input.GetKey(KeyCode.LeftShift) && onWall)
+            if(Input.GetKey(KeyCode.LeftShift) && wDetector.wallDetected)
             {
                 SetState(PlayerStates.WALL_GRAB);
             }
@@ -440,19 +426,17 @@ public class CustomPlayerController : MonoBehaviour
     {
         //Debug.Log("This is the 'HandleWallGrab' function.");
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && wDetector.wallDetected)
         {
-            // Small directional raycasts to detect which side wall
-            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 1.0f, worldLayer);
-            RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 1.0f, worldLayer);
-            if(hitLeft.collider != null)
+            
+            if(wDetector.onLeft)
             {
                 if (!PlayerSpriteRenderer.flipX)
                 {
                     PlayerSpriteRenderer.flipX = !PlayerSpriteRenderer.flipX;
                 }
             }
-            else if(hitRight.collider != null)
+            else if(!wDetector.onLeft)
             {
                 if (PlayerSpriteRenderer.flipX)
                 {
