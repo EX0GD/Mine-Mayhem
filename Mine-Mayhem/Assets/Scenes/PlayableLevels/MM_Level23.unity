@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -12109,46 +12109,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 445493009848054993, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: grounded
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 445493009848054993, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: maxPlayerHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 964777897998480931, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.8355372
-      objectReference: {fileID: 0}
-    - target: {fileID: 964777897998480931, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 964777897998480931, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.094401
-      objectReference: {fileID: 0}
-    - target: {fileID: 1011547251782458449, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.07057834
-      objectReference: {fileID: 0}
-    - target: {fileID: 1011547251782458449, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.6791043
-      objectReference: {fileID: 0}
-    - target: {fileID: 2227743004489404773, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 2227743004489404773, guid: 721363655e5c9c84d8e7353a4d171a13,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12166,11 +12126,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2227743004489404773, guid: 721363655e5c9c84d8e7353a4d171a13,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2227743004489404773, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -12183,6 +12138,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227743004489404773, guid: 721363655e5c9c84d8e7353a4d171a13,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227743004489404773, guid: 721363655e5c9c84d8e7353a4d171a13,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2227743004489404773, guid: 721363655e5c9c84d8e7353a4d171a13,
         type: 3}
@@ -12203,16 +12168,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MinerChar
-      objectReference: {fileID: 0}
-    - target: {fileID: 4680442841192543556, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278999797366326145, guid: 721363655e5c9c84d8e7353a4d171a13,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721363655e5c9c84d8e7353a4d171a13, type: 3}
@@ -12578,28 +12533,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upForce: 5
---- !u!1 &1124505181 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 533135462556788734, guid: 721363655e5c9c84d8e7353a4d171a13,
-    type: 3}
-  m_PrefabInstance: {fileID: 829686468}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &1124505183
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124505181}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.08700778, y: -0.092796385}
-  m_Size: {x: 1.8173339, y: 0.75250816}
-  m_Direction: 1
 --- !u!1 &1146777627
 GameObject:
   m_ObjectHideFlags: 0
