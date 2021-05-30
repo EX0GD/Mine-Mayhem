@@ -163,10 +163,6 @@ public static class GameManager
     private static void UI_OnQuit()
     {
         Debug.Log("This is the 'UI_OnQuit' method contained in the GameManager class.");
-        /*if (EditorApplication.isPlaying)
-        {
-            EditorApplication.isPlaying = false;
-        }*/
 
         if (Application.isPlaying)
         {
