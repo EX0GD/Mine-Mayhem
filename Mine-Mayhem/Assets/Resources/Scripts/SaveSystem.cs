@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -10,7 +6,7 @@ public static class SaveSystem
 {
     public static void SaveGame()
     {
-        Debug.Log("Saving the game.");
+        //Debug.Log("Saving the game.");
 
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/MM_GameData";
@@ -26,7 +22,7 @@ public static class SaveSystem
 
     public static GameData LoadGame()
     {
-        Debug.Log("Loading the game...");
+        //Debug.Log("Loading the game...");
         string path = Application.persistentDataPath + "/MM_GameData";
 
         if (File.Exists(path))
@@ -34,10 +30,7 @@ public static class SaveSystem
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            //LevelInformation.Levels = (Level[])formatter.Deserialize(stream);
             GameData data = formatter.Deserialize(stream) as GameData;
-            //LevelInformation.Levels = data.levels;
-            //Debug.Log(LevelInformation.Levels[0].name);
             stream.Close();
             return data;
         }

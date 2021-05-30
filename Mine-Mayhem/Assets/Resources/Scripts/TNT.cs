@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TNT : MonoBehaviour
 {
@@ -91,7 +89,6 @@ public class TNT : MonoBehaviour
         if(collision.GetComponent<TNT>() != null)
         {
             TNT tnt = collision.GetComponent<TNT>();
-            Debug.Log(tnt);
 
             if(tnt != null && !tnt.hasExploded)
             {

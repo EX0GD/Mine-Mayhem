@@ -114,15 +114,9 @@ public class CustomPlayerController : MonoBehaviour
         if(curPlayerHealth != maxPlayerHealth)
         {
             curPlayerHealth = maxPlayerHealth;
-            Debug.Log("Player health is now at max");
         }
 
         bombCoolDownTimer = bombCoolDownTime;
-    }
-
-    private void OnDisable()
-    {
-        
     }
 
     // Update is called once per frame
@@ -248,8 +242,6 @@ public class CustomPlayerController : MonoBehaviour
             }
             else
             {
-                //RB.AddForce(new Vector2(movement.x, 0) * Time.deltaTime, ForceMode2D.Impulse);
-                //RB.velocity = RB.AddForce(new Vector2(Mathf.Clamp(movement.x, 0, runSpeed), RB.velocity.y), ForceMode2D.Impulse);
                 if(inputX != 0)
                 {
                     if (RB.velocity != movement)
@@ -275,15 +267,7 @@ public class CustomPlayerController : MonoBehaviour
             }
 
             // Flip the sprite depending on velocity
-
-            //PlayerSpriteRenderer.flipX = inputX > 0;
-
             PlayerSpriteRenderer.flipX = RB.velocity.x > 0;
-
-            if(RB.velocity.x > 0)
-            {
-
-            }
         }
     }
 
@@ -466,7 +450,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private void HandleDead()
     {
-        Debug.Log("This is the 'HandleDead' function.");
+        //Debug.Log("This is the 'HandleDead' function.");
         StartCoroutine(PlayerDeath());
     }
 

@@ -45,6 +45,7 @@ public static class GameManager
     public static event Action OnLevelStart;
     public static event Action<bool> OnToggleDeathPanel;
     public static event Action<bool> OnToggleSuccessPanel;
+    public static event Action<bool> OnToggleGameFinishedPanel;
     
 
     static GameManager()
@@ -72,18 +73,18 @@ public static class GameManager
         if (LevelIndex != arg0.buildIndex)
         {
             LevelIndex = arg0.buildIndex;
-            StarsAcquired = 0;
         }
 
         // When a scene loads and the scene is not the Main Menu, handle certain elements.
         if (arg0.name != LevelInformation.Levels[0].name)
         {
+            StarsAcquired = 0;
+
             if (!hpOn)
             {
                 hpOn = !hpOn;
             }
 
-            Debug.Log("HP bar is now turned on.");
             OnLevelStart?.Invoke();
 
             #region WHEN SCENE STARTS, CLEAR LIST OF COLLECTIBLES AND FIND ALL NEW ONES IN CURRENT SCENE LOADED
@@ -140,11 +141,12 @@ public static class GameManager
 
     private static void UI_OnRetry()
     {
-        Debug.Log("This is 'UI_OnRetry' contained in GameManager class.");
+        //Debug.Log("This is 'UI_OnRetry' contained in GameManager class.");
 
         TogglePause(false);
         Player_OnPlayerIsDead(false);
         OnToggleSuccessPanel?.Invoke(false);
+        OnToggleGameFinishedPanel(false);
 
         SceneManager.LoadScene(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].name);
     }
@@ -156,6 +158,7 @@ public static class GameManager
         TogglePause(false);
         Player_OnPlayerIsDead(false);
         OnToggleSuccessPanel?.Invoke(false);
+        OnToggleGameFinishedPanel(false);
 
         SceneManager.LoadScene(LevelInformation.Levels[0].name);
     }
@@ -176,7 +179,6 @@ public static class GameManager
         switch (pickupType)
         {
             case Collectible.CollectibleType.GOLD:
-                Debug.Log($"Just found the gold!!");
                 if (!StarConditions[0])
                 {
                     StarConditions[0] = true;
@@ -184,7 +186,6 @@ public static class GameManager
                 break;
 
             case Collectible.CollectibleType.GEM:
-                Debug.Log($"Just picked up a GEM!.");
                 if (GemsInCurrentLevel.Contains(collectible))
                 {
                     GemsInCurrentLevel.Remove(collectible);
@@ -223,14 +224,24 @@ public static class GameManager
 
             // Assign the awarded stars to the level and unlock the next level.
             LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
-            if(LevelInformation.Levels[LevelIndex + 1].levelLocked)
+            if (LevelIndex != LevelInformation.Levels.Length - 1)
             {
-                LevelInformation.Levels[LevelIndex + 1].levelLocked = false;
+                //Debug.Log($"Level Index : {LevelIndex}. Levels Length: {LevelInformation.Levels.Length}.");
+                if (LevelInformation.Levels[LevelIndex + 1].levelLocked)
+                {
+                    LevelInformation.Levels[LevelIndex + 1].levelLocked = false;
+                }
+
+                OnToggleSuccessPanel?.Invoke(true);
+            }
+            else
+            {
+                OnToggleGameFinishedPanel?.Invoke(true);
             }
 
             SaveSystem.SaveGame();
 
-            OnToggleSuccessPanel?.Invoke(true);
+            
         }
     }
 
