@@ -26,6 +26,14 @@ public class MainMenu : MonoBehaviour
         EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            //Debug.Log(SoundManager.Win1);
+        }
+    }
+
     private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating)
     {
         if(levelText.text != levelName)
