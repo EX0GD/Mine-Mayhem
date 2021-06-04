@@ -36,6 +36,8 @@ public static class GameManager
 
     public static List<Collectible> GemsInCurrentLevel;
 
+    public static AudioSource SoundSource;
+
 
     private static bool isPaused = false;
     private static bool hpOn = false;
@@ -73,6 +75,33 @@ public static class GameManager
         if (LevelIndex != arg0.buildIndex)
         {
             LevelIndex = arg0.buildIndex;
+        }
+
+        AudioSource source = UnityEngine.Object.FindObjectOfType<AudioSource>().GetComponent<AudioSource>();
+        if(SoundSource != null)
+        {
+            if(source != null)
+            {
+                if(SoundSource != source)
+                {
+                    SoundSource = source;
+                }
+            }
+            else
+            {
+                Debug.Log($"{source} = null.");
+            }
+        }
+        else
+        {
+            if(source != null)
+            {
+                SoundSource = source;
+            }
+            else
+            {
+                Debug.Log("There is no sound source...");
+            }
         }
 
         // When a scene loads and the scene is not the Main Menu, handle certain elements.
@@ -190,6 +219,8 @@ public static class GameManager
                 {
                     GemsInCurrentLevel.Remove(collectible);
                 }
+
+                //SoundManager.PlaySound(SoundManager.GemPickup);
 
                 if(GemsInCurrentLevel.Count == 0)
                 {

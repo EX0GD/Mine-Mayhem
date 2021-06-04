@@ -23,18 +23,23 @@ public static class SoundManager
 
     static SoundManager()
     {
-        Win1 = GetClip("SFX/Victory/Positive 5");
+        /*Win1 = GetClip("SFX/Victory/Positive 5");
         Win2 = GetClip("SFX/Victory/Positive 4");
         Win3 = GetClip("SFX/Victory/Positive 3");
+        BoomJump = GetClip("SFX/Booms/Jump/RoundHitFire");
+        ButtonClick = GetClip("SFX/UI/Prize Wheel Spin 2 Tick");
+        GemPickup = GetClip("SFX/Pickup/Coins (24)");
+        */
     }
 
     public static void PlaySound(AudioClip clip)
     {
         Debug.Log($"Clip being played: {clip}.");
+        GameManager.SoundSource.PlayOneShot(clip);
     }
 
-    private static AudioClip GetClip(string path)
+    /*private static AudioClip GetClip(string path)
     {
         return Resources.Load<AudioClip>(path);
-    }
+    }*/
 }
