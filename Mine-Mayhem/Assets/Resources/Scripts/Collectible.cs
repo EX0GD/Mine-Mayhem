@@ -12,12 +12,19 @@ public class Collectible : MonoBehaviour
     [SerializeField] private CollectibleType PickUpType = CollectibleType.NONE;
     public CollectibleType Type { get { return PickUpType; } }
 
+    public AudioClip gemPickup;
+
     public static event Action<Collectible, CollectibleType> OnPickUpCollectible;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<CustomPlayerController>() != null)
         {
+            //SoundManager.PlaySound(gemPickup);
+            if(Type == CollectibleType.GEM)
+            {
+                SoundManager.PlaySound(gemPickup);
+            }
             OnPickUpCollectible?.Invoke(this, PickUpType);
             Destroy(gameObject);
         }

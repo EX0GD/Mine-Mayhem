@@ -12,10 +12,23 @@ public class MainMenu : MonoBehaviour
     public GameObject[] htpMenus;
 
     [Space(10)]
+    [SerializeField] private int creditsIndex;
+
+    public GameObject[] creditsMenus;
+
+    [Space(10)]
     [SerializeField] private int levelIndex;
     public TextMeshProUGUI levelText;
     public GameObject levelLock;
     public Image[] levelStarIMGs;
+
+    [Space(10)]
+    [SerializeField] private int musicVolume;
+    [SerializeField] private int maxMusicVolume;
+    [SerializeField] private int sfxVolume;
+    [SerializeField] private int maxSFXVolume;
+    public TextMeshProUGUI mvText;
+    public TextMeshProUGUI sfxText;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +37,11 @@ public class MainMenu : MonoBehaviour
         htpIndex = 0;
         levelIndex = 1;
         EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
+
+        musicVolume = maxMusicVolume;
+        sfxVolume = maxSFXVolume;
+        EditMVText();
+        EditSFXText();
     }
 
     private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating)
@@ -102,6 +120,26 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    private void EditMVText()
+    {
+        string newText = $"Music: {musicVolume}";
+
+        if(mvText.text != newText)
+        {
+            mvText.text = newText;
+        }
+    }
+
+    private void EditSFXText()
+    {
+        string newText = $"SFX: {sfxVolume}";
+
+        if(sfxText.text != newText)
+        {
+            sfxText.text = newText;
+        }
+    }
+
 
     // ------------------------- BUTTON FUNCTIONS --------------------------//
     public void PlayButton()
@@ -161,6 +199,28 @@ public class MainMenu : MonoBehaviour
     {
         //Debug.Log("Credits Button");
         MainMenuAnimator.SetTrigger("ToCredits");
+
+        if(creditsIndex != 0)
+        {
+            creditsIndex = 0;
+        }
+        for(int i = 0; i < creditsMenus.Length; i++)
+        {
+            if(i == creditsIndex)
+            {
+                if (!creditsMenus[i].activeSelf)
+                {
+                    creditsMenus[i].SetActive(true);
+                }
+            }
+            else
+            {
+                if (creditsMenus[i].activeSelf)
+                {
+                    creditsMenus[i].SetActive(false);
+                }
+            }
+        }
     }
 
     public void BackToMain()
@@ -178,6 +238,10 @@ public class MainMenu : MonoBehaviour
         else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Credits"))
         {
             MainMenuAnimator.SetTrigger("LeaveCredits");
+        }
+        else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Settings"))
+        {
+            MainMenuAnimator.SetTrigger("LeaveSettings");
         }
     }
 
@@ -223,6 +287,37 @@ public class MainMenu : MonoBehaviour
 
             EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
         }
+        else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Credits"))
+        {
+            creditsIndex--;
+
+            if(creditsIndex < 0)
+            {
+                creditsIndex = creditsMenus.Length - 1;
+            }
+
+            for(int i = 0; i < creditsMenus.Length; i++)
+            {
+                if(i == creditsIndex)
+                {
+                    if (!creditsMenus[i].activeSelf)
+                    {
+                        creditsMenus[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    if (creditsMenus[i].activeSelf)
+                    {
+                        creditsMenus[i].SetActive(false);
+                    }
+                }
+            }
+        }
+        else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Settings"))
+        {
+            // Might still use this section....
+        }
     }
 
     public void RightArrowButton()
@@ -267,6 +362,33 @@ public class MainMenu : MonoBehaviour
 
             EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
         }
+        else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Credits"))
+        {
+            creditsIndex++;
+
+            if (creditsIndex > creditsMenus.Length - 1)
+            {
+                creditsIndex = 0;
+            }
+
+            for (int i = 0; i < creditsMenus.Length; i++)
+            {
+                if (i == creditsIndex)
+                {
+                    if (!creditsMenus[i].activeSelf)
+                    {
+                        creditsMenus[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    if (creditsMenus[i].activeSelf)
+                    {
+                        creditsMenus[i].SetActive(false);
+                    }
+                }
+            }
+        }
     }
 
     public void QuitApplication()
@@ -275,5 +397,50 @@ public class MainMenu : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    public void SettingsButton()
+    {
+        MainMenuAnimator.SetTrigger("ToSettings");
+    }
+
+    public void MusicVolumeDecrementButton()
+    {
+        musicVolume--;
+        if(musicVolume < 0)
+        {
+            musicVolume = 0;
+        }
+        EditMVText();
+    }
+
+    public void MusicVolumeIncrementButton()
+    {
+        musicVolume++;
+        if(musicVolume > maxMusicVolume)
+        {
+            musicVolume = maxMusicVolume;
+        }
+        EditMVText();
+    }
+
+    public void SFXVolumeDecrementButton()
+    {
+        sfxVolume--;
+        if(sfxVolume < 0)
+        {
+            sfxVolume = 0;
+        }
+        EditSFXText();
+    }
+
+    public void SFXVolumeIncrementButton()
+    {
+        sfxVolume++;
+        if(sfxVolume > maxSFXVolume)
+        {
+            sfxVolume = maxSFXVolume;
+        }
+        EditSFXText();
     }
 }

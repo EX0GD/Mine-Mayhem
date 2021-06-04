@@ -391,7 +391,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8824575432631394458}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5476978857253235457}
+        m_MethodName: SFXVolumeIncrementButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &610155395278084439
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,7 +2347,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1941451138322613435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5476978857253235457}
+        m_MethodName: MusicVolumeIncrementButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3626845714585522636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,7 +2479,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6899194644394663768}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5476978857253235457}
+        m_MethodName: SFXVolumeDecrementButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3634147877102896891
 GameObject:
   m_ObjectHideFlags: 0
@@ -5348,7 +5381,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3735073945033810069}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5476978857253235457}
+        m_MethodName: LeftArrowButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3735073945099694369
 GameObject:
   m_ObjectHideFlags: 0
@@ -6118,7 +6162,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3735073945466571025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5476978857253235457}
+        m_MethodName: RightArrowButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3735073945469687926
 GameObject:
   m_ObjectHideFlags: 0
@@ -8404,6 +8459,11 @@ MonoBehaviour:
   - {fileID: 3735073945970902970}
   - {fileID: 3735073945532823162}
   - {fileID: 610155395278084439}
+  creditsIndex: 0
+  creditsMenus:
+  - {fileID: 1916586287929376076}
+  - {fileID: 3037857250321900783}
+  - {fileID: 4367743878196828443}
   levelIndex: 0
   levelText: {fileID: 3735073944736684125}
   levelLock: {fileID: 3735073944315911420}
@@ -8411,6 +8471,12 @@ MonoBehaviour:
   - {fileID: 5601187968471976470}
   - {fileID: 5332378393047263867}
   - {fileID: 3080592537066921135}
+  musicVolume: 0
+  maxMusicVolume: 10
+  sfxVolume: 0
+  maxSFXVolume: 10
+  mvText: {fileID: 7680234481780175521}
+  sfxText: {fileID: 3461738497276801341}
 --- !u!1 &3735073946210946265
 GameObject:
   m_ObjectHideFlags: 0
@@ -10772,7 +10838,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1332895680136604131}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5476978857253235457}
+        m_MethodName: MusicVolumeDecrementButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7064184791135253732
 GameObject:
   m_ObjectHideFlags: 0
@@ -11890,7 +11967,7 @@ GameObject:
   - component: {fileID: 3860820810709718809}
   - component: {fileID: 4693960879910901968}
   m_Layer: 0
-  m_Name: BackToMainButton
+  m_Name: SettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11998,7 +12075,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5476978857253235457}
-        m_MethodName: BackToMain
+        m_MethodName: SettingsButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

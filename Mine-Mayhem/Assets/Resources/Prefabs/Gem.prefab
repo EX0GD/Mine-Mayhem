@@ -154,3 +154,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PickUpType: 1
+  gemPickup: {fileID: 8300000, guid: 2d481372860dc3a49ab70e04361ae843, type: 3}
