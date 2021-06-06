@@ -12,8 +12,10 @@ public class TNT : MonoBehaviour
     public float timeLimit;
     public bool startTimer;
 
+    private AudioSource TNTAudioSource { get { return GetComponent<AudioSource>(); } }
 
     private SpriteRenderer tntSpriteRenderer;
+    private BoxCollider2D tntBoxCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class TNT : MonoBehaviour
         detonate = false;
         hasExploded = false;
         tntSpriteRenderer = GetComponent<SpriteRenderer>();
+        tntBoxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -45,17 +48,24 @@ public class TNT : MonoBehaviour
             // If the TNT has been triggered...
             if(animator.GetBool("IsTriggered") == true)
             {
+                //SoundManager.PlaySound(SoundManager.TNT_Explosion, TNTAudioSource);
+                if (!TNTAudioSource.isPlaying)
+                {
+                    TNTAudioSource.Play();
+                }
                 // Turn off the sprite renderer
                 if (tntSpriteRenderer.enabled)
                 {
                     tntSpriteRenderer.enabled = false;
+                    tntBoxCollider.enabled = false;
                 }
                 // if the name of the current animation state is "TNT_Boom"...
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("TNT_Boom"))
                 {
                     // and if the animation has reached its length, destroy the object (so boom animation finishes first).
-                    if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f)
+                    if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f && TNTAudioSource.time >= 2)
                     {
+                        Debug.Log($"Current Playback Time: {TNTAudioSource.time}, Current Clip Length: {TNTAudioSource.clip.length}.");
                         Destroy(gameObject);
                     }
                 }

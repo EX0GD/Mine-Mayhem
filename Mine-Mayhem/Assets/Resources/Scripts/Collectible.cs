@@ -12,8 +12,6 @@ public class Collectible : MonoBehaviour
     [SerializeField] private CollectibleType PickUpType = CollectibleType.NONE;
     public CollectibleType Type { get { return PickUpType; } }
 
-    public AudioClip gemPickup;
-
     public static event Action<Collectible, CollectibleType> OnPickUpCollectible;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,7 +21,7 @@ public class Collectible : MonoBehaviour
             //SoundManager.PlaySound(gemPickup);
             if(Type == CollectibleType.GEM)
             {
-                SoundManager.PlaySound(gemPickup);
+                SoundManager.PlaySound(SoundManager.GemPickup);
             }
             OnPickUpCollectible?.Invoke(this, PickUpType);
             Destroy(gameObject);

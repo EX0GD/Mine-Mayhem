@@ -5,7 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MM_UI : MonoBehaviour
 {
-    private static MM_UI MMUI;
+    public static MM_UI MMUI;
+    [SerializeField] private AudioSource musicSoundSource;
+    public AudioSource MusicSoundSource { get { return musicSoundSource; } }
+
+    [SerializeField] private AudioSource sfxSoundSource;
+    public AudioSource SFXSoundSource { get { return sfxSoundSource; } }
 
     public HPBar hp;
     public FailedPanelSet failPanel;
