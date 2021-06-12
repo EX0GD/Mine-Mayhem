@@ -230,6 +230,21 @@ public static class GameManager
                 }
             }
 
+            switch (StarsAcquired)
+            {
+                case 1:
+                    SoundManager.PlaySound(SoundManager.Win1);
+                    break;
+
+                case 2:
+                    SoundManager.PlaySound(SoundManager.Win2);
+                    break;
+
+                case 3:
+                    SoundManager.PlaySound(SoundManager.Win3);
+                    break;
+            }
+
             // Assign the awarded stars to the level and unlock the next level.
             LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
             if (LevelIndex != LevelInformation.Levels.Length - 1)

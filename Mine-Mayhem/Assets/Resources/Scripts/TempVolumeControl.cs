@@ -11,9 +11,14 @@ public class TempVolumeControl : MonoBehaviour
     [SerializeField] AudioMixer mixer;
     //Initialize volume
     [SerializeField] int _musicVolume  = 10;
+    public int MusicVolume { get { return _musicVolume; } }
+
     [SerializeField] int _soundVolume  = 10;
+    public int SoundVolume { get { return _soundVolume; } }
     //for incrementing the volume up and down
     [SerializeField] int _increment = 1;
+
+    public float testFloat;
 
     //To get the Volume to scale properly interact with the audio mixer
     [SerializeField] float _multiplier = 30.0f;
@@ -26,6 +31,22 @@ public class TempVolumeControl : MonoBehaviour
     void Update()
     {
         ClampVolume();
+        //DisplayVolume();
+        
+    }
+
+    public void SetMixerDisplayVolumes(int _music, int _sound)
+    {
+        if (_musicVolume != _music)
+        {
+            _musicVolume = _music;
+        }
+
+        if (_soundVolume != _music)
+        {
+            _soundVolume = _sound;
+        }
+
         DisplayVolume();
     }
 
@@ -43,17 +64,22 @@ public class TempVolumeControl : MonoBehaviour
 
                 //turn int into a decimal
                 float value = (_musicVolume / 10.0f);
+                float newValue;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_soundVolume != 0)
                 {
-                    mixer.SetFloat("MusicVolume", Mathf.Log10(value) * _multiplier);
+                    newValue = Mathf.Log10(value) * _multiplier;
+                    mixer.SetFloat("MusicVolume", newValue);
                 }
                 else
                 {
-                    mixer.SetFloat("MusicVolume", -80.0f);
+                    newValue = -80.0f;
+                    mixer.SetFloat("MusicVolume", newValue);
                 }
             }
+
+            DisplayVolume();
         }
         //Check if the target  Audio group is the Sound group
         else if (_audioGroup == "Sound")
@@ -66,17 +92,22 @@ public class TempVolumeControl : MonoBehaviour
 
                 //turn int into a decimal
                 float value = (_soundVolume / 10.0f);
+                float newValue;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_soundVolume != 0)
                 {
-                    mixer.SetFloat("SfxVolume", Mathf.Log10(value) * _multiplier);
+                    newValue = Mathf.Log10(value) * _multiplier;
+                    mixer.SetFloat("SfxVolume", newValue);
                 }
                 else
                 {
-                    mixer.SetFloat("SfxVolume", -80.0f);
+                    newValue = -80.0f;
+                    mixer.SetFloat("SfxVolume", newValue);
                 }
             }
+
+            DisplayVolume();
         }
     }
 
@@ -94,17 +125,22 @@ public class TempVolumeControl : MonoBehaviour
                 
                 //turn int into a decimal
                 float value = (_musicVolume / 10.0f);
+                float newValue;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_musicVolume != 0)
                 {
-                    mixer.SetFloat("MusicVolume", Mathf.Log10(value) * _multiplier);
+                    newValue = Mathf.Log10(value) * _multiplier;
+                    mixer.SetFloat("MusicVolume", newValue);
                 }
                 else
                 {
-                    mixer.SetFloat("MusicVolume", -80.0f);
+                    newValue = -80.0f;
+                    mixer.SetFloat("MusicVolume", newValue);
                 }
             }
+
+            DisplayVolume();
         }
         //Check if the target  Audio group is the Sound group
         else if (_audioGroup == "Sound")
@@ -117,17 +153,22 @@ public class TempVolumeControl : MonoBehaviour
 
                 //turn int into a decimal
                 float value = (_soundVolume / 10.0f);
+                float newValue;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_soundVolume != 0)
                 {
-                    mixer.SetFloat("SfxVolume", Mathf.Log10(value) * _multiplier);
+                    newValue = Mathf.Log10(value) * _multiplier;
+                    mixer.SetFloat("SfxVolume", newValue);
                 }
                 else
                 {
-                    mixer.SetFloat("SfxVolume", -80.0f);
+                    newValue = -80.0f;
+                    mixer.SetFloat("SfxVolume", newValue);
                 }
             }
+
+            DisplayVolume();
         }
     }
     
