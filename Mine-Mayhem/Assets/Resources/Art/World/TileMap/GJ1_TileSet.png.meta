@@ -207,7 +207,7 @@ TextureImporter:
         serializedVersion: 2
         x: 500
         y: 1000
-        width: 500
+        width: 505
         height: 500
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -365,10 +365,10 @@ TextureImporter:
       name: GJ1_TileSet_7
       rect:
         serializedVersion: 2
-        x: 500
-        y: 500
-        width: 500
-        height: 500
+        x: 492
+        y: 496
+        width: 513
+        height: 511
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,9 +391,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1000
-        y: 500
+        y: 499
         width: 500
-        height: 500
+        height: 508
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -470,9 +470,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2500
-        y: 500
+        y: 501
         width: 500
-        height: 500
+        height: 499
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -499,7 +499,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 500
-        height: 500
+        height: 504
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -557,8 +557,8 @@ TextureImporter:
         serializedVersion: 2
         x: 1000
         y: 0
-        width: 500
-        height: 500
+        width: 498
+        height: 505
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -614,7 +614,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2000
         y: 0
-        width: 500
+        width: 497
         height: 500
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -642,7 +642,7 @@ TextureImporter:
         x: 2500
         y: 0
         width: 500
-        height: 500
+        height: 497
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
