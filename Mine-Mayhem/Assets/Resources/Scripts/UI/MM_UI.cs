@@ -60,7 +60,7 @@ public class MM_UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DisableIntroQuipOnButtonPress();
     }
 
     private void OnDisable()
@@ -72,6 +72,27 @@ public class MM_UI : MonoBehaviour
         GameManager.OnToggleDeathPanel -= ToggleFailPanelEvent;
         GameManager.OnToggleSuccessPanel -= ToggleSuccessPanelEvent;
         GameManager.OnToggleGameFinishedPanel -= ToggleGameFinishedPanelEvent;
+    }
+
+    private void DisableIntroQuipOnButtonPress()
+    {
+        if (IntroQuipActive)
+        {
+            if (Input.anyKeyDown)
+            {
+                IntroQuipActive = false;
+                ToggleIntroQuip(IntroQuipActive);
+            }
+        }
+    }
+
+    private void ToggleIntroQuip(bool value)
+    {
+        if(IntroQuipActive != value)
+            IntroQuipActive = value;
+
+        if (introQuip.gameObject.activeSelf != IntroQuipActive)
+            introQuip.gameObject.SetActive(IntroQuipActive);
     }
 
     private void ToggleHPEvent(bool value)
@@ -185,6 +206,7 @@ public class MM_UI : MonoBehaviour
     private void LevelStartEvent()
     {
         //Debug.Log("This is the LevelStartEvent.");
+        ToggleIntroQuip(true);
         hp.lifeBar.fillAmount = GameManager.Player.curPlayerHealth / GameManager.Player.maxPlayerHealth;
     }
 

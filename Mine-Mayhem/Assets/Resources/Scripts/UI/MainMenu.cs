@@ -22,13 +22,8 @@ public class MainMenu : MonoBehaviour
     public GameObject levelLock;
     public Image[] levelStarIMGs;
 
-    [Space(10)]
-    [SerializeField] private int musicVolume;
-    [SerializeField] private int maxMusicVolume;
-    [SerializeField] private int sfxVolume;
-    [SerializeField] private int maxSFXVolume;
-    public TextMeshProUGUI mvText;
-    public TextMeshProUGUI sfxText;
+    private TempVolumeControl MixerControl { get { return GetComponent<TempVolumeControl>(); } }
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +32,6 @@ public class MainMenu : MonoBehaviour
         htpIndex = 0;
         levelIndex = 1;
         EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
-
-        musicVolume = maxMusicVolume;
-        sfxVolume = maxSFXVolume;
-        EditMVText();
-        EditSFXText();
     }
 
     private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating)
@@ -117,26 +107,6 @@ public class MainMenu : MonoBehaviour
                     }
                 }
                 break;
-        }
-    }
-
-    private void EditMVText()
-    {
-        string newText = $"Music: {musicVolume}";
-
-        if(mvText.text != newText)
-        {
-            mvText.text = newText;
-        }
-    }
-
-    private void EditSFXText()
-    {
-        string newText = $"SFX: {sfxVolume}";
-
-        if(sfxText.text != newText)
-        {
-            sfxText.text = newText;
         }
     }
 
@@ -241,6 +211,8 @@ public class MainMenu : MonoBehaviour
         }
         else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Settings"))
         {
+            // Save volumes from TempVolumeControl to SoundManager Master Volumes
+            SoundManager.SetMasterVolumes(MixerControl.MusicVolume, MixerControl.SoundVolume);
             MainMenuAnimator.SetTrigger("LeaveSettings");
         }
     }
@@ -401,46 +373,7 @@ public class MainMenu : MonoBehaviour
 
     public void SettingsButton()
     {
+        MixerControl.SetMixerDisplayVolumes(SoundManager.MasterMusicVolume, SoundManager.MasterSoundVolume);
         MainMenuAnimator.SetTrigger("ToSettings");
-    }
-
-    public void MusicVolumeDecrementButton()
-    {
-        musicVolume--;
-        if(musicVolume < 0)
-        {
-            musicVolume = 0;
-        }
-        EditMVText();
-    }
-
-    public void MusicVolumeIncrementButton()
-    {
-        musicVolume++;
-        if(musicVolume > maxMusicVolume)
-        {
-            musicVolume = maxMusicVolume;
-        }
-        EditMVText();
-    }
-
-    public void SFXVolumeDecrementButton()
-    {
-        sfxVolume--;
-        if(sfxVolume < 0)
-        {
-            sfxVolume = 0;
-        }
-        EditSFXText();
-    }
-
-    public void SFXVolumeIncrementButton()
-    {
-        sfxVolume++;
-        if(sfxVolume > maxSFXVolume)
-        {
-            sfxVolume = maxSFXVolume;
-        }
-        EditSFXText();
     }
 }

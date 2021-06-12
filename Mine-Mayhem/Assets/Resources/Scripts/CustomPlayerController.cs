@@ -40,6 +40,8 @@ public class CustomPlayerController : MonoBehaviour
     private Animator PlayerAnimator { get; set; }
     private Animator ExplosionAnimator { get; set; }
     private CapsuleCollider2D ExplosionCollider { get; set; }
+    private AudioSource PlayerAudioSource { get { return GetComponent<AudioSource>(); } }
+    private AudioSource BoomJumpSource { get; set; }
 
     [Range(1,100)]
     public float maxPlayerHealth;
@@ -58,6 +60,9 @@ public class CustomPlayerController : MonoBehaviour
     public bool hitSpikeWall = false;
 
     public LayerMask worldLayer;
+
+    public AudioClip boomDeathClip;
+    public AudioClip spikeDeathClip;
 
     public static event Action OnPlayerTakeDamage;
     public static event Action<bool> OnPlayerIsDead;
@@ -103,6 +108,7 @@ public class CustomPlayerController : MonoBehaviour
         PlayerAnimator = GetComponent<Animator>();
         ExplosionAnimator = transform.GetChild(0).GetComponent<Animator>();
         ExplosionCollider = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
+        BoomJumpSource = ExplosionAnimator.GetComponent<AudioSource>();
         wDetector = transform.GetChild(1).GetComponent<WallDetect>();
 
         if (!MainCollider.enabled)
@@ -301,6 +307,16 @@ public class CustomPlayerController : MonoBehaviour
         if (!isDead)
         {
             isDead = !isDead;
+            switch (currentState)
+            {
+                case PlayerStates.SPIKE_DEAD:
+                    PlayerAudioSource.PlayOneShot(spikeDeathClip);
+                    break;
+
+                case PlayerStates.BOOM_DEAD:
+                    PlayerAudioSource.PlayOneShot(boomDeathClip);
+                    break;
+            }
             yield return new WaitForSeconds(1.5f);
 
             OnPlayerIsDead?.Invoke(isDead);
@@ -352,8 +368,9 @@ public class CustomPlayerController : MonoBehaviour
         if (canJump)
         {
             canJump = !canJump;
-            //Debug.Log("This is the 'HandleBoomJump' function.");
             ExplosionAnimator.SetBool("isTriggered", true);
+            // Trigger Explosion Sound Here
+            BoomJumpSource.Play();
             RB.velocity = new Vector2(RB.velocity.x, 0);
             RB.AddForce(Vector2.up * explosiveForce, ForceMode2D.Impulse);
             // Damage player
