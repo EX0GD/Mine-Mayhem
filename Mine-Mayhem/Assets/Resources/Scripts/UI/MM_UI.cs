@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MM_UI : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class MM_UI : MonoBehaviour
     [SerializeField] private bool successPanelActive;
     [SerializeField] private bool IntroQuipActive;
     [SerializeField] private bool gameFinishedPanelActive;
+
+    [SerializeField] private TextMeshProUGUI introQuipLevelText;
 
     public static event Action OnRetry;
     public static event Action OnMainMenu;
@@ -60,7 +63,7 @@ public class MM_UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DisableIntroQuipOnButtonPress();
+        HandleIntroQuip();
     }
 
     private void OnDisable()
@@ -74,7 +77,7 @@ public class MM_UI : MonoBehaviour
         GameManager.OnToggleGameFinishedPanel -= ToggleGameFinishedPanelEvent;
     }
 
-    private void DisableIntroQuipOnButtonPress()
+    private void HandleIntroQuip()
     {
         if (IntroQuipActive)
         {
@@ -206,6 +209,7 @@ public class MM_UI : MonoBehaviour
     private void LevelStartEvent()
     {
         //Debug.Log("This is the LevelStartEvent.");
+        introQuipLevelText.text = LevelInformation.Levels[GameManager.LevelIndex].displayName;
         ToggleIntroQuip(true);
         hp.lifeBar.fillAmount = GameManager.Player.curPlayerHealth / GameManager.Player.maxPlayerHealth;
     }

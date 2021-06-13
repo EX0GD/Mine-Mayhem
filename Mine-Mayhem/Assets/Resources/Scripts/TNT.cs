@@ -65,7 +65,7 @@ public class TNT : MonoBehaviour
                     // and if the animation has reached its length, destroy the object (so boom animation finishes first).
                     if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f && TNTAudioSource.time >= 2)
                     {
-                        Debug.Log($"Current Playback Time: {TNTAudioSource.time}, Current Clip Length: {TNTAudioSource.clip.length}.");
+                        //Debug.Log($"Current Playback Time: {TNTAudioSource.time}, Current Clip Length: {TNTAudioSource.clip.length}.");
                         Destroy(gameObject);
                     }
                 }

@@ -95,6 +95,7 @@ public static class GameManager
                     StarConditions[i] = false;
             }
 
+            // Clear all gems in array from previous level played (if any)
             if(GemsInCurrentLevel.Count > 0)
             {
                 GemsInCurrentLevel.Clear();
@@ -102,17 +103,41 @@ public static class GameManager
 
             // Gather list of all GEMS in the current loaded scene.
             Collectible[] collectibles = UnityEngine.Object.FindObjectsOfType<Collectible>();
-            foreach(Collectible collectible in collectibles)
+
+            if(collectibles.Length > 1)
             {
-                if(collectible.Type == Collectible.CollectibleType.GEM)
+                foreach (Collectible collectible in collectibles)
                 {
-                    if (!GemsInCurrentLevel.Contains(collectible))
+                    if (collectible.Type == Collectible.CollectibleType.GEM)
                     {
-                        //Debug.Log(collectible);
-                        GemsInCurrentLevel.Add(collectible);
+                        if (!GemsInCurrentLevel.Contains(collectible))
+                        {
+                            //Debug.Log(collectible);
+                            GemsInCurrentLevel.Add(collectible);
+                        }
                     }
                 }
             }
+
+            /*if (collectibles.Length != 0)
+            {
+                foreach (Collectible collectible in collectibles)
+                {
+                    if (collectible.Type == Collectible.CollectibleType.GEM)
+                    {
+                        if (!GemsInCurrentLevel.Contains(collectible))
+                        {
+                            //Debug.Log(collectible);
+                            GemsInCurrentLevel.Add(collectible);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                /// If there are no gems in the current level and the list length is 0,
+                /// 
+            }*/
             #endregion
         }
         else
@@ -195,6 +220,7 @@ public static class GameManager
                 if (GemsInCurrentLevel.Contains(collectible))
                 {
                     GemsInCurrentLevel.Remove(collectible);
+
                 }
 
                 //SoundManager.PlaySound(SoundManager.GemPickup);
@@ -243,6 +269,11 @@ public static class GameManager
                 case 3:
                     SoundManager.PlaySound(SoundManager.Win3);
                     break;
+            }
+
+            if(GemsInCurrentLevel.Count == 0 && StarConditions[1])
+            {
+
             }
 
             // Assign the awarded stars to the level and unlock the next level.
