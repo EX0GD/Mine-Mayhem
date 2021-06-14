@@ -236,6 +236,7 @@ public static class GameManager
         if (StarConditions[0])
         {
             Player.SetState(CustomPlayerController.PlayerStates.SUCCESS);
+            // Stop the level music
 
             // When the level is complete but the level did not contain any GEMS, the star condition is automatically fulfilled.
             if(GemsInCurrentLevel.Count == 0 && !StarConditions[1])
@@ -271,10 +272,6 @@ public static class GameManager
                     break;
             }
 
-            if(GemsInCurrentLevel.Count == 0 && StarConditions[1])
-            {
-
-            }
 
             // Assign the awarded stars to the level and unlock the next level.
             LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
