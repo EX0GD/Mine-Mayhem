@@ -33,6 +33,7 @@ public static class GameManager
     public static bool Star3 { get; private set; }
     public static bool[] StarConditions { get; private set; }
     public static int StarsAcquired { get; private set; }
+    public static int GemsAcquired { get; private set; }
 
     public static List<Collectible> GemsInCurrentLevel;
 
@@ -79,6 +80,7 @@ public static class GameManager
         if (arg0.name != LevelInformation.Levels[0].name)
         {
             StarsAcquired = 0;
+            GemsAcquired = 0;
 
             if (!hpOn)
             {
@@ -220,7 +222,7 @@ public static class GameManager
                 if (GemsInCurrentLevel.Contains(collectible))
                 {
                     GemsInCurrentLevel.Remove(collectible);
-
+                    GemsAcquired += 1;
                 }
 
                 //SoundManager.PlaySound(SoundManager.GemPickup);
@@ -272,6 +274,8 @@ public static class GameManager
                     break;
             }
 
+            // assign collected gems to the level
+            LevelInformation.Levels[LevelIndex].gemsAcquired = GemsAcquired;
 
             // Assign the awarded stars to the level and unlock the next level.
             LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;

@@ -44,6 +44,11 @@ public class MainMenu : MonoBehaviour
             Debug.Log("Currently deleting save data.");
             SaveSystem.DeleteSaveData();
         }
+
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            Debug.Log(LevelInformation.Levels[levelIndex].gemsAcquired);
+        }
     }
 
     private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating, Level.LevelGems gems, int gemsAcquired)
@@ -144,6 +149,8 @@ public class MainMenu : MonoBehaviour
                         {
                             levelGemIMGs[i].gameObject.SetActive(true);
                         }
+
+                        levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > 0;
                     }
                     else
                     {
@@ -169,6 +176,10 @@ public class MainMenu : MonoBehaviour
                         {
                             levelGemIMGs[i].gameObject.SetActive(true);
                         }
+
+                        //if(levelGemIMGs[i].enabled
+                        levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > i;
+                        Debug.Log($"Level Gem Image {i} Collected: {levelGemIMGs[i].enabled}.");
                     }
                     else
                     {
@@ -192,6 +203,7 @@ public class MainMenu : MonoBehaviour
                     {
                         levelGemIMGs[i].gameObject.SetActive(true);
                     }
+                    levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > i;
                 }
                 break;
         }
@@ -345,7 +357,6 @@ public class MainMenu : MonoBehaviour
             }
 
             EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
-            Debug.Log(LevelInformation.Levels[levelIndex].gems);
         }
         else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Credits"))
         {

@@ -24,7 +24,7 @@ public static class LevelInformation
             {
                 Levels[i] = new Level(Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)), $"Level {i}", false, Level.LevelStars.ZERO, Level.LevelGems.NONE, 0);
             }
-            else if(i > 1 && i < 6)
+            else if(i > 1 && i < 7)
             {
                 Levels[i] = new Level(Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)), $"Level {i}", true, Level.LevelStars.ZERO, Level.LevelGems.NONE, 0);
             }
