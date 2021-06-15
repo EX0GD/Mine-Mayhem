@@ -22,6 +22,9 @@ public class MainMenu : MonoBehaviour
     public GameObject levelLock;
     public Image[] levelStarIMGs;
 
+    public GameObject levelGems;
+    public Image[] levelGemIMGs;
+
     private TempVolumeControl MixerControl { get { return GetComponent<TempVolumeControl>(); } }
 
 
@@ -31,10 +34,24 @@ public class MainMenu : MonoBehaviour
         MainMenuAnimator = GetComponentInChildren<Animator>();
         htpIndex = 0;
         levelIndex = 1;
-        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
+        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
     }
 
-    private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating)
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.RightControl) && Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Backspace))
+        {
+            Debug.Log("Currently deleting save data.");
+            SaveSystem.DeleteSaveData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            Debug.Log(LevelInformation.Levels[levelIndex].gemsAcquired);
+        }
+    }
+
+    private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating, Level.LevelGems gems, int gemsAcquired)
     {
         if(levelText.text != levelName)
         {
@@ -108,6 +125,88 @@ public class MainMenu : MonoBehaviour
                 }
                 break;
         }
+
+        switch (gems)
+        {
+            case Level.LevelGems.NONE:
+                if (levelGems.activeSelf)
+                {
+                    levelGems.SetActive(false);
+                }
+                break;
+
+            case Level.LevelGems.Gem1:
+                if (!levelGems.activeSelf)
+                {
+                    levelGems.SetActive(true);
+                }
+
+                for(int i = 0; i < levelGemIMGs.Length; i++)
+                {
+                    if(i == 0)
+                    {
+                        if (!levelGemIMGs[i].gameObject.activeSelf)
+                        {
+                            levelGemIMGs[i].gameObject.SetActive(true);
+                        }
+
+                        levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > 0;
+                    }
+                    else
+                    {
+                        if (levelGemIMGs[i].gameObject.activeSelf)
+                        {
+                            levelGemIMGs[i].gameObject.SetActive(false);
+                        }
+                    }
+                }
+                break;
+
+            case Level.LevelGems.Gem2:
+                if (!levelGems.activeSelf)
+                {
+                    levelGems.SetActive(true);
+                }
+
+                for(int i = 0; i < levelGemIMGs.Length; i++)
+                {
+                    if(i < levelGemIMGs.Length - 1)
+                    {
+                        if (!levelGemIMGs[i].gameObject.activeSelf)
+                        {
+                            levelGemIMGs[i].gameObject.SetActive(true);
+                        }
+
+                        //if(levelGemIMGs[i].enabled
+                        levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > i;
+                        Debug.Log($"Level Gem Image {i} Collected: {levelGemIMGs[i].enabled}.");
+                    }
+                    else
+                    {
+                        if (levelGemIMGs[i].gameObject.activeSelf)
+                        {
+                            levelGemIMGs[i].gameObject.SetActive(false);
+                        }
+                    }
+                }
+                break;
+
+            case Level.LevelGems.Gem3:
+                if (!levelGems.activeSelf)
+                {
+                    levelGems.SetActive(true);
+                }
+
+                for(int i = 0; i < levelGemIMGs.Length; i++)
+                {
+                    if (!levelGemIMGs[i].gameObject.activeSelf)
+                    {
+                        levelGemIMGs[i].gameObject.SetActive(true);
+                    }
+                    levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > i;
+                }
+                break;
+        }
     }
 
 
@@ -121,7 +220,7 @@ public class MainMenu : MonoBehaviour
             levelIndex = 1;
         }
 
-        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
+        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
     }
 
     public void StartButton()
@@ -257,7 +356,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = SceneManager.sceneCountInBuildSettings - 1;
             }
 
-            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
+            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
         }
         else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Credits"))
         {
@@ -332,7 +431,7 @@ public class MainMenu : MonoBehaviour
                 levelIndex = 1;
             }
 
-            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars);
+            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
         }
         else if (MainMenuAnimator.GetCurrentAnimatorStateInfo(0).IsName("Credits"))
         {

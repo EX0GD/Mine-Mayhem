@@ -33,6 +33,7 @@ public static class GameManager
     public static bool Star3 { get; private set; }
     public static bool[] StarConditions { get; private set; }
     public static int StarsAcquired { get; private set; }
+    public static int GemsAcquired { get; private set; }
 
     public static List<Collectible> GemsInCurrentLevel;
 
@@ -79,6 +80,7 @@ public static class GameManager
         if (arg0.name != LevelInformation.Levels[0].name)
         {
             StarsAcquired = 0;
+            GemsAcquired = 0;
 
             if (!hpOn)
             {
@@ -95,6 +97,7 @@ public static class GameManager
                     StarConditions[i] = false;
             }
 
+            // Clear all gems in array from previous level played (if any)
             if(GemsInCurrentLevel.Count > 0)
             {
                 GemsInCurrentLevel.Clear();
@@ -102,17 +105,41 @@ public static class GameManager
 
             // Gather list of all GEMS in the current loaded scene.
             Collectible[] collectibles = UnityEngine.Object.FindObjectsOfType<Collectible>();
-            foreach(Collectible collectible in collectibles)
+
+            if(collectibles.Length > 1)
             {
-                if(collectible.Type == Collectible.CollectibleType.GEM)
+                foreach (Collectible collectible in collectibles)
                 {
-                    if (!GemsInCurrentLevel.Contains(collectible))
+                    if (collectible.Type == Collectible.CollectibleType.GEM)
                     {
-                        //Debug.Log(collectible);
-                        GemsInCurrentLevel.Add(collectible);
+                        if (!GemsInCurrentLevel.Contains(collectible))
+                        {
+                            //Debug.Log(collectible);
+                            GemsInCurrentLevel.Add(collectible);
+                        }
                     }
                 }
             }
+
+            /*if (collectibles.Length != 0)
+            {
+                foreach (Collectible collectible in collectibles)
+                {
+                    if (collectible.Type == Collectible.CollectibleType.GEM)
+                    {
+                        if (!GemsInCurrentLevel.Contains(collectible))
+                        {
+                            //Debug.Log(collectible);
+                            GemsInCurrentLevel.Add(collectible);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                /// If there are no gems in the current level and the list length is 0,
+                /// 
+            }*/
             #endregion
         }
         else
@@ -195,6 +222,7 @@ public static class GameManager
                 if (GemsInCurrentLevel.Contains(collectible))
                 {
                     GemsInCurrentLevel.Remove(collectible);
+                    GemsAcquired += 1;
                 }
 
                 //SoundManager.PlaySound(SoundManager.GemPickup);
@@ -210,6 +238,7 @@ public static class GameManager
         if (StarConditions[0])
         {
             Player.SetState(CustomPlayerController.PlayerStates.SUCCESS);
+            // Stop the level music
 
             // When the level is complete but the level did not contain any GEMS, the star condition is automatically fulfilled.
             if(GemsInCurrentLevel.Count == 0 && !StarConditions[1])
@@ -244,6 +273,9 @@ public static class GameManager
                     SoundManager.PlaySound(SoundManager.Win3);
                     break;
             }
+
+            // assign collected gems to the level
+            LevelInformation.Levels[LevelIndex].gemsAcquired = GemsAcquired;
 
             // Assign the awarded stars to the level and unlock the next level.
             LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;

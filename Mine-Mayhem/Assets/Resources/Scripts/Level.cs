@@ -16,11 +16,24 @@ public class Level
     };
     public LevelStars stars;
 
-    public Level(string name, string displayName, bool levelLocked, LevelStars stars)
+    public enum LevelGems
+    {
+        NONE,
+        Gem1,
+        Gem2,
+        Gem3
+    };
+    public LevelGems gems;
+
+    public int gemsAcquired;
+
+    public Level(string name, string displayName, bool levelLocked, LevelStars stars, LevelGems gems, int gemsAcquired)
     {
         this.name = name;
         this.displayName = displayName;
         this.levelLocked = levelLocked;
         this.stars = stars;
+        this.gems = gems;
+        this.gemsAcquired = gemsAcquired;
     }
 }

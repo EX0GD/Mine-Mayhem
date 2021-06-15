@@ -40,4 +40,14 @@ public static class SaveSystem
             return null;
         }
     }
+
+    public static void DeleteSaveData()
+    {
+        string path = Application.persistentDataPath + "/MM_GameData";
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
 }

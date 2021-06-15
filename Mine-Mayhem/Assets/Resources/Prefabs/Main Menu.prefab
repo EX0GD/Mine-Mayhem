@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 748785229}
   - component: {fileID: 748785228}
   m_Layer: 0
-  m_Name: Level Gem
+  m_Name: Level Gem 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 1310987463}
   - component: {fileID: 1310987462}
   m_Layer: 0
-  m_Name: Level Gem
+  m_Name: Level Gem 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 1503187438}
   - component: {fileID: 1503187437}
   m_Layer: 0
-  m_Name: Level Gem
+  m_Name: Level Gem 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1012,17 +1012,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5476978857253235457}
-        m_MethodName: SFXVolumeIncrementButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 798795971}
         m_MethodName: Play
         m_Mode: 1
@@ -3110,17 +3099,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5476978857253235457}
-        m_MethodName: MusicVolumeIncrementButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 798795971}
         m_MethodName: Play
         m_Mode: 1
@@ -3264,17 +3242,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5476978857253235457}
-        m_MethodName: SFXVolumeDecrementButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 798795971}
         m_MethodName: Play
         m_Mode: 1
@@ -9946,12 +9913,11 @@ MonoBehaviour:
   - {fileID: 5601187968471976470}
   - {fileID: 5332378393047263867}
   - {fileID: 3080592537066921135}
-  musicVolume: 0
-  maxMusicVolume: 10
-  sfxVolume: 0
-  maxSFXVolume: 10
-  mvText: {fileID: 7680234481780175521}
-  sfxText: {fileID: 3461738497276801341}
+  levelGems: {fileID: 475692235}
+  levelGemIMGs:
+  - {fileID: 1503187437}
+  - {fileID: 1310987462}
+  - {fileID: 748785228}
 --- !u!82 &1228903443
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10065,6 +10031,7 @@ MonoBehaviour:
   _musicVolume: 10
   _soundVolume: 10
   _increment: 1
+  testFloat: 0
   _multiplier: 30
   _musicText: {fileID: 7680234481780175521}
   _soundText: {fileID: 3461738497276801341}
@@ -10633,7 +10600,7 @@ GameObject:
   - component: {fileID: 976293633157036518}
   - component: {fileID: 5332378393047263867}
   m_Layer: 0
-  m_Name: Level Star (1)
+  m_Name: Level Star 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12463,17 +12430,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5476978857253235457}
-        m_MethodName: MusicVolumeDecrementButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 798795971}
         m_MethodName: Play
         m_Mode: 1
@@ -12642,7 +12598,7 @@ GameObject:
   - component: {fileID: 9134190890797642563}
   - component: {fileID: 3080592537066921135}
   m_Layer: 0
-  m_Name: Level Star (2)
+  m_Name: Level Star 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12868,7 +12824,7 @@ GameObject:
   - component: {fileID: 6122732148605625619}
   - component: {fileID: 5601187968471976470}
   m_Layer: 0
-  m_Name: Level Star
+  m_Name: Level Star 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
