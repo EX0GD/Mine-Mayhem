@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -378,6 +378,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735073946191586579, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237e2d40900de4d448bbf38728bf2920, type: 3}
@@ -668,6 +673,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1694996568935908820, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 251
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694996568935908820, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 3513391599363832471, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
         type: 3}
       propertyPath: m_Name
@@ -777,6 +792,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026107738711031848, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5235391363575943496, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5235391363575943496, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317378580151367131, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317378580151367131, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679903822980420012, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0477c5621aaeed4fbc2c2f14f6423c1, type: 3}
