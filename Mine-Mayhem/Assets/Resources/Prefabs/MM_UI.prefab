@@ -2995,7 +2995,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3007,9 +3007,9 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 8194
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 8192
+  m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -5218,6 +5218,16 @@ MonoBehaviour:
   IntroQuipActive: 0
   gameFinishedPanelActive: 0
   introQuipLevelText: {fileID: 1784880472364365777}
+  levelgems: {fileID: 2463309912304188094}
+  lvlGemImgs:
+  - {fileID: 7253301382364506767}
+  - {fileID: 3637818806295079464}
+  - {fileID: 6591324200108191507}
+  finalLevelGems: {fileID: 6953724192834103190}
+  finalLvlGemImgs:
+  - {fileID: 5725344960693020124}
+  - {fileID: 6538443110801714847}
+  - {fileID: 8472181579465819118}
 --- !u!1 &7800445067707028355
 GameObject:
   m_ObjectHideFlags: 0

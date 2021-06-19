@@ -31,6 +31,11 @@ public class MM_UI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI introQuipLevelText;
 
+    [SerializeField] private GameObject levelgems;
+    [SerializeField] private Image[] lvlGemImgs;
+    [SerializeField] private GameObject finalLevelGems;
+    [SerializeField] private Image[] finalLvlGemImgs;
+
     public static event Action OnRetry;
     public static event Action OnMainMenu;
     public static event Action OnQuit;
@@ -135,20 +140,9 @@ public class MM_UI : MonoBehaviour
 
         if (successPanelActive)
         {
-            Debug.Log(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars);
-            switch (LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars)
+            switch (GameManager.StarsAcquired)
             {
-                case Level.LevelStars.ZERO:
-                    for (int i = 0; i < rewardStarImages.Length; i++)
-                    {
-                        if (rewardStarImages[i].enabled)
-                        {
-                            rewardStarImages[i].enabled = false;
-                        }
-                    }
-                    break;
-
-                case Level.LevelStars.Star1:
+                case 1:
                     for (int i = 0; i < rewardStarImages.Length; i++)
                     {
                         if (i < rewardStarImages.Length - 2)
@@ -168,7 +162,7 @@ public class MM_UI : MonoBehaviour
                     }
                     break;
 
-                case Level.LevelStars.Star2:
+                case 2:
                     for (int i = 0; i < rewardStarImages.Length; i++)
                     {
                         if (i < rewardStarImages.Length - 1)
@@ -188,13 +182,95 @@ public class MM_UI : MonoBehaviour
                     }
                     break;
 
-                case Level.LevelStars.Star3:
+                case 3:
                     for (int i = 0; i < rewardStarImages.Length; i++)
                     {
                         if (!rewardStarImages[i].enabled)
                         {
                             rewardStarImages[i].enabled = true;
                         }
+                    }
+                    break;
+            }
+
+            // If the current level has gems, adjust the gems images
+            switch (LevelInformation.Levels[GameManager.LevelIndex].gems)
+            {
+                case Level.LevelGems.NONE:
+                    if (levelgems.activeSelf)
+                    {
+                        levelgems.SetActive(false);
+                    }
+                    break;
+
+                case Level.LevelGems.Gem1:
+                    if (!levelgems.activeSelf)
+                    {
+                        levelgems.SetActive(true);
+                    }
+
+                    for (int i = 0; i < lvlGemImgs.Length; i++)
+                    {
+                        if (i == 0)
+                        {
+                            if (!lvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                lvlGemImgs[i].gameObject.SetActive(true);
+                            }
+
+                            lvlGemImgs[i].enabled = GameManager.GemsAcquired > i;
+                        }
+                        else
+                        {
+                            if (lvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                lvlGemImgs[i].gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelGems.Gem2:
+                    if (!levelgems.activeSelf)
+                    {
+                        levelgems.SetActive(true);
+                    }
+
+                    for (int i = 0; i < lvlGemImgs.Length; i++)
+                    {
+                        if (i < lvlGemImgs.Length - 1)
+                        {
+                            if (!lvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                lvlGemImgs[i].gameObject.SetActive(true);
+                            }
+
+                            lvlGemImgs[i].enabled = GameManager.GemsAcquired > i;
+                        }
+                        else
+                        {
+                            if (lvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                lvlGemImgs[i].gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelGems.Gem3:
+                    if (!levelgems.activeSelf)
+                    {
+                        levelgems.SetActive(true);
+                    }
+
+                    for (int i = 0; i < lvlGemImgs.Length; i++)
+                    {
+                        if (!lvlGemImgs[i].gameObject.activeSelf)
+                        {
+                            lvlGemImgs[i].gameObject.SetActive(true);
+                        }
+
+                        lvlGemImgs[i].enabled = GameManager.GemsAcquired > i;
                     }
                     break;
             }
@@ -228,7 +304,142 @@ public class MM_UI : MonoBehaviour
 
         if (gameFinishedPanelActive)
         {
-            Debug.Log(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars);
+            switch (GameManager.StarsAcquired)
+            {
+                case 1:
+                    for (int i = 0; i < finalRewardStarImages.Length; i++)
+                    {
+                        if (i < finalRewardStarImages.Length - 2)
+                        {
+                            if (!finalRewardStarImages[i].enabled)
+                            {
+                                finalRewardStarImages[i].enabled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (finalRewardStarImages[i].enabled)
+                            {
+                                finalRewardStarImages[i].enabled = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case 2:
+                    for (int i = 0; i < finalRewardStarImages.Length; i++)
+                    {
+                        if (i < finalRewardStarImages.Length - 1)
+                        {
+                            if (!finalRewardStarImages[i].enabled)
+                            {
+                                finalRewardStarImages[i].enabled = true;
+                            }
+                        }
+                        else
+                        {
+                            if (finalRewardStarImages[i].enabled)
+                            {
+                                finalRewardStarImages[i].enabled = false;
+                            }
+                        }
+                    }
+                    break;
+
+                case 3:
+                    for (int i = 0; i < finalRewardStarImages.Length; i++)
+                    {
+                        if (!finalRewardStarImages[i].enabled)
+                        {
+                            finalRewardStarImages[i].enabled = true;
+                        }
+                    }
+                    break;
+            }
+
+            // If the current level has gems, adjust the gems images
+            switch (LevelInformation.Levels[GameManager.LevelIndex].gems)
+            {
+                case Level.LevelGems.NONE:
+                    if (finalLevelGems.activeSelf)
+                    {
+                        finalLevelGems.SetActive(false);
+                    }
+                    break;
+
+                case Level.LevelGems.Gem1:
+                    if (!finalLevelGems.activeSelf)
+                    {
+                        finalLevelGems.SetActive(true);
+                    }
+
+                    for (int i = 0; i < finalLvlGemImgs.Length; i++)
+                    {
+                        if (i == 0)
+                        {
+                            if (!finalLvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                finalLvlGemImgs[i].gameObject.SetActive(true);
+                            }
+
+                            finalLvlGemImgs[i].enabled = GameManager.GemsAcquired > i;
+                        }
+                        else
+                        {
+                            if (finalLvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                finalLvlGemImgs[i].gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelGems.Gem2:
+                    if (!finalLevelGems.activeSelf)
+                    {
+                        finalLevelGems.SetActive(true);
+                    }
+
+                    for (int i = 0; i < finalLvlGemImgs.Length; i++)
+                    {
+                        if (i < finalLvlGemImgs.Length - 1)
+                        {
+                            if (!finalLvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                finalLvlGemImgs[i].gameObject.SetActive(true);
+                            }
+
+                            finalLvlGemImgs[i].enabled = GameManager.GemsAcquired > i;
+                        }
+                        else
+                        {
+                            if (finalLvlGemImgs[i].gameObject.activeSelf)
+                            {
+                                finalLvlGemImgs[i].gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    break;
+
+                case Level.LevelGems.Gem3:
+                    if (!finalLevelGems.activeSelf)
+                    {
+                        finalLevelGems.SetActive(true);
+                    }
+
+                    for (int i = 0; i < finalLvlGemImgs.Length; i++)
+                    {
+                        if (!finalLvlGemImgs[i].gameObject.activeSelf)
+                        {
+                            finalLvlGemImgs[i].gameObject.SetActive(true);
+                        }
+
+                        finalLvlGemImgs[i].enabled = GameManager.GemsAcquired > i;
+                    }
+                    break;
+            }
+
+            /*Debug.Log(LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars);
             switch (LevelInformation.Levels[SceneManager.GetActiveScene().buildIndex].stars)
             {
                 case Level.LevelStars.ZERO:
@@ -290,7 +501,9 @@ public class MM_UI : MonoBehaviour
                         }
                     }
                     break;
-            }
+            }*/
+
+
         }
     }
     // ------------------- Button Functions ------------------------//
