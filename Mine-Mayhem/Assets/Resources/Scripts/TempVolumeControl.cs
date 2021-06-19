@@ -8,7 +8,7 @@ using TMPro;
 public class TempVolumeControl : MonoBehaviour
 {
     //The target Audio Mixer
-    [SerializeField] AudioMixer mixer;
+    [SerializeField] AudioMixer mixer = null;
     //Initialize volume
     [SerializeField] int _musicVolume  = 10;
     public int MusicVolume { get { return _musicVolume; } }
@@ -18,14 +18,12 @@ public class TempVolumeControl : MonoBehaviour
     //for incrementing the volume up and down
     [SerializeField] int _increment = 1;
 
-    public float testFloat;
-
     //To get the Volume to scale properly interact with the audio mixer
     [SerializeField] float _multiplier = 30.0f;
 
     //UI Text object to display volume
-    [SerializeField] TextMeshProUGUI _musicText;
-    [SerializeField] TextMeshProUGUI _soundText;
+    [SerializeField] TextMeshProUGUI _musicText = null;
+    [SerializeField] TextMeshProUGUI _soundText = null;
 
     // Update is called once per frame
     void Update()
