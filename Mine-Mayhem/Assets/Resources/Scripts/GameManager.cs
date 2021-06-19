@@ -275,10 +275,18 @@ public static class GameManager
             }
 
             // assign collected gems to the level
-            LevelInformation.Levels[LevelIndex].gemsAcquired = GemsAcquired;
+            if(LevelInformation.Levels[LevelIndex].gemsAcquired < GemsAcquired)
+            {
+                LevelInformation.Levels[LevelIndex].gemsAcquired = GemsAcquired;
+            }
 
             // Assign the awarded stars to the level and unlock the next level.
-            LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
+            //LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
+            if(LevelInformation.Levels[LevelIndex].stars < (Level.LevelStars)StarsAcquired)
+            {
+                LevelInformation.Levels[LevelIndex].stars = (Level.LevelStars)StarsAcquired;
+            }
+
             if (LevelIndex != LevelInformation.Levels.Length - 1)
             {
                 //Debug.Log($"Level Index : {LevelIndex}. Levels Length: {LevelInformation.Levels.Length}.");
