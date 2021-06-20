@@ -10,10 +10,10 @@ public class TempVolumeControl : MonoBehaviour
     //The target Audio Mixer
     [SerializeField] AudioMixer mixer = null;
     //Initialize volume
-    [SerializeField] int _musicVolume  = 10;
+    [SerializeField] int _musicVolume ;
     public int MusicVolume { get { return _musicVolume; } }
 
-    [SerializeField] int _soundVolume  = 10;
+    [SerializeField] int _soundVolume ;
     public int SoundVolume { get { return _soundVolume; } }
     //for incrementing the volume up and down
     [SerializeField] int _increment = 1;
@@ -25,6 +25,10 @@ public class TempVolumeControl : MonoBehaviour
     [SerializeField] TextMeshProUGUI _musicText = null;
     [SerializeField] TextMeshProUGUI _soundText = null;
 
+    private void Start()
+    {
+        SetVolumes();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -48,6 +52,44 @@ public class TempVolumeControl : MonoBehaviour
         DisplayVolume();
     }
 
+    public void SetVolumes()
+    {
+     //SET MUSIC VOLUME
+        //turn int into a decimal
+        float musicvalue = (_musicVolume / 10.0f);
+        float newMusicValue;
+
+        //This just allows for audio to be muted while volume is set to 0
+        if (_musicVolume != 0)
+        {
+            newMusicValue = Mathf.Log10(musicvalue) * _multiplier;
+            mixer.SetFloat("MusicVolume", newMusicValue);
+        }
+        else
+        {
+            newMusicValue = -80.0f;
+            mixer.SetFloat("MusicVolume", newMusicValue);
+        }
+     //SET SFX VOLUME
+        //turn int into a decimal
+        float sfxvalue = (_soundVolume / 10.0f);
+        float newSfxValue;
+
+        //This just allows for audio to be muted while volume is set to 0
+        if (_soundVolume != 0)
+        {
+            newSfxValue = Mathf.Log10(sfxvalue) * _multiplier;
+            mixer.SetFloat("SfxVolume", newSfxValue);
+        }
+        else
+        {
+            newSfxValue = -80.0f;
+            mixer.SetFloat("SfxVolume", newSfxValue);
+        }
+
+        SoundManager.SetMasterVolumes(_musicVolume, _soundVolume);
+    }
+
     //function for Increment the volume
     public void IncreaseVolume(string _audioGroup)
     {
@@ -65,7 +107,7 @@ public class TempVolumeControl : MonoBehaviour
                 float newValue;
 
                 //This just allows for audio to be muted while volume is set to 0
-                if (_soundVolume != 0)
+                if (_musicVolume != 0)
                 {
                     newValue = Mathf.Log10(value) * _multiplier;
                     mixer.SetFloat("MusicVolume", newValue);
@@ -76,8 +118,8 @@ public class TempVolumeControl : MonoBehaviour
                     mixer.SetFloat("MusicVolume", newValue);
                 }
             }
-
-            DisplayVolume();
+            
+      
         }
         //Check if the target  Audio group is the Sound group
         else if (_audioGroup == "Sound")
@@ -104,9 +146,11 @@ public class TempVolumeControl : MonoBehaviour
                     mixer.SetFloat("SfxVolume", newValue);
                 }
             }
-
-            DisplayVolume();
+           
+           
         }
+        SoundManager.SetMasterVolumes(_musicVolume, _soundVolume);
+        DisplayVolume();
     }
 
     //function for Decrement the volume
@@ -137,8 +181,8 @@ public class TempVolumeControl : MonoBehaviour
                     mixer.SetFloat("MusicVolume", newValue);
                 }
             }
-
-            DisplayVolume();
+            
+           
         }
         //Check if the target  Audio group is the Sound group
         else if (_audioGroup == "Sound")
@@ -165,9 +209,10 @@ public class TempVolumeControl : MonoBehaviour
                     mixer.SetFloat("SfxVolume", newValue);
                 }
             }
-
-            DisplayVolume();
+           
         }
+        SoundManager.SetMasterVolumes(_musicVolume, _soundVolume);
+        DisplayVolume();
     }
     
     //Function for Keeping Volume Int between 0 and 10

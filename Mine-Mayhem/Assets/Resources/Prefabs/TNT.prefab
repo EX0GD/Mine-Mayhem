@@ -133,9 +133,9 @@ GameObject:
   - component: {fileID: 3116260962978000156}
   - component: {fileID: 2110531516}
   - component: {fileID: 6023644153090504660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TNT
-  m_TagString: Untagged
+  m_TagString: TNT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -305,7 +305,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 44c36c1a746c37b4b89b9acc78ea7da5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
