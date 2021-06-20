@@ -10028,10 +10028,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 892d3ed5bcbb28f4794402fe5f85e79b, type: 2}
-  _musicVolume: 10
-  _soundVolume: 10
+  _musicVolume: 7
+  _soundVolume: 7
   _increment: 1
-  testFloat: 0
   _multiplier: 30
   _musicText: {fileID: 7680234481780175521}
   _soundText: {fileID: 3461738497276801341}

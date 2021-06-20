@@ -32,8 +32,8 @@ public static class SoundManager
 
     static SoundManager()
     {
-        MasterMusicVolume = 10;
-        MasterSoundVolume = 10;
+        //MasterMusicVolume = 7;
+        //MasterSoundVolume = 7;
         //SpikeDeath = GetClip("SFX/Defeat/Negative 5");
         //BoomDeath = GetClip("SFX/Defeat/Negative 6");
         //BoomJump = GetClip("SFX/Booms/Jump/RoundHitFire");

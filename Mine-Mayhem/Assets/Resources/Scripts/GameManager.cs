@@ -67,11 +67,7 @@ public static class GameManager
         Collectible.OnPickUpCollectible += Collectible_OnPickUp;
         CustomPlayerController.OnPlayerIsDead += Player_OnPlayerIsDead;
 
-        // When the game starts, find Audio Sources.
-        if (MM_UI.MMUI != null)
-        {
-            SoundManager.SetAudioSources(MM_UI.MMUI.SFXSoundSource, MM_UI.MMUI.MusicSoundSource);
-        }
+       
     }
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -150,8 +146,12 @@ public static class GameManager
         }
         else
         {
-            
-            
+            // When the game starts, find Audio Sources.
+            if (MM_UI.MMUI != null)
+            {
+                SoundManager.SetAudioSources(MM_UI.MMUI.SFXSoundSource, MM_UI.MMUI.MusicSoundSource);
+            }
+
             if (hpOn)
             {
                 hpOn = !hpOn;

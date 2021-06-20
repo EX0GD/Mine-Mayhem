@@ -51,6 +51,7 @@ public class CustomPlayerController : MonoBehaviour
     public bool canMove = true;
     public bool grounded;
     public bool canJump = true;
+    public bool canGrab = true;
     public int explosiveForce;
     public int explosiveDamage;
    
@@ -429,25 +430,27 @@ public class CustomPlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && wDetector.wallDetected)
         {
-            
-            if(wDetector.onLeft)
+            if (canGrab)
             {
-                if (!PlayerSpriteRenderer.flipX)
+                if (wDetector.onLeft)
                 {
-                    PlayerSpriteRenderer.flipX = !PlayerSpriteRenderer.flipX;
+                    if (!PlayerSpriteRenderer.flipX)
+                    {
+                        PlayerSpriteRenderer.flipX = !PlayerSpriteRenderer.flipX;
+                    }
                 }
-            }
-            else if(!wDetector.onLeft)
-            {
-                if (PlayerSpriteRenderer.flipX)
+                else if (!wDetector.onLeft)
                 {
-                    PlayerSpriteRenderer.flipX = !PlayerSpriteRenderer.flipX;
+                    if (PlayerSpriteRenderer.flipX)
+                    {
+                        PlayerSpriteRenderer.flipX = !PlayerSpriteRenderer.flipX;
+                    }
                 }
-            }
 
-            if (RB.constraints != RigidbodyConstraints2D.FreezeAll)
-            {
-                RB.constraints = RigidbodyConstraints2D.FreezeAll;
+                if (RB.constraints != RigidbodyConstraints2D.FreezeAll)
+                {
+                    RB.constraints = RigidbodyConstraints2D.FreezeAll;
+                }
             }
         }
         else
@@ -460,8 +463,8 @@ public class CustomPlayerController : MonoBehaviour
                     RB.freezeRotation = !RB.freezeRotation;
                 }
                 RB.AddForce(Vector2.down);
-                SetState(PlayerStates.IN_AIR);
             }
+            SetState(PlayerStates.IN_AIR);
         }
     }
 
