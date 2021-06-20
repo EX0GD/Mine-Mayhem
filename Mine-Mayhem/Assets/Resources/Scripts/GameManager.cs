@@ -66,6 +66,12 @@ public static class GameManager
         MM_UI.OnQuit += UI_OnQuit;
         Collectible.OnPickUpCollectible += Collectible_OnPickUp;
         CustomPlayerController.OnPlayerIsDead += Player_OnPlayerIsDead;
+
+        // When the game starts, find Audio Sources.
+        if (MM_UI.MMUI != null)
+        {
+            SoundManager.SetAudioSources(MM_UI.MMUI.SFXSoundSource, MM_UI.MMUI.MusicSoundSource);
+        }
     }
 
     private static void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -144,11 +150,7 @@ public static class GameManager
         }
         else
         {
-            // When the game starts, find Audio Sources.
-            if(MM_UI.MMUI != null)
-            {
-                SoundManager.SetAudioSources(MM_UI.MMUI.SFXSoundSource, MM_UI.MMUI.MusicSoundSource);
-            }
+            
             
             if (hpOn)
             {
@@ -158,6 +160,50 @@ public static class GameManager
         }
 
         OnToggleHP?.Invoke(hpOn);
+
+        // Play level music accordingly
+        HandleAudioSources(SoundManager.MusicSource, SoundManager.SFXSource);
+    }
+
+    private static void HandleAudioSources(AudioSource mSource, AudioSource sSource)
+    {
+        if(LevelIndex == 0)
+        {
+            if (mSource.isPlaying)
+            {
+                mSource.Stop();
+            }
+        }
+        else if(LevelIndex > 0 && LevelIndex < 6)
+        {
+            mSource.clip = SoundManager.LevelMusic1to5;
+            mSource.Play();
+        }
+        else if(LevelIndex > 5 && LevelIndex < 11)
+        {
+            mSource.clip = SoundManager.LevelMusic6to10;
+            mSource.Play();
+        }
+        else if(LevelIndex > 10 && LevelIndex < 16)
+        {
+            mSource.clip = SoundManager.LevelMusic11to15;
+            mSource.Play();
+        }
+        else if(LevelIndex > 15 && LevelIndex < 21)
+        {
+            mSource.clip = SoundManager.LevelMusic16to20;
+            mSource.Play();
+        }
+        else if(LevelIndex > 20 && LevelIndex < 26)
+        {
+            mSource.clip = SoundManager.LevelMusic21to25;
+            mSource.Play();
+        }
+        else
+        {
+            mSource.clip = SoundManager.LevelMusic26to30;
+            mSource.Play();
+        }
     }
 
     public static void HandlePause()
@@ -215,6 +261,10 @@ public static class GameManager
                 if (!StarConditions[0])
                 {
                     StarConditions[0] = true;
+                    if (SoundManager.MusicSource.isPlaying)
+                    {
+                        SoundManager.MusicSource.Stop();
+                    }
                 }
                 break;
 

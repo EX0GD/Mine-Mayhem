@@ -150,7 +150,7 @@ public class MainMenu : MonoBehaviour
                             levelGemIMGs[i].gameObject.SetActive(true);
                         }
 
-                        levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > 0;
+                        levelGemIMGs[i].enabled = gemsAcquired > 0;
                     }
                     else
                     {
@@ -177,9 +177,7 @@ public class MainMenu : MonoBehaviour
                             levelGemIMGs[i].gameObject.SetActive(true);
                         }
 
-                        //if(levelGemIMGs[i].enabled
-                        levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > i;
-                        Debug.Log($"Level Gem Image {i} Collected: {levelGemIMGs[i].enabled}.");
+                        levelGemIMGs[i].enabled = gemsAcquired > i;
                     }
                     else
                     {
@@ -203,7 +201,7 @@ public class MainMenu : MonoBehaviour
                     {
                         levelGemIMGs[i].gameObject.SetActive(true);
                     }
-                    levelGemIMGs[i].enabled = LevelInformation.Levels[levelIndex].gemsAcquired > i;
+                    levelGemIMGs[i].enabled = gemsAcquired > i;
                 }
                 break;
         }
