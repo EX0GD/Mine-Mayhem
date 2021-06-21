@@ -181,11 +181,11 @@ public class CustomPlayerController : MonoBehaviour
 
     public void DisablePlayer(bool value)
     {
-        if (canMove != value)
-            canMove = value;
+        if (canMove == value)
+            canMove = !value;
 
-        if (canJump != value)
-            canJump = value;
+        if (canJump == value)
+            canJump = !value;
         
     }
 

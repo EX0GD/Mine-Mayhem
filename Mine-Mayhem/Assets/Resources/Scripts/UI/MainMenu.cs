@@ -35,7 +35,6 @@ public class MainMenu : MonoBehaviour
         htpIndex = 0;
         levelIndex = 1;
         EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
-        SoundManager.SetMasterVolumes(MixerControl.MusicVolume, MixerControl.SoundVolume);
     }
 
     private void Update()
@@ -471,7 +470,7 @@ public class MainMenu : MonoBehaviour
 
     public void SettingsButton()
     {
-        MixerControl.SetMixerDisplayVolumes(SoundManager.MasterMusicVolume, SoundManager.MasterSoundVolume);
+        //MixerControl.SetMixerDisplayVolumes(SoundManager.MasterMusicVolume, SoundManager.MasterSoundVolume);
         MainMenuAnimator.SetTrigger("ToSettings");
     }
 }
