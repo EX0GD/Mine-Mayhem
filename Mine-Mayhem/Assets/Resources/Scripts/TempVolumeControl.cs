@@ -52,42 +52,19 @@ public class TempVolumeControl : MonoBehaviour
         DisplayVolume();
     }
 
-    public void SetVolumes()
+    // This method is responsible for setting the starting mixer attenuation volume lvl based on music and sound volume variables in this script.
+    private void SetVolumes()
     {
-     //SET MUSIC VOLUME
-        //turn int into a decimal
-        float musicvalue = (_musicVolume / 10.0f);
-        float newMusicValue;
+        _musicVolume = SoundManager.MasterMusicVolume;
+        _soundVolume = SoundManager.MasterSoundVolume;
 
-        //This just allows for audio to be muted while volume is set to 0
-        if (_musicVolume != 0)
-        {
-            newMusicValue = Mathf.Log10(musicvalue) * _multiplier;
-            mixer.SetFloat("MusicVolume", newMusicValue);
-        }
-        else
-        {
-            newMusicValue = -80.0f;
-            mixer.SetFloat("MusicVolume", newMusicValue);
-        }
-     //SET SFX VOLUME
-        //turn int into a decimal
-        float sfxvalue = (_soundVolume / 10.0f);
-        float newSfxValue;
+        float mValue = Mathf.Log10(_musicVolume / 10.0f) * _multiplier;
+        float sValue = Mathf.Log10(_soundVolume / 10.0f) * _multiplier;
 
-        //This just allows for audio to be muted while volume is set to 0
-        if (_soundVolume != 0)
-        {
-            newSfxValue = Mathf.Log10(sfxvalue) * _multiplier;
-            mixer.SetFloat("SfxVolume", newSfxValue);
-        }
-        else
-        {
-            newSfxValue = -80.0f;
-            mixer.SetFloat("SfxVolume", newSfxValue);
-        }
+        mixer.SetFloat("MusicVolume", mValue);
+        mixer.SetFloat("SfxVolume", sValue);
 
-        SoundManager.SetMasterVolumes(_musicVolume, _soundVolume);
+        DisplayVolume();
     }
 
     //function for Increment the volume
@@ -103,19 +80,16 @@ public class TempVolumeControl : MonoBehaviour
                 _musicVolume += _increment;
 
                 //turn int into a decimal
-                float value = (_musicVolume / 10.0f);
-                float newValue;
+                float value = Mathf.Log10((_musicVolume / 10.0f)) * _multiplier;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_musicVolume != 0)
                 {
-                    newValue = Mathf.Log10(value) * _multiplier;
-                    mixer.SetFloat("MusicVolume", newValue);
+                    mixer.SetFloat("MusicVolume", value);
                 }
                 else
                 {
-                    newValue = -80.0f;
-                    mixer.SetFloat("MusicVolume", newValue);
+                    mixer.SetFloat("MusicVolume", -80.0f);
                 }
             }
             
@@ -131,19 +105,16 @@ public class TempVolumeControl : MonoBehaviour
                 _soundVolume += _increment;
 
                 //turn int into a decimal
-                float value = (_soundVolume / 10.0f);
-                float newValue;
+                float value = Mathf.Log10((_soundVolume / 10.0f)) * _multiplier;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_soundVolume != 0)
                 {
-                    newValue = Mathf.Log10(value) * _multiplier;
-                    mixer.SetFloat("SfxVolume", newValue);
+                    mixer.SetFloat("SfxVolume", value);
                 }
                 else
                 {
-                    newValue = -80.0f;
-                    mixer.SetFloat("SfxVolume", newValue);
+                    mixer.SetFloat("SfxVolume", -80.0f);
                 }
             }
            
@@ -164,21 +135,18 @@ public class TempVolumeControl : MonoBehaviour
             {
                 //Decrease music volume integer by increment
                 _musicVolume -= _increment;
-                
+
                 //turn int into a decimal
-                float value = (_musicVolume / 10.0f);
-                float newValue;
+                float value = Mathf.Log10((_musicVolume / 10.0f)) * _multiplier;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_musicVolume != 0)
                 {
-                    newValue = Mathf.Log10(value) * _multiplier;
-                    mixer.SetFloat("MusicVolume", newValue);
+                    mixer.SetFloat("MusicVolume", value);
                 }
                 else
                 {
-                    newValue = -80.0f;
-                    mixer.SetFloat("MusicVolume", newValue);
+                    mixer.SetFloat("MusicVolume", -80.0f);
                 }
             }
             
@@ -194,19 +162,16 @@ public class TempVolumeControl : MonoBehaviour
                 _soundVolume -= _increment;
 
                 //turn int into a decimal
-                float value = (_soundVolume / 10.0f);
-                float newValue;
+                float value = Mathf.Log10((_soundVolume / 10.0f)) * _multiplier;
 
                 //This just allows for audio to be muted while volume is set to 0
                 if (_soundVolume != 0)
                 {
-                    newValue = Mathf.Log10(value) * _multiplier;
-                    mixer.SetFloat("SfxVolume", newValue);
+                    mixer.SetFloat("SfxVolume", value);
                 }
                 else
                 {
-                    newValue = -80.0f;
-                    mixer.SetFloat("SfxVolume", newValue);
+                    mixer.SetFloat("SfxVolume", -80.0f);
                 }
             }
            

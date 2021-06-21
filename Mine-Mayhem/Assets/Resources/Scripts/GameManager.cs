@@ -210,10 +210,27 @@ public static class GameManager
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (SceneManager.GetActiveScene().buildIndex != SceneManager.GetSceneByBuildIndex(0).buildIndex)
+            if (LevelIndex != 0)
             {
                 isPaused = !isPaused;
                 TogglePause(isPaused);
+
+                if (isPaused)
+                {
+                    if (SoundManager.MusicSource.isPlaying)
+                    {
+                        SoundManager.MusicSource.Pause();
+                    }
+                }
+                else
+                {
+                    if (!SoundManager.MusicSource.isPlaying)
+                    {
+                        SoundManager.MusicSource.Play();
+                    }
+                }
+
+                
             }
         }
     }
@@ -222,6 +239,7 @@ public static class GameManager
     {
         //Debug.Log("This is 'UI_OnRetry' contained in GameManager class.");
 
+        isPaused = !isPaused;
         TogglePause(false);
         Player_OnPlayerIsDead(false);
         OnToggleSuccessPanel?.Invoke(false);
@@ -234,6 +252,7 @@ public static class GameManager
     {
         //Debug.Log("This is the 'UI_OnMainMenu' method contained in the GameManager class.");
 
+        isPaused = !isPaused;
         TogglePause(false);
         Player_OnPlayerIsDead(false);
         OnToggleSuccessPanel?.Invoke(false);
@@ -263,6 +282,7 @@ public static class GameManager
                     StarConditions[0] = true;
                     if (SoundManager.MusicSource.isPlaying)
                     {
+                        Debug.Log("Gold Collected! Music Should Stop Now!");
                         SoundManager.MusicSource.Stop();
                     }
                 }
@@ -360,19 +380,23 @@ public static class GameManager
 
     private static void Player_OnPlayerIsDead(bool value)
     {
-        //Debug.Log($"Dead: {value}. - Now toggling the dead menu.");
+        // If the player is dead, stop the level music.
+        if (value)
+        {
+            if (SoundManager.MusicSource.isPlaying)
+            {
+                SoundManager.MusicSource.Stop();
+            }
+        }
+
         OnToggleDeathPanel?.Invoke(value);
     }
 
     private static void TogglePause(bool value)
     {
-        if(isPaused != value)
-        {
-            isPaused = value;
-        }
-        Time.timeScale = isPaused ? 0 : 1;
-        Player.DisablePlayer(isPaused);
+        Time.timeScale = value ? 0 : 1;
+        Player.DisablePlayer(value);
 
-        OnPause?.Invoke(isPaused);
+        OnPause?.Invoke(value);
     }
 }
