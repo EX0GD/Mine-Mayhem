@@ -380,15 +380,6 @@ public static class GameManager
 
     private static void Player_OnPlayerIsDead(bool value)
     {
-        // If the player is dead, stop the level music.
-        if (value)
-        {
-            if (SoundManager.MusicSource.isPlaying)
-            {
-                SoundManager.MusicSource.Stop();
-            }
-        }
-
         OnToggleDeathPanel?.Invoke(value);
     }
 
