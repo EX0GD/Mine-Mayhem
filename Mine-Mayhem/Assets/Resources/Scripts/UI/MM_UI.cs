@@ -88,6 +88,18 @@ public class MM_UI : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
+                CustomPlayerController player = FindObjectOfType<CustomPlayerController>();
+                if(player != null)
+                {
+                    if (!player.enabled)
+                    {
+                        player.enabled = true;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Player is null.");
+                }
                 IntroQuipActive = false;
                 ToggleIntroQuip(IntroQuipActive);
             }

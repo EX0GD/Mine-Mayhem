@@ -124,6 +124,9 @@ public class CustomPlayerController : MonoBehaviour
         }
 
         bombCoolDownTimer = bombCoolDownTime;
+
+        // When player starts, they are disabled. After pressing any key for Intro Quip, reenable the player script component.
+        enabled = false;
     }
 
     // Update is called once per frame
@@ -318,6 +321,13 @@ public class CustomPlayerController : MonoBehaviour
                     PlayerAudioSource.PlayOneShot(boomDeathClip);
                     break;
             }
+
+            // If the player is dead, stop the level music.
+            if (SoundManager.MusicSource.isPlaying)
+            {
+                SoundManager.MusicSource.Stop();
+            }
+
             yield return new WaitForSeconds(1.5f);
 
             OnPlayerIsDead?.Invoke(isDead);
