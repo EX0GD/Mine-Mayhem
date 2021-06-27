@@ -396,6 +396,7 @@ MonoBehaviour:
   curPlayerHealth: 0
   inputX: 0
   runSpeed: 5
+  airSpeed: 2
   canMove: 1
   grounded: 1
   canJump: 1
@@ -431,7 +432,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!70 &964777897998480931
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

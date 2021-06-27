@@ -265,11 +265,11 @@ public class CustomPlayerController : MonoBehaviour
 
                     if (RB.velocity.x > 0.5f)
                     {
-                        damp -= Time.deltaTime * 2;
+                        damp -= Time.deltaTime * 4;
                     }
                     else if(RB.velocity.x < -0.5f)
                     {
-                        damp += Time.deltaTime * 2;
+                        damp += Time.deltaTime * 4;
                     }
                     Vector2 v2 = new Vector2(damp, RB.velocity.y);
                     RB.velocity = v2;

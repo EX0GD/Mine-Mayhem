@@ -122,26 +122,6 @@ public static class GameManager
                     }
                 }
             }
-
-            /*if (collectibles.Length != 0)
-            {
-                foreach (Collectible collectible in collectibles)
-                {
-                    if (collectible.Type == Collectible.CollectibleType.GEM)
-                    {
-                        if (!GemsInCurrentLevel.Contains(collectible))
-                        {
-                            //Debug.Log(collectible);
-                            GemsInCurrentLevel.Add(collectible);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                /// If there are no gems in the current level and the list length is 0,
-                /// 
-            }*/
             #endregion
         }
         else
