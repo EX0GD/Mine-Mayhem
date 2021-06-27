@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Earned by collecting all of the Gems in the level, if the level has any. '
+  m_text: Earned by collecting all Gems in a level, if any.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 177d10a740d40da4f9d012afeb0baa2e, type: 2}
   m_sharedMaterial: {fileID: 2444905834427994343, guid: 177d10a740d40da4f9d012afeb0baa2e,
@@ -3954,10 +3954,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press the  ''SHIFT'' key to while in the air and next to a wall in order
+  m_text: While in the air and next to a wall, press & hold the 'LEFT SHIFT' key
     to hang from the wall.
-
-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48afb8fef34d56a4e8f7cc64c06262e2, type: 2}
   m_sharedMaterial: {fileID: -5025867141497835019, guid: 48afb8fef34d56a4e8f7cc64c06262e2,
@@ -5797,7 +5795,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press the  'D' key to move to the right
+  m_text: Press the  'D' key or 'Right Arrow' key to move to the right.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48afb8fef34d56a4e8f7cc64c06262e2, type: 2}
   m_sharedMaterial: {fileID: -5025867141497835019, guid: 48afb8fef34d56a4e8f7cc64c06262e2,
@@ -9572,7 +9570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press the  'A' key to move to the left
+  m_text: Press the  'A' key or left arrow key to move to the left.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48afb8fef34d56a4e8f7cc64c06262e2, type: 2}
   m_sharedMaterial: {fileID: -5025867141497835019, guid: 48afb8fef34d56a4e8f7cc64c06262e2,
@@ -10374,8 +10372,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Press the  'SPACE' key to boom jump.\n\nBe careful as this hurts the miner.
-    \n"
+  m_text: "Press the  'SPACE' key to jump using dynamite.\n\nBe careful, as this
+    hurts the miner. \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48afb8fef34d56a4e8f7cc64c06262e2, type: 2}
   m_sharedMaterial: {fileID: -5025867141497835019, guid: 48afb8fef34d56a4e8f7cc64c06262e2,
@@ -10983,7 +10981,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Earned by completing the level with your health above 60%.
+  m_text: Earned by completing the level with your health at or above 60%.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 177d10a740d40da4f9d012afeb0baa2e, type: 2}
   m_sharedMaterial: {fileID: 2444905834427994343, guid: 177d10a740d40da4f9d012afeb0baa2e,
@@ -11011,7 +11009,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.85
+  m_fontSize: 31.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11479,7 +11477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Earned by collecting the gold to complete the level. '
+  m_text: 'Earned by collecting the gold. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 177d10a740d40da4f9d012afeb0baa2e, type: 2}
   m_sharedMaterial: {fileID: 2444905834427994343, guid: 177d10a740d40da4f9d012afeb0baa2e,

@@ -93,6 +93,7 @@ public class MM_UI : MonoBehaviour
                 {
                     if (!player.enabled)
                     {
+                        player.RB.constraints = RigidbodyConstraints2D.FreezeRotation; 
                         player.enabled = true;
                     }
                 }
