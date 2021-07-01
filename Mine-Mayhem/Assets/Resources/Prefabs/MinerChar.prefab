@@ -396,7 +396,6 @@ MonoBehaviour:
   curPlayerHealth: 0
   inputX: 0
   runSpeed: 5
-  airSpeed: 2
   canMove: 1
   grounded: 1
   canJump: 1
