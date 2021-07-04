@@ -132,11 +132,6 @@ public class CustomPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            SaveSystem.SaveGame();
-        }
-
         if (canMove)
         {
             inputX = Input.GetAxisRaw("Horizontal");
@@ -149,10 +144,10 @@ public class CustomPlayerController : MonoBehaviour
         {
             GameManager.HandlePause();
 
-            if (Input.GetKeyDown(KeyCode.P))
+            /*if (Input.GetKeyDown(KeyCode.P))
             {
                 DamagePlayer(20);
-            }
+            }*/
         }
     }
 
@@ -245,6 +240,7 @@ public class CustomPlayerController : MonoBehaviour
             Vector2 movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
             if (currentState != PlayerStates.IN_AIR)
             {
+                //movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
                 if (RB.velocity != movement)
                 {
                     RB.velocity = movement;
@@ -252,7 +248,8 @@ public class CustomPlayerController : MonoBehaviour
             }
             else
             {
-                if(inputX != 0)
+                //movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
+                if (inputX != 0)
                 {
                     if (RB.velocity != movement)
                     {
