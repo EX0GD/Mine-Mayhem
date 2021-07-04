@@ -161,6 +161,7 @@ public class MM_UI : MonoBehaviour
     private void Player_OnTakeDamage()
     {
         hp.lifeBar.fillAmount = GameManager.Player.curPlayerHealth / GameManager.Player.maxPlayerHealth;
+        hp.lifeText.text = $"HP: {GameManager.Player.curPlayerHealth}";
     }
 
     private void LevelStartEvent()
@@ -169,6 +170,7 @@ public class MM_UI : MonoBehaviour
         introQuipLevelText.text = LevelInformation.Levels[GameManager.LevelIndex].displayName;
         ToggleIntroQuip(true);
         hp.lifeBar.fillAmount = GameManager.Player.curPlayerHealth / GameManager.Player.maxPlayerHealth;
+        hp.lifeText.text = $"HP: {GameManager.Player.curPlayerHealth}";
     }
 
     private void ToggleGameFinishedPanelEvent(bool value)

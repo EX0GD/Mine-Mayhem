@@ -4946,6 +4946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeBar: {fileID: 5593663522822452921}
+  lifeText: {fileID: 3440010350323278635}
 --- !u!1 &7679903822103677042
 GameObject:
   m_ObjectHideFlags: 0

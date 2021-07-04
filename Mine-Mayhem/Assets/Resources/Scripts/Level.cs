@@ -2,10 +2,10 @@
 [System.Serializable]
 public class Level
 {
-    public string name;
-    public string displayName;
-    public string path;
-    public bool levelLocked;
+    public string name = null;
+    public string displayName = null;
+    public string path = null;
+    public bool levelLocked = true;
 
     public enum LevelStars
     {
@@ -14,7 +14,7 @@ public class Level
         Star2,
         Star3
     };
-    public LevelStars stars;
+    public LevelStars stars = LevelStars.ZERO;
 
     public enum LevelGems
     {
@@ -23,9 +23,9 @@ public class Level
         Gem2,
         Gem3
     };
-    public LevelGems gems;
+    public LevelGems gems = LevelGems.NONE;
 
-    public int gemsAcquired;
+    public int gemsAcquired = 0;
 
     public Level(string name, string displayName, bool levelLocked, LevelStars stars, LevelGems gems, int gemsAcquired)
     {
