@@ -6874,6 +6874,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2847714256617194751, guid: 3ad9c0a8236eaf94da86e66461ece1ae,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 55.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3131769933882945812, guid: 3ad9c0a8236eaf94da86e66461ece1ae,
         type: 3}
       propertyPath: m_Name
@@ -6923,6 +6928,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185737179979515093, guid: 3ad9c0a8236eaf94da86e66461ece1ae,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 71.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697426625904840590, guid: 3ad9c0a8236eaf94da86e66461ece1ae,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 121.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 8697426625904840590, guid: 3ad9c0a8236eaf94da86e66461ece1ae,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 8889881889428063770, guid: 3ad9c0a8236eaf94da86e66461ece1ae,
         type: 3}
