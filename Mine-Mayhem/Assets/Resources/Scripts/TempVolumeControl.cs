@@ -58,8 +58,25 @@ public class TempVolumeControl : MonoBehaviour
         _musicVolume = SoundManager.MasterMusicVolume;
         _soundVolume = SoundManager.MasterSoundVolume;
 
-        float mValue = Mathf.Log10(_musicVolume / 10.0f) * _multiplier;
-        float sValue = Mathf.Log10(_soundVolume / 10.0f) * _multiplier;
+        float mValue;
+        if (_musicVolume > 0)
+        {
+            mValue = Mathf.Log10(_musicVolume / 10.0f) * _multiplier;
+        }
+        else
+        {
+            mValue = -80.0f;
+        }
+
+        float sValue;
+        if (_soundVolume > 0)
+        {
+            sValue = Mathf.Log10(_soundVolume / 10.0f) * _multiplier;
+        }
+        else
+        {
+            sValue = -80.0f;
+        }
 
         mixer.SetFloat("MusicVolume", mValue);
         mixer.SetFloat("SfxVolume", sValue);

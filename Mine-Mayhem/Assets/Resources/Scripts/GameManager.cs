@@ -243,10 +243,19 @@ public static class GameManager
 
     private static void UI_OnQuit()
     {
-        Debug.Log("This is the 'UI_OnQuit' method contained in the GameManager class.");
+        //Debug.Log("This is the 'UI_OnQuit' method contained in the GameManager class.");
+
+#if UNITY_EDITOR
+        if (UnityEditor.EditorApplication.isPlaying)
+        {
+            SaveSystem.SaveGame();
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
 
         if (Application.isPlaying)
         {
+            SaveSystem.SaveGame();
             Application.Quit();
         }
     }
@@ -262,7 +271,6 @@ public static class GameManager
                     StarConditions[0] = true;
                     if (SoundManager.MusicSource.isPlaying)
                     {
-                        Debug.Log("Gold Collected! Music Should Stop Now!");
                         SoundManager.MusicSource.Stop();
                     }
                 }

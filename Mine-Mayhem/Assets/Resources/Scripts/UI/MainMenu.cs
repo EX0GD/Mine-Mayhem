@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
 
     [Space(10)]
     [SerializeField] private int levelIndex;
+    private int nextLevelIndex;
     public TextMeshProUGUI levelText;
     public GameObject levelLock;
     public Image[] levelStarIMGs;
@@ -34,7 +35,24 @@ public class MainMenu : MonoBehaviour
         MainMenuAnimator = GetComponentInChildren<Animator>();
         htpIndex = 0;
         levelIndex = 1;
-        EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
+        nextLevelIndex = levelIndex;
+
+
+        // Run through all levels and set level index to next unlocked & unplayed level.
+        for(int i = 1; i < LevelInformation.Levels.Length; i++)
+        {
+            if(!LevelInformation.Levels[i].levelLocked && LevelInformation.Levels[i].stars == Level.LevelStars.ZERO)
+            {
+                levelIndex = i;
+                nextLevelIndex = levelIndex;
+                break;
+            }
+
+            /*if(i == LevelInformation.Levels.Length - 1 && levelIndex == 1)
+            {
+                Debug.Log("This is the end of the loop.");
+            }*/
+        }    
     }
 
     private void Update()
@@ -43,11 +61,6 @@ public class MainMenu : MonoBehaviour
         {
             Debug.Log("Currently deleting save data.");
             SaveSystem.DeleteSaveData();
-        }
-
-        if (Input.GetKeyDown(KeyCode.End))
-        {
-            Debug.Log(LevelInformation.Levels[levelIndex].gemsAcquired);
         }
     }
 
@@ -213,11 +226,10 @@ public class MainMenu : MonoBehaviour
     {
         //Debug.Log("Play button.");
         MainMenuAnimator.SetTrigger("toLevelSelect");
-        if (levelIndex != 1)
+        if(levelIndex != nextLevelIndex)
         {
-            levelIndex = 1;
+            levelIndex = nextLevelIndex;
         }
-
         EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
     }
 
@@ -462,6 +474,13 @@ public class MainMenu : MonoBehaviour
 
     public void QuitApplication()
     {
+#if UNITY_EDITOR
+        if (UnityEditor.EditorApplication.isPlaying)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
+
         if (Application.isPlaying)
         {
             Application.Quit();
