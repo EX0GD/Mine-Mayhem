@@ -10362,7 +10362,7 @@ CompositeCollider2D:
       - {x: 8.138025, y: -3.99999}
       - {x: 8.147983, y: -4.000032}
   m_VertexDistance: 0.0085
-  m_OffsetDistance: 0.00005
+  m_OffsetDistance: 0.1
 --- !u!50 &98529788
 Rigidbody2D:
   serializedVersion: 4

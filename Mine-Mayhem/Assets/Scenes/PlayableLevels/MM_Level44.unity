@@ -18739,7 +18739,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
@@ -19461,7 +19461,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
@@ -19623,7 +19623,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
@@ -20726,7 +20726,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
@@ -21221,7 +21221,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
@@ -22155,7 +22155,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 5.0036855, y: 0.032931328}
+  m_Offset: {x: 8.017453, y: 0.032931328}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -22166,7 +22166,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.856885, y: 0.5578966}
+  m_Size: {x: 16.88442, y: 0.5578966}
   m_EdgeRadius: 0
 --- !u!212 &1417111523
 SpriteRenderer:
@@ -22863,7 +22863,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
@@ -23188,7 +23188,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
@@ -23919,7 +23919,7 @@ PrefabInstance:
     - target: {fileID: 3116260962978000159, guid: 7870c9713e977634e950c670b7c9b914,
         type: 3}
       propertyPath: m_BodyType
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7870c9713e977634e950c670b7c9b914, type: 3}
