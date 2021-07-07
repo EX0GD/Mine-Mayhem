@@ -269,6 +269,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1748272802}
     m_Modifications:
+    - target: {fileID: 3457042111556719150, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_text
+      value: '~ Lillian Welshans
+
+        ~ Pedro Pinheiro
+
+        ~ Tyrese Jones'
+      objectReference: {fileID: 0}
     - target: {fileID: 3735073946191586578, guid: 237e2d40900de4d448bbf38728bf2920,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -378,6 +387,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231235027863251897, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_text
+      value: '~ Kiara Harris
+
+        ~ Mandi
+
+        ~ Sean Bradley Massie
+
+        ~
+        Mariana Barros'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237e2d40900de4d448bbf38728bf2920, type: 3}

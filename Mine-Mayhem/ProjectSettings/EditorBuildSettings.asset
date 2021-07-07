@@ -51,7 +51,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayableLevels/MM_Level14.unity
     guid: c97da844738e4894dbbc02388e763ef0
   - enabled: 1
-    path: Assets/Scenes/PlayableLevels/MM_level15.unity
+    path: Assets/Scenes/PlayableLevels/MM_Level15.unity
     guid: 9115dfea2aede4e4991c18014d5bd450
   - enabled: 1
     path: Assets/Scenes/PlayableLevels/MM_Level16.unity
@@ -131,4 +131,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScenes/MM_StevenTest1.unity
     guid: 331bd86763ac6544982865224de602c2
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level41.unity
+    guid: 7390da76b85918d4c8d1ee99b634bc9c
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level42.unity
+    guid: 91357be7f63797b42bd7a3f613030929
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level43.unity
+    guid: 12fd089ba27ede34d8bdb766283bf2e1
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level44.unity
+    guid: 39c043f71da724e4299a9d7312d7ffb7
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level45.unity
+    guid: 9007eb0c0e3e2f2479a625c49faf55de
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level46.unity
+    guid: 3f33c3e51640ad04ba354c96825bb7d7
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level47.unity
+    guid: bde5778d05fcfe746bec64c94e9c9257
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level48.unity
+    guid: 6c87e611c7dd30b4299b11c12f527c4a
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level49.unity
+    guid: 7ff4ca24c523a7146b54e55743272f06
+  - enabled: 1
+    path: Assets/Scenes/PlayableLevels/MM_Level50.unity
+    guid: f4c52238845413342acc35293e02cbd4
   m_configObjects: {}
