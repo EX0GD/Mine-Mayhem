@@ -3228,7 +3228,7 @@ CompositeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
   m_GenerationType: 1
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.01
   m_ColliderPaths:
   - m_Collider: {fileID: 98529786}
     m_ColliderPaths:
@@ -10362,7 +10362,7 @@ CompositeCollider2D:
       - {x: 8.138025, y: -3.99999}
       - {x: 8.147983, y: -4.000032}
   m_VertexDistance: 0.0085
-  m_OffsetDistance: 0.1
+  m_OffsetDistance: 0.05
 --- !u!50 &98529788
 Rigidbody2D:
   serializedVersion: 4
