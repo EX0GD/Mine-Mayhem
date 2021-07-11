@@ -238,7 +238,7 @@ public class CustomPlayerController : MonoBehaviour
         if (canMove)
         {
             Vector2 movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
-            if (currentState != PlayerStates.IN_AIR)
+            if (currentState != PlayerStates.IN_AIR && currentState != PlayerStates.BOOM_JUMP)
             {
                 //movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
                 if (RB.velocity != movement)
@@ -246,7 +246,7 @@ public class CustomPlayerController : MonoBehaviour
                     RB.velocity = movement;
                 }
             }
-            else
+            else if(currentState == PlayerStates.IN_AIR || currentState == PlayerStates.BOOM_JUMP)
             {
                 //movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
                 if (inputX != 0)
@@ -373,6 +373,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private void HandleBoomJump()
     {
+        Movement();
         if (canJump)
         {
             canJump = !canJump;
