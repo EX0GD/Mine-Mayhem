@@ -14,6 +14,7 @@ public class MM_UI : MonoBehaviour
     public AudioSource SFXSoundSource { get { return sfxSoundSource; } }
 
     public HPBar hp;
+    public Animator hpAnimator;
     public FailedPanelSet failPanel;
     public PausedPanelSet pausePanel;
     public SuccessPanelSet successPanel;
@@ -60,6 +61,7 @@ public class MM_UI : MonoBehaviour
         GameManager.OnToggleHP += ToggleHPEvent;
         GameManager.OnLevelStart += LevelStartEvent;
         CustomPlayerController.OnPlayerTakeDamage += Player_OnTakeDamage;
+        CustomPlayerController.OnPlayerJump += Player_OnJump;
         GameManager.OnToggleDeathPanel += ToggleFailPanelEvent;
         GameManager.OnToggleSuccessPanel += ToggleSuccessPanelEvent;
         GameManager.OnToggleGameFinishedPanel += ToggleGameFinishedPanelEvent;
@@ -77,6 +79,7 @@ public class MM_UI : MonoBehaviour
         GameManager.OnToggleHP -= ToggleHPEvent;
         GameManager.OnLevelStart -= LevelStartEvent;
         CustomPlayerController.OnPlayerTakeDamage -= Player_OnTakeDamage;
+        CustomPlayerController.OnPlayerJump -= Player_OnJump;
         GameManager.OnToggleDeathPanel -= ToggleFailPanelEvent;
         GameManager.OnToggleSuccessPanel -= ToggleSuccessPanelEvent;
         GameManager.OnToggleGameFinishedPanel -= ToggleGameFinishedPanelEvent;
@@ -162,6 +165,12 @@ public class MM_UI : MonoBehaviour
     {
         hp.lifeBar.fillAmount = GameManager.Player.curPlayerHealth / GameManager.Player.maxPlayerHealth;
         hp.lifeText.text = $"HP: {GameManager.Player.curPlayerHealth}";
+    }
+
+    private void Player_OnJump(bool value)
+    {
+        //hpAnimator.GetBool("CanJump")
+        hpAnimator.SetBool("CanJump", value);
     }
 
     private void LevelStartEvent()

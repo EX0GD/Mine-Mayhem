@@ -269,20 +269,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1748272802}
     m_Modifications:
-    - target: {fileID: 3457042111556719150, guid: 237e2d40900de4d448bbf38728bf2920,
-        type: 3}
-      propertyPath: m_text
-      value: '~ Lillian Welshans
-
-        ~ Pedro Pinheiro
-
-        ~ Tyrese Jones
-
-        ~
-        Rebecca Lawson
-
-        ~ Sandro Cabral'
-      objectReference: {fileID: 0}
     - target: {fileID: 3735073946191586578, guid: 237e2d40900de4d448bbf38728bf2920,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -393,21 +379,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Menu
       objectReference: {fileID: 0}
-    - target: {fileID: 8231235027863251897, guid: 237e2d40900de4d448bbf38728bf2920,
+    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
         type: 3}
-      propertyPath: m_text
-      value: '~ Kiara Harris
-
-        ~ Mandi Welshans
-
-        ~ Sean Bradley Massie
-
-        ~
-        Mariana Barros
-
-        ~ Jordan Smith
-
-        ~ Eva Sindicq'
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237e2d40900de4d448bbf38728bf2920, type: 3}
@@ -807,6 +802,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679903822980420014, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679903822980420014, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1980
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679903822980420014, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679903822980420014, guid: b0477c5621aaeed4fbc2c2f14f6423c1,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0477c5621aaeed4fbc2c2f14f6423c1, type: 3}

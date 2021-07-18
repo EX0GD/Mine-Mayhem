@@ -67,6 +67,7 @@ public class CustomPlayerController : MonoBehaviour
 
     public static event Action OnPlayerTakeDamage;
     public static event Action<bool> OnPlayerIsDead;
+    public static event Action<bool> OnPlayerJump;
 
 
     //Wall Detection Child
@@ -202,6 +203,7 @@ public class CustomPlayerController : MonoBehaviour
                     ExplosionAnimator.SetBool("isTriggered", false);
                     canJump = true;
                     bombCoolDownTimer = bombCoolDownTime;
+                    OnPlayerJump?.Invoke(canJump);
                 }
             }
         }
@@ -377,6 +379,7 @@ public class CustomPlayerController : MonoBehaviour
         if (canJump)
         {
             canJump = !canJump;
+            OnPlayerJump?.Invoke(canJump);
             ExplosionAnimator.SetBool("isTriggered", true);
             // Trigger Explosion Sound Here
             BoomJumpSource.Play();
