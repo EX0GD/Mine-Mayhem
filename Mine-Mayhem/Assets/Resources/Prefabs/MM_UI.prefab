@@ -5158,20 +5158,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1832461103553980833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7679903821688723763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f498aa24e4a74e4ba9798121a800996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeBar: {fileID: 5593663522822452921}
-  lifeText: {fileID: 3440010350323278635}
 --- !u!95 &8293809237747958954
 Animator:
   serializedVersion: 3
@@ -5191,6 +5177,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1832461103553980833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679903821688723763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f498aa24e4a74e4ba9798121a800996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeBar: {fileID: 5593663522822452921}
+  lifeText: {fileID: 3440010350323278635}
 --- !u!1 &7679903822103677042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5578,6 +5578,7 @@ MonoBehaviour:
   musicSoundSource: {fileID: 6509510009900563714}
   sfxSoundSource: {fileID: 6509510009041035695}
   hp: {fileID: 1832461103553980833}
+  hpAnimator: {fileID: 8293809237747958954}
   failPanel: {fileID: 5564015545618578997}
   pausePanel: {fileID: 2556202296810606745}
   successPanel: {fileID: 7381575597803650572}

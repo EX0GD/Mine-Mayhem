@@ -3318,14 +3318,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: '~ Kiara Harris
 
-    ~ Mandi
+    ~ Mandi Welshans
 
     ~ Sean Bradley Massie
 
-    ~ Mariana
-    Barros
+    ~
+    Mariana Barros
 
-    ~ Jordan Smith'
+    ~ Jordan Smith
+
+    ~ Eva Sindicq'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48afb8fef34d56a4e8f7cc64c06262e2, type: 2}
   m_sharedMaterial: {fileID: -5025867141497835019, guid: 48afb8fef34d56a4e8f7cc64c06262e2,
@@ -4101,7 +4103,9 @@ MonoBehaviour:
     ~ Tyrese Jones
 
     ~ Rebecca
-    Lawson'
+    Lawson
+
+    ~ Sandro Cabral'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 48afb8fef34d56a4e8f7cc64c06262e2, type: 2}
   m_sharedMaterial: {fileID: -5025867141497835019, guid: 48afb8fef34d56a4e8f7cc64c06262e2,

@@ -54,6 +54,14 @@ public static class SoundManager
         {
             MasterSoundVolume = _sound;
         }
+
+        if (PlayerPrefs.HasKey("MusicVolume"))
+        {
+            if(PlayerPrefs.GetInt("MusicVolume") != _music)
+            {
+                PlayerPrefs.SetInt("MusicVolume", _music);
+            }
+        }
     }
 
     public static void PlaySound(AudioClip clip)
