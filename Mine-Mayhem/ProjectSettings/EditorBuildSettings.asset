@@ -177,7 +177,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScenes/MM_StevenTest6.unity
     guid: a7f9dac06f8bba7488982e891b2f0a6f
   - enabled: 1
-    path: Assets/Scenes/TestScenes/MM_StevenTest7_Variant.unity
+    path: Assets/Scenes/TestScenes/MM_StevenTest8.unity
     guid: 2c39ecd20cccdde4bbc90aad28d8bc3b
   - enabled: 1
     path: Assets/Scenes/TestScenes/MM_StevenTest5_Variant_2.unity
