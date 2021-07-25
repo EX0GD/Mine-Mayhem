@@ -154,34 +154,34 @@ public static class GameManager
                 mSource.Stop();
             }
         }
-        else if(LevelIndex > 0 && LevelIndex < 6)
+        else if(LevelIndex > 0 && LevelIndex < 10)
         {
-            mSource.clip = SoundManager.LevelMusic1to5;
+            mSource.clip = SoundManager.LevelMusic1to9;
             mSource.Play();
         }
-        else if(LevelIndex > 5 && LevelIndex < 11)
+        else if(LevelIndex > 9 && LevelIndex < 20)
         {
-            mSource.clip = SoundManager.LevelMusic6to10;
+            mSource.clip = SoundManager.LevelMusic10to19;
             mSource.Play();
         }
-        else if(LevelIndex > 10 && LevelIndex < 16)
+        else if(LevelIndex > 19 && LevelIndex < 30)
         {
-            mSource.clip = SoundManager.LevelMusic11to15;
+            mSource.clip = SoundManager.LevelMusic20to29;
             mSource.Play();
         }
-        else if(LevelIndex > 15 && LevelIndex < 21)
+        else if(LevelIndex > 29 && LevelIndex < 40)
         {
-            mSource.clip = SoundManager.LevelMusic16to20;
+            mSource.clip = SoundManager.LevelMusic30to39;
             mSource.Play();
         }
-        else if(LevelIndex > 20 && LevelIndex < 26)
+        else if(LevelIndex > 39 && LevelIndex < 50)
         {
-            mSource.clip = SoundManager.LevelMusic21to25;
+            mSource.clip = SoundManager.LevelMusic40to49;
             mSource.Play();
         }
         else
         {
-            mSource.clip = SoundManager.LevelMusic26to30;
+            mSource.clip = SoundManager.LevelMusic50to60;
             mSource.Play();
         }
     }
