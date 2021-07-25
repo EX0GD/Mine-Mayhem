@@ -173,13 +173,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScenes/MM_StevenTest5.unity
     guid: ebe3778bcc8866a4fb3bdd4e5cb1c5dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScenes/MM_StevenTest6.unity
     guid: a7f9dac06f8bba7488982e891b2f0a6f
   - enabled: 1
     path: Assets/Scenes/TestScenes/MM_StevenTest8.unity
     guid: 2c39ecd20cccdde4bbc90aad28d8bc3b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScenes/MM_StevenTest5_Variant_2.unity
     guid: beb2b9b78f7b6a7448322d6ddefee4a6
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/MM_StevenTest9.unity
+    guid: 3776d84f7c4174942b6681901f6a81a4
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/MM_StevenTest10.unity
+    guid: 295cd0e0dca5d194893d514ae3d4f043
   m_configObjects: {}
