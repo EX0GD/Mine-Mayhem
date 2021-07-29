@@ -379,31 +379,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Menu
       objectReference: {fileID: 0}
-    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
-        type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
-        type: 3}
-      propertyPath: m_MatchWidthOrHeight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
-        type: 3}
-      propertyPath: m_ScreenMatchMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
-        type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 3735073946191586580, guid: 237e2d40900de4d448bbf38728bf2920,
-        type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 1080
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237e2d40900de4d448bbf38728bf2920, type: 3}
 --- !u!1 &1158044231

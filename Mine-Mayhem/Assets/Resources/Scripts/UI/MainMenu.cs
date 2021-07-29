@@ -28,6 +28,9 @@ public class MainMenu : MonoBehaviour
 
     private TempVolumeControl MixerControl { get { return GetComponent<TempVolumeControl>(); } }
 
+    [SerializeField] private Image[] LevelImages;
+    [SerializeField] private Image CurrentLevelImage;
+
 
     // Start is called before the first frame update
     void Start()
