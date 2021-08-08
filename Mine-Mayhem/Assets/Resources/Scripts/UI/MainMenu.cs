@@ -28,8 +28,9 @@ public class MainMenu : MonoBehaviour
 
     private TempVolumeControl MixerControl { get { return GetComponent<TempVolumeControl>(); } }
 
-    [SerializeField] private Image[] LevelImages;
+    [SerializeField] private Sprite[] LevelImages;
     [SerializeField] private Image CurrentLevelImage;
+   
 
 
     // Start is called before the first frame update
@@ -224,9 +225,10 @@ public class MainMenu : MonoBehaviour
 
         if(CurrentLevelImage != null)
         {
-            if (CurrentLevelImage != LevelImages[levelIndex])
+            if (CurrentLevelImage != LevelImages[levelIndex-1])
             {
-                CurrentLevelImage = LevelImages[levelIndex];
+                CurrentLevelImage.sprite = LevelImages[levelIndex-1];
+                
             }
         }
         else
