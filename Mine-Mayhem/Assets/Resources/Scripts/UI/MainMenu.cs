@@ -28,6 +28,9 @@ public class MainMenu : MonoBehaviour
 
     private TempVolumeControl MixerControl { get { return GetComponent<TempVolumeControl>(); } }
 
+    [SerializeField] private Image[] LevelImages;
+    [SerializeField] private Image CurrentLevelImage;
+
 
     // Start is called before the first frame update
     void Start()
@@ -218,6 +221,19 @@ public class MainMenu : MonoBehaviour
                 }
                 break;
         }
+
+        if(CurrentLevelImage != null)
+        {
+            if (CurrentLevelImage != LevelImages[levelIndex])
+            {
+                CurrentLevelImage = LevelImages[levelIndex];
+            }
+        }
+        else
+        {
+            string response = CurrentLevelImage ? "Level img is NOT null" : "Level img is null";
+            Debug.Log($"CurrentLevelImage = {response}. --- LevelImage = Level{levelIndex}.");
+        }
     }
 
 
@@ -243,6 +259,15 @@ public class MainMenu : MonoBehaviour
         else
         {
             Debug.Log($"The current scene is locked: {LevelInformation.Levels[levelIndex].name}.");
+        }
+    }
+
+    public void LevelGridButton(int buttonIndex)
+    {
+        if(levelIndex != buttonIndex)
+        {
+            levelIndex = buttonIndex;
+            EditLevelInfo(LevelInformation.Levels[levelIndex].displayName, LevelInformation.Levels[levelIndex].levelLocked, LevelInformation.Levels[levelIndex].stars, LevelInformation.Levels[levelIndex].gems, LevelInformation.Levels[levelIndex].gemsAcquired);
         }
     }
 
