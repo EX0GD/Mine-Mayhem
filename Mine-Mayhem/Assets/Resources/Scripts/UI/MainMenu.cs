@@ -28,9 +28,10 @@ public class MainMenu : MonoBehaviour
 
     private TempVolumeControl MixerControl { get { return GetComponent<TempVolumeControl>(); } }
 
-    [SerializeField] private Sprite[] LevelImages;
-    [SerializeField] private Image CurrentLevelImage;
-   
+    [SerializeField] private Sprite[] LevelImages = null;
+    [SerializeField] private Image CurrentLevelImage = null;
+
+    [SerializeField] private SmallButton[] SmallLVLButtons = null;
 
 
     // Start is called before the first frame update
@@ -65,6 +66,11 @@ public class MainMenu : MonoBehaviour
         {
             Debug.Log("Currently deleting save data.");
             SaveSystem.DeleteSaveData();
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log(SmallLVLButtons[1].ButtonOutline);
         }
     }
 
@@ -235,6 +241,21 @@ public class MainMenu : MonoBehaviour
         {
             string response = CurrentLevelImage ? "Level img is NOT null" : "Level img is null";
             Debug.Log($"CurrentLevelImage = {response}. --- LevelImage = Level{levelIndex}.");
+        }
+
+        for(int i = 0; i < SmallLVLButtons.Length; i++)
+        {
+            if(i != levelIndex - 1)
+            {
+                SmallLVLButtons[i].ButtonOutline.enabled = false;
+            }
+            else
+            {
+                if (!SmallLVLButtons[i].ButtonOutline.enabled)
+                {
+                    SmallLVLButtons[i].ButtonOutline.enabled = true;
+                }
+            }
         }
     }
 
