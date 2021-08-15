@@ -458,12 +458,12 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 4671418477395463648}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3b7e64d7222dde448a7617c10d92c1a4, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.094401}
-  m_Size: {x: 0.82269144, y: 0.8355372}
+  m_Offset: {x: 0.016897917, y: -0.103618026}
+  m_Size: {x: 0.80118513, y: 0.81710315}
   m_Direction: 0
 --- !u!95 &6788220788188354268
 Animator:
