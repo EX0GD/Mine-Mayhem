@@ -33,6 +33,8 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private SmallButton[] SmallLVLButtons = null;
 
+    [SerializeField] private GameObject ConfirmationPanel = null;
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,20 +60,6 @@ public class MainMenu : MonoBehaviour
                 Debug.Log("This is the end of the loop.");
             }*/
         }    
-    }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.RightControl) && Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Backspace))
-        {
-            Debug.Log("Currently deleting save data.");
-            SaveSystem.DeleteSaveData();
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log(SmallLVLButtons[1].ButtonOutline);
-        }
     }
 
     private void EditLevelInfo(string levelName, bool levelLocked, Level.LevelStars rating, Level.LevelGems gems, int gemsAcquired)
@@ -539,5 +527,31 @@ public class MainMenu : MonoBehaviour
     {
         //MixerControl.SetMixerDisplayVolumes(SoundManager.MasterMusicVolume, SoundManager.MasterSoundVolume);
         MainMenuAnimator.SetTrigger("ToSettings");
+    }
+
+    public void ResetSaveData()
+    {
+        if (!ConfirmationPanel.activeSelf)
+        {
+            ConfirmationPanel.SetActive(true);
+        }
+    }
+
+    public void ConfirmationYesButton()
+    {
+        LevelInformation.ResetSaveData();
+        nextLevelIndex = 1;
+        if (ConfirmationPanel.activeSelf)
+        {
+            ConfirmationPanel.SetActive(false);
+        }
+    }
+
+    public void ConfirmationNoButton()
+    {
+        if (ConfirmationPanel.activeSelf)
+        {
+            ConfirmationPanel.SetActive(false);
+        }
     }
 }

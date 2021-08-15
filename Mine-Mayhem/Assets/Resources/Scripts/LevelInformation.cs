@@ -7,12 +7,19 @@ using UnityEngine;
 public static class LevelInformation
 {
     public static Level[] Levels;
-    private static readonly GameData data;
+    private static GameData Data { get; set; }
 
     static LevelInformation()
     {
-        data = SaveSystem.LoadGame();
-        Levels = data != null ? LoadSavedSetup() : LoadDefaultSetup();
+        Data = SaveSystem.LoadGame();
+        Levels = Data != null ? LoadSavedSetup() : LoadDefaultSetup();
+    }
+
+    public static void ResetSaveData()
+    {
+        Data = SaveSystem.DeleteSaveData();
+        Levels = LoadDefaultSetup();
+        SaveSystem.SaveGame();
     }
 
     private static Level[] LoadDefaultSetup()
@@ -66,18 +73,18 @@ public static class LevelInformation
     private static Level[] LoadSavedSetup()
     {
         // Temporarily store copy of data and resize the data.levels array.
-        Level[] tempDataCopy = data.levels;
-        data.levels = new Level[SceneManager.sceneCountInBuildSettings];
-        Debug.Log(data.levels.Length);
+        Level[] tempDataCopy = Data.levels;
+        Data.levels = new Level[SceneManager.sceneCountInBuildSettings];
+        Debug.Log(Data.levels.Length);
 
         // Reassign existing values from temporary copied data back to data.levels array.
-        if(data.levels.Length < tempDataCopy.Length)
+        if(Data.levels.Length < tempDataCopy.Length)
         {
-            for(int i = 0; i < data.levels.Length; i++)
+            for(int i = 0; i < Data.levels.Length; i++)
             {
-                if(data.levels[i] != tempDataCopy[i])
+                if(Data.levels[i] != tempDataCopy[i])
                 {
-                    data.levels[i] = tempDataCopy[i];
+                    Data.levels[i] = tempDataCopy[i];
                 }
             }
         }
@@ -85,27 +92,27 @@ public static class LevelInformation
         {
             for(int i = 0; i < tempDataCopy.Length; i++)
             {
-                if(data.levels[i] != tempDataCopy[i])
+                if(Data.levels[i] != tempDataCopy[i])
                 {
-                    data.levels[i] = tempDataCopy[i];
+                    Data.levels[i] = tempDataCopy[i];
                 }
             }
         }
         
         // If any element(level) in the array is null, create a new level
-        for(int i = 0; i < data.levels.Length; i++)
+        for(int i = 0; i < Data.levels.Length; i++)
         { 
-            if(data.levels[i] == null)
+            if(Data.levels[i] == null)
             {
-                data.levels[i] = new Level(Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)), $"Level {i}", true, Level.LevelStars.ZERO, Level.LevelGems.Gem3, 0);
+                Data.levels[i] = new Level(Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)), $"Level {i}", true, Level.LevelStars.ZERO, Level.LevelGems.Gem3, 0);
                 // If the new level is locked, but the previous one has been completed, unlock new level.
-                if(data.levels[i - 1].stars != Level.LevelStars.ZERO && data.levels[i].levelLocked)
+                if(Data.levels[i - 1].stars != Level.LevelStars.ZERO && Data.levels[i].levelLocked)
                 {
-                    data.levels[i].levelLocked = false;
+                    Data.levels[i].levelLocked = false;
                 }
             }
         }
 
-        return data.levels;
+        return Data.levels;
     }
 }

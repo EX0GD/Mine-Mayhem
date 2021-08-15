@@ -41,7 +41,7 @@ public static class SaveSystem
         }
     }
 
-    public static void DeleteSaveData()
+    public static GameData DeleteSaveData()
     {
         string path = Application.persistentDataPath + "/MM_GameData";
 
@@ -49,5 +49,7 @@ public static class SaveSystem
         {
             File.Delete(path);
         }
+
+        return null;
     }
 }
