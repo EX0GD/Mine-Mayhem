@@ -284,7 +284,17 @@ public class CustomPlayerController : MonoBehaviour
             }
 
             // Flip the sprite depending on velocity
-            PlayerSpriteRenderer.flipX = RB.velocity.x > 0;
+            if (RB.velocity.x > 0)
+            {
+                PlayerSpriteRenderer.flipX = true;
+            }
+            else if(RB.velocity.x < 0)
+            {
+                PlayerSpriteRenderer.flipX = false;
+            }else if (RB.velocity.x == 0)
+            {
+                PlayerSpriteRenderer.flipX = PlayerSpriteRenderer.flipX;
+            }
         }
     }
 
