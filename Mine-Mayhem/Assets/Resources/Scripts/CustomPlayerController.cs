@@ -290,7 +290,7 @@ public class CustomPlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        float extraHeight = 0.1f;
+        float extraHeight = 0.2f;
         Collider2D col = Physics2D.OverlapCapsule(new Vector2(MainCollider.transform.position.x, MainCollider.transform.position.y - extraHeight), 
                                                               new Vector2(MainCollider.size.x - 0.2f, MainCollider.size.y), CapsuleDirection2D.Vertical, 0, worldLayer);
         
