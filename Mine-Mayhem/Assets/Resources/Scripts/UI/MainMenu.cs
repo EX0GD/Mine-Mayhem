@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
     private TempVolumeControl MixerControl { get { return GetComponent<TempVolumeControl>(); } }
 
     [SerializeField] private Sprite[] LevelImages = null;
-    [SerializeField] private Image CurrentLevelImage = null;
+    [SerializeField] private LevelPreview Preview = null;
 
     [SerializeField] private SmallButton[] SmallLVLButtons = null;
 
@@ -54,11 +54,6 @@ public class MainMenu : MonoBehaviour
                 nextLevelIndex = levelIndex;
                 break;
             }
-
-            /*if(i == LevelInformation.Levels.Length - 1 && levelIndex == 1)
-            {
-                Debug.Log("This is the end of the loop.");
-            }*/
         }    
     }
 
@@ -217,17 +212,31 @@ public class MainMenu : MonoBehaviour
                 break;
         }
 
-        if(CurrentLevelImage != null)
+        if(Preview != null)
         {
-            if (CurrentLevelImage != LevelImages[levelIndex-1])
+            if (Preview.LevelImage != LevelImages[levelIndex-1])
             {
-                CurrentLevelImage.sprite = LevelImages[levelIndex-1];
-                
+                Preview.LevelImage = LevelImages[levelIndex-1];
+            }
+
+            if (LevelInformation.Levels[levelIndex].levelLocked)
+            {
+                if (!Preview.LevelPreviewLock.activeSelf)
+                {
+                    Preview.LevelPreviewLock.SetActive(true);
+                }
+            }
+            else
+            {
+                if (Preview.LevelPreviewLock.activeSelf)
+                {
+                    Preview.LevelPreviewLock.SetActive(false);
+                }
             }
         }
         else
         {
-            string response = CurrentLevelImage ? "Level img is NOT null" : "Level img is null";
+            string response = Preview.LevelImage ? "Level img is NOT null" : "Level img is null";
             Debug.Log($"CurrentLevelImage = {response}. --- LevelImage = Level{levelIndex}.");
         }
 
@@ -244,6 +253,9 @@ public class MainMenu : MonoBehaviour
                     SmallLVLButtons[i].ButtonOutline.enabled = true;
                 }
             }
+
+            SmallLVLButtons[i].ButtonLockIcon.enabled = LevelInformation.Levels[i + 1].levelLocked;
+            //CurrentLevelImage.gameObject.
         }
     }
 

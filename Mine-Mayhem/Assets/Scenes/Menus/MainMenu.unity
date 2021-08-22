@@ -6522,6 +6522,7 @@ GameObject:
   - component: {fileID: 455907517}
   - component: {fileID: 455907519}
   - component: {fileID: 455907518}
+  - component: {fileID: 455907520}
   m_Layer: 0
   m_Name: LevelPreview
   m_TagString: Untagged
@@ -6587,6 +6588,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455907516}
   m_CullTransparentMesh: 0
+--- !u!114 &455907520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455907516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5326e2dca0ef5d7429d6fcb097a6b9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelPreviewLock: {fileID: 1104592390}
 --- !u!1 &457101392
 GameObject:
   m_ObjectHideFlags: 0
@@ -17418,7 +17432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029648464, g: 0.01152545, b: 0.066037714, a: 0.7372549}
+  m_Color: {r: 0.029648464, g: 0.01152545, b: 0.066037714, a: 0.98039216}
   m_RaycastTarget: 1
   m_Maskable: 0
   m_OnCullStateChanged:
@@ -28012,7 +28026,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -40192,7 +40206,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3735073944700851737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
@@ -46632,7 +46646,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e407f41080659dd4ca859567b8f098a8, type: 3}
   - {fileID: 21300000, guid: 044c2cd259ee57b47aa2b0d6b7eeca4e, type: 3}
   - {fileID: 21300000, guid: f21ccf92b00254b49b9cd1d052d08139, type: 3}
-  CurrentLevelImage: {fileID: 455907518}
+  Preview: {fileID: 455907520}
   SmallLVLButtons:
   - {fileID: 1158819661}
   - {fileID: 1190455572}
