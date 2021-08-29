@@ -304,7 +304,7 @@ public static class GameManager
                 StarConditions[1] = true;
             }
 
-            if(Player.curPlayerHealth >= 60)
+            if(Player.curPlayerHealth >= 20)
             {
                 StarConditions[2] = true;
             }

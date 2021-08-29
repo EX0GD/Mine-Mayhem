@@ -253,7 +253,7 @@ public class CustomPlayerController : MonoBehaviour
                 //movement = new Vector2(inputX * (runSpeed), RB.velocity.y);
                 if (inputX != 0)
                 {
-                    if(!Physics2D.Raycast(transform.position, new Vector2(inputX, 0), 0.25f, worldLayer))
+                    if(!Physics2D.Raycast(transform.position, new Vector2(inputX, 0), 0.5f, worldLayer))
                     {
                         if (RB.velocity != movement)
                         {

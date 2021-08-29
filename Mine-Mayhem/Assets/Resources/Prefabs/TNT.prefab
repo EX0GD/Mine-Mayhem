@@ -288,7 +288,7 @@ MonoBehaviour:
   animator: {fileID: 3116260961923492539}
   explosionRadius: 2
   explosionForce: 3.5
-  damage: 5
+  damage: 10
   timer: 0
   timeLimit: 0.5
   startTimer: 0
